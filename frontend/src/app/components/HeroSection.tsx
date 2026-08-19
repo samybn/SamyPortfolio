@@ -1,100 +1,420 @@
-import { ContactButton, FadeIn } from "./shared";
-import { motion } from "motion/react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import Hls from "hls.js";
 
-const NAV_LINKS = ["About", "Skills", "Projects", "Contact"];
+const HLS_SRC =
+  "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 
-export const HeroSection = () => {
+const NAV_LINKS = [
+  { label: "Home", href: "#hero" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
+];
+
+const ROLES = ["Creative", "Fullstack", "Founder", "Scholar"];
+
+const ACCENT_GRADIENT =
+  "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)";
+
+/* ─────────────── HLS Video Background ─────────────── */
+const HeroVideo = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({ enableWorker: true });
+      hls.loadSource(HLS_SRC);
+      hls.attachMedia(video);
+      return () => hls.destroy();
+    } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+      video.src = HLS_SRC;
+    }
+  }, []);
+
   return (
-    <section
-      id="hero"
-      style={{
-        overflowX: "clip",
-        background: "#0C0C0C",
-        fontFamily: "'Kanit', sans-serif",
-      }}
-      className="h-screen flex flex-col relative overflow-hidden"
+    <div className="absolute inset-0 overflow-hidden z-0">
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover"
+        style={{ transform: "translate(-50%, -50%)" }}
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.45)" }} />
+      {/* Bottom fade */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-48"
+        style={{
+          background: "linear-gradient(to top, #0C0C0C, transparent)",
+        }}
+      />
+    </div>
+  );
+};
+
+/* ─────────────── Floating Pill Navbar ─────────────── */
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState("Home");
+  const [logoHovered, setLogoHovered] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 100);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <motion.nav
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4"
+      style={{ fontFamily: "'Kanit', sans-serif" }}
     >
-      {/* Abstract Background Visual (Subtle, themed & softly masked) */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden z-0 select-none">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="relative w-full h-full flex items-center justify-center"
+      <div
+        className="inline-flex items-center rounded-full backdrop-blur-md px-2 py-2 transition-shadow duration-300"
+        style={{
+          border: "1px solid rgba(255,255,255,0.1)",
+          background: "rgba(12,12,12,0.65)",
+          boxShadow: scrolled
+            ? "0 4px 12px rgba(0,0,0,0.3)"
+            : "none",
+        }}
+      >
+        {/* Logo */}
+        <a
+          href="#hero"
+          onMouseEnter={() => setLogoHovered(true)}
+          onMouseLeave={() => setLogoHovered(false)}
+          className="flex-shrink-0 rounded-full p-[2px] transition-transform duration-300"
+          style={{
+            width: 36,
+            height: 36,
+            background: logoHovered
+              ? "linear-gradient(225deg, #B600A8 0%, #7621B0 50%, #BE4C00 100%)"
+              : ACCENT_GRADIENT,
+            transform: logoHovered ? "scale(1.1)" : "scale(1)",
+          }}
         >
-          <img
-            src="/hero-bg.png"
-            alt="Hero Background Abstract"
-            className="w-full h-full object-cover sm:object-contain object-center opacity-25 sm:opacity-30 mix-blend-screen"
-            style={{
-              maskImage:
-                "radial-gradient(ellipse at center, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 75%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse at center, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 75%)",
-            }}
-          />
-          {/* Subtle Ambient Color Glow to seamlessly integrate with dark theme */}
           <div
+            className="w-full h-full rounded-full flex items-center justify-center"
             style={{
-              background:
-                "radial-gradient(circle, rgba(182, 0, 168, 0.1) 0%, rgba(118, 33, 177, 0.05) 45%, transparent 70%)",
-            }}
-            className="absolute inset-0 w-full h-full blur-3xl pointer-events-none"
-          />
-        </motion.div>
-      </div>
-
-      {/* Navbar */}
-      <FadeIn delay={0} y={-20} className="relative z-10">
-        <nav className="flex justify-between px-6 md:px-10 pt-6 md:pt-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              style={{ color: "#D7E2EA", fontWeight: 500 }}
-              className="uppercase tracking-wider text-sm md:text-lg lg:text-[1.4rem] hover:opacity-70 transition-opacity duration-200"
-            >
-              {link}
-            </a>
-          ))}
-        </nav>
-      </FadeIn>
-
-      {/* Hero Heading */}
-      <div className="overflow-hidden mt-6 sm:mt-4 md:-mt-5 relative z-10">
-        <FadeIn delay={0.15} y={40}>
-          <h1
-            className="hero-heading w-full whitespace-nowrap leading-none tracking-tight uppercase"
-            style={{
-              fontSize: "clamp(12vw, 17.5vw, 18vw)",
-              fontWeight: 900,
+              background: "#0C0C0C",
+              fontWeight: 600,
+              fontSize: 13,
+              color: "#D7E2EA",
+              fontStyle: "italic",
               fontFamily: "'Kanit', sans-serif",
             }}
           >
-            Hi, i&apos;m Jack
-          </h1>
-        </FadeIn>
-      </div>
+            JA
+          </div>
+        </a>
 
-      {/* Bottom bar */}
-      <div className="flex justify-between items-end pb-7 sm:pb-8 md:pb-10 px-6 md:px-10 mt-auto relative z-10">
-        <FadeIn delay={0.35} y={20}>
-          <p
+        {/* Divider (hidden mobile) */}
+        <div
+          className="hidden sm:block mx-1"
+          style={{ width: 1, height: 20, background: "rgba(215,226,234,0.15)" }}
+        />
+
+        {/* Nav Links */}
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            onClick={() => setActiveLink(link.label)}
+            className="rounded-full transition-all duration-200 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
             style={{
-              color: "#D7E2EA",
-              fontWeight: 300,
-              fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)",
+              fontFamily: "'Kanit', sans-serif",
+              fontWeight: 500,
+              color:
+                activeLink === link.label ? "#D7E2EA" : "rgba(215,226,234,0.5)",
+              background:
+                activeLink === link.label
+                  ? "rgba(215,226,234,0.1)"
+                  : "transparent",
             }}
-            className="uppercase tracking-wide leading-snug max-w-[160px] sm:max-w-[220px] md:max-w-[260px]"
+            onMouseEnter={(e) => {
+              if (activeLink !== link.label) {
+                e.currentTarget.style.color = "#D7E2EA";
+                e.currentTarget.style.background = "rgba(215,226,234,0.08)";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeLink !== link.label) {
+                e.currentTarget.style.color = "rgba(215,226,234,0.5)";
+                e.currentTarget.style.background = "transparent";
+              }
+            }}
           >
-            a full stack developer crafting clean, performant &amp; scalable web
-            apps
-          </p>
-        </FadeIn>
-        <FadeIn delay={0.5} y={20}>
-          <ContactButton />
-        </FadeIn>
+            {link.label}
+          </a>
+        ))}
+
+        {/* Divider */}
+        <div
+          className="hidden sm:block mx-1"
+          style={{ width: 1, height: 20, background: "rgba(215,226,234,0.15)" }}
+        />
+
+        {/* Say Hi Button */}
+        <SayHiButton />
       </div>
-    </section>
+    </motion.nav>
+  );
+};
+
+const SayHiButton = () => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href="#contact"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 transition-transform duration-200"
+      style={{
+        fontFamily: "'Kanit', sans-serif",
+        fontWeight: 500,
+        transform: hovered ? "scale(1.05)" : "scale(1)",
+      }}
+    >
+      {/* Gradient border on hover */}
+      {hovered && (
+        <span
+          className="absolute rounded-full"
+          style={{
+            inset: -2,
+            background: ACCENT_GRADIENT,
+            zIndex: 0,
+          }}
+        />
+      )}
+      <span
+        className="relative z-10 rounded-full flex items-center gap-1 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2"
+        style={{
+          background: "rgba(12,12,12,0.8)",
+          color: "#D7E2EA",
+          margin: hovered ? 0 : undefined,
+        }}
+      >
+        Say hi <span style={{ fontSize: "0.75em" }}>↗</span>
+      </span>
+    </a>
+  );
+};
+
+/* ─────────────── Cycling Role Text ─────────────── */
+const CyclingRole = () => {
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span style={{ display: "inline-flex", minWidth: 140, justifyContent: "center" }}>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={roleIndex}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+          className="hero-heading inline-block"
+          style={{
+            fontWeight: 900,
+            fontStyle: "italic",
+            fontFamily: "'Kanit', sans-serif",
+          }}
+        >
+          {ROLES[roleIndex]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+};
+
+/* ─────────────── CTA Buttons ─────────────── */
+const SeeWorksButton = () => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href="#projects"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative rounded-full text-sm px-7 py-3.5 transition-transform duration-200 inline-block"
+      style={{
+        fontFamily: "'Kanit', sans-serif",
+        fontWeight: 500,
+        transform: hovered ? "scale(1.05)" : "scale(1)",
+        background: hovered ? "#0C0C0C" : "#D7E2EA",
+        color: hovered ? "#D7E2EA" : "#0C0C0C",
+        textTransform: "uppercase",
+        letterSpacing: "0.08em",
+      }}
+    >
+      {hovered && (
+        <span
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            inset: -2,
+            background: ACCENT_GRADIENT,
+            zIndex: -1,
+          }}
+        />
+      )}
+      See Works
+    </a>
+  );
+};
+
+const ReachOutButton = () => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href="#contact"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative rounded-full text-sm px-7 py-3.5 transition-transform duration-200 inline-block"
+      style={{
+        fontFamily: "'Kanit', sans-serif",
+        fontWeight: 500,
+        transform: hovered ? "scale(1.05)" : "scale(1)",
+        color: "#D7E2EA",
+        background: "#0C0C0C",
+        border: hovered ? "2px solid transparent" : "2px solid rgba(215,226,234,0.2)",
+        textTransform: "uppercase",
+        letterSpacing: "0.08em",
+      }}
+    >
+      {hovered && (
+        <span
+          className="absolute rounded-full pointer-events-none"
+          style={{
+            inset: -2,
+            background: ACCENT_GRADIENT,
+            zIndex: -1,
+          }}
+        />
+      )}
+      Reach out…
+    </a>
+  );
+};
+
+/* ─────────────── Main Hero Section ─────────────── */
+export const HeroSection = () => {
+  return (
+    <>
+      <Navbar />
+      <section
+        id="hero"
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+        style={{
+          background: "#0C0C0C",
+          fontFamily: "'Kanit', sans-serif",
+        }}
+      >
+        {/* HLS Video Background */}
+        <HeroVideo />
+
+        {/* Hero Content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6">
+          {/* Eyebrow */}
+          <motion.p
+            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            style={{
+              color: "rgba(215,226,234,0.5)",
+              fontSize: "0.75rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.3em",
+              fontWeight: 400,
+              marginBottom: "2rem",
+            }}
+          >
+            PORTFOLIO &apos;26
+          </motion.p>
+
+          {/* Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+            className="hero-heading"
+            style={{
+              fontSize: "clamp(3.5rem, 12vw, 10rem)",
+              fontWeight: 900,
+              lineHeight: 0.9,
+              letterSpacing: "-0.02em",
+              fontStyle: "italic",
+              textTransform: "uppercase",
+              marginBottom: "1.5rem",
+            }}
+          >
+            Jack
+          </motion.h1>
+
+          {/* Role line */}
+          <motion.p
+            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            style={{
+              color: "rgba(215,226,234,0.6)",
+              fontSize: "clamp(0.95rem, 2vw, 1.2rem)",
+              fontWeight: 300,
+              marginBottom: "1rem",
+            }}
+          >
+            A <CyclingRole /> developer based in Paris.
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+            style={{
+              color: "rgba(215,226,234,0.45)",
+              fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
+              fontWeight: 300,
+              maxWidth: 440,
+              lineHeight: 1.7,
+              marginBottom: "3rem",
+            }}
+          >
+            Building full-stack web applications with clean code, modern
+            architectures &amp; seamless digital experiences.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+            transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="inline-flex gap-4"
+          >
+            <SeeWorksButton />
+            <ReachOutButton />
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 };

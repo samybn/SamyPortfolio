@@ -1,6 +1,6 @@
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 
-const NAV = ["About", "Skills", "Projects", "Contact"];
+const NAV = ["Home", "Skills", "Projects", "Contact"];
 
 export const Footer = () => {
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
@@ -55,7 +55,7 @@ export const Footer = () => {
           {NAV.map((link) => (
             <a
               key={link}
-              href={`#${link.toLowerCase()}`}
+              href={`#${link === "Home" ? "hero" : link.toLowerCase()}`}
               style={{
                 color: "#D7E2EA",
                 fontWeight: 400,

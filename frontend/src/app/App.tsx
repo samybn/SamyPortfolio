@@ -1,6 +1,4 @@
 import { HeroSection } from "./components/HeroSection";
-import { MarqueeSection } from "./components/MarqueeSection";
-import { AboutSection } from "./components/AboutSection";
 import { SkillsSection } from "./components/SkillsSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { MoreProjectsSection } from "./components/MoreProjectsSection";
@@ -17,8 +15,6 @@ export default function App() {
       }}
     >
       <HeroSection />
-      <MarqueeSection />
-      <AboutSection />
       <SkillsSection />
       <ProjectsSection />
       <MoreProjectsSection />
@@ -27,3 +23,4 @@ export default function App() {
     </div>
   );
 }
+
