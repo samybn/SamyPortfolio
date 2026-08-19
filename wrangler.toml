@@ -1,0 +1,17 @@
+name = "portfolio"
+main = "backend/src/index.ts"
+compatibility_date = "2024-09-23"
+
+# Cloudflare Static Assets (Frontend)
+[assets]
+directory = "./frontend/dist"
+binding = "ASSETS"
+
+# Variables d'environnement publiques (non sensibles)
+[vars]
+ALLOWED_ORIGIN = "*"
+
+# Note: Pour les informations sensibles en production Cloudflare, utilisez:
+# npx wrangler secret put GOOGLE_DRIVE_API_KEY
+# npx wrangler secret put RESEND_API_KEY
+# npx wrangler secret put CONTACT_RECEIVER_EMAIL

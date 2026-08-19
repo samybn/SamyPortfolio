@@ -1,0 +1,29 @@
+# Logs & Environment variables
+.env
+.env.*
+!.env.example
+.dev.vars
+*.log
+
+# Dependencies
+node_modules/
+.pnpm-store
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Cloudflare & Wrangler
+.wrangler/
+
+# Editor & OS files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
