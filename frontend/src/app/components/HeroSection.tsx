@@ -6,13 +6,17 @@ const HLS_SRC =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#hero" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
+  { label: "Accueil", href: "#hero" },
+  { label: "Compétences", href: "#skills" },
+  { label: "Projets", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
 
-const ROLES = ["Creative", "Fullstack", "Founder", "Scholar"];
+const ROLES = [
+  "applications web",
+  "applications mobiles",
+  "jeux vidéo",
+];
 
 const ACCENT_GRADIENT =
   "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)";
@@ -62,7 +66,7 @@ const HeroVideo = () => {
 /* ─────────────── Floating Pill Navbar ─────────────── */
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState("Home");
+  const [activeLink, setActiveLink] = useState("Accueil");
   const [logoHovered, setLogoHovered] = useState(false);
 
   useEffect(() => {
@@ -115,7 +119,7 @@ const Navbar = () => {
               fontFamily: "'Kanit', sans-serif",
             }}
           >
-            JA
+            SB
           </div>
         </a>
 
@@ -206,37 +210,41 @@ const SayHiButton = () => {
           margin: hovered ? 0 : undefined,
         }}
       >
-        Say hi <span style={{ fontSize: "0.75em" }}>↗</span>
+        Me Contacter <span style={{ fontSize: "0.75em" }}>↗</span>
       </span>
     </a>
   );
 };
 
-/* ─────────────── Cycling Role Text ─────────────── */
+/* ─────────────── Cycling Domain Text ─────────────── */
 const CyclingRole = () => {
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % ROLES.length);
-    }, 2000);
+    }, 2200);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <span style={{ display: "inline-flex", minWidth: 140, justifyContent: "center" }}>
+    <span
+      className="inline-flex justify-center items-center px-1"
+      style={{
+        verticalAlign: "baseline",
+      }}
+    >
       <AnimatePresence mode="wait">
         <motion.span
           key={roleIndex}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-          className="hero-heading inline-block"
+          initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -8, filter: "blur(3px)" }}
+          transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+          className="hero-heading inline-block font-bold italic"
           style={{
-            fontWeight: 900,
-            fontStyle: "italic",
             fontFamily: "'Kanit', sans-serif",
+            padding: "0 2px",
           }}
         >
           {ROLES[roleIndex]}
@@ -276,7 +284,7 @@ const SeeWorksButton = () => {
           }}
         />
       )}
-      See Works
+      Voir les Projets
     </a>
   );
 };
@@ -311,7 +319,7 @@ const ReachOutButton = () => {
           }}
         />
       )}
-      Reach out…
+      Me Contacter
     </a>
   );
 };
@@ -333,7 +341,7 @@ export const HeroSection = () => {
         <HeroVideo />
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6">
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl">
           {/* Eyebrow */}
           <motion.p
             initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
@@ -345,10 +353,10 @@ export const HeroSection = () => {
               textTransform: "uppercase",
               letterSpacing: "0.3em",
               fontWeight: 400,
-              marginBottom: "2rem",
+              marginBottom: "1.5rem",
             }}
           >
-            PORTFOLIO &apos;26
+            PORTFOLIO &apos;26 · GÉNIE LOGICIEL
           </motion.p>
 
           {/* Name */}
@@ -358,16 +366,16 @@ export const HeroSection = () => {
             transition={{ duration: 1.2, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             className="hero-heading"
             style={{
-              fontSize: "clamp(3.5rem, 12vw, 10rem)",
+              fontSize: "clamp(2.4rem, 7.5vw, 6.8rem)",
               fontWeight: 900,
-              lineHeight: 0.9,
+              lineHeight: 0.95,
               letterSpacing: "-0.02em",
               fontStyle: "italic",
               textTransform: "uppercase",
-              marginBottom: "1.5rem",
+              marginBottom: "1.25rem",
             }}
           >
-            Jack
+            Bouadloune Samy
           </motion.h1>
 
           {/* Role line */}
@@ -376,13 +384,13 @@ export const HeroSection = () => {
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
             style={{
-              color: "rgba(215,226,234,0.6)",
-              fontSize: "clamp(0.95rem, 2vw, 1.2rem)",
-              fontWeight: 300,
+              color: "rgba(215,226,234,0.85)",
+              fontSize: "clamp(0.95rem, 1.8vw, 1.25rem)",
+              fontWeight: 400,
               marginBottom: "1rem",
             }}
           >
-            A <CyclingRole /> developer based in Paris.
+            Étudiant en Master spécialisé en <span className="hero-heading font-black italic">Génie Logiciel</span>
           </motion.p>
 
           {/* Description */}
@@ -391,16 +399,18 @@ export const HeroSection = () => {
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             style={{
-              color: "rgba(215,226,234,0.45)",
-              fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
+              color: "rgba(215,226,234,0.6)",
+              fontSize: "clamp(0.85rem, 1.2vw, 1rem)",
               fontWeight: 300,
-              maxWidth: 440,
-              lineHeight: 1.7,
-              marginBottom: "3rem",
+              maxWidth: 580,
+              lineHeight: 1.8,
+              marginBottom: "2.5rem",
             }}
           >
-            Building full-stack web applications with clean code, modern
-            architectures &amp; seamless digital experiences.
+            Passionné par l&apos;ingénierie logicielle et le développement Full Stack,
+            je conçois et développe des <CyclingRole /> modernes, performants et scalables.
+            De la conception d&apos;architectures distribuées robustes aux interfaces utilisateurs
+            soignées, je transforme des problématiques complexes en solutions digitales fiables et pérennes.
           </motion.p>
 
           {/* CTA Buttons */}

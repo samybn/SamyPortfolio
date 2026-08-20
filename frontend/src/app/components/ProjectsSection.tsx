@@ -189,7 +189,7 @@ export const ProjectsSection = () => {
             fontFamily: "'Kanit', sans-serif",
           }}
         >
-          Project
+          Projets
         </h2>
       </FadeIn>
 

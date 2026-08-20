@@ -1,6 +1,11 @@
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 
-const NAV = ["Home", "Skills", "Projects", "Contact"];
+const NAV = [
+  { label: "Accueil", href: "#hero" },
+  { label: "Compétences", href: "#skills" },
+  { label: "Projets", href: "#projects" },
+  { label: "Contact", href: "#contact" },
+];
 
 export const Footer = () => {
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
@@ -30,23 +35,23 @@ export const Footer = () => {
             className="hero-heading uppercase"
             style={{
               fontWeight: 900,
-              fontSize: "clamp(2rem, 6vw, 5rem)",
+              fontSize: "clamp(1.8rem, 4vw, 3.5rem)",
               lineHeight: 1,
             }}
           >
-            Jack
+            Bouadloune Samy
           </span>
           <span
             style={{
               color: "#D7E2EA",
               fontWeight: 300,
               fontSize: "clamp(0.75rem, 1.2vw, 0.95rem)",
-              opacity: 0.45,
+              opacity: 0.5,
               textTransform: "uppercase",
               letterSpacing: "0.1em",
             }}
           >
-            Full Stack Developer
+            Master Génie Logiciel · Développeur Full Stack
           </span>
         </div>
 
@@ -54,8 +59,8 @@ export const Footer = () => {
         <nav className="flex flex-col gap-2">
           {NAV.map((link) => (
             <a
-              key={link}
-              href={`#${link === "Home" ? "hero" : link.toLowerCase()}`}
+              key={link.label}
+              href={link.href}
               style={{
                 color: "#D7E2EA",
                 fontWeight: 400,
@@ -66,7 +71,7 @@ export const Footer = () => {
               }}
               className="hover:opacity-100 transition-opacity duration-200"
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </nav>
@@ -83,7 +88,7 @@ export const Footer = () => {
               opacity: 0.4,
             }}
           >
-            Follow me
+            Réseaux
           </span>
           <div className="flex gap-3">
             {socials.map(({ Icon, label, href }) => (
@@ -137,7 +142,7 @@ export const Footer = () => {
             letterSpacing: "0.08em",
           }}
         >
-          &copy; {new Date().getFullYear()} Jack — All rights reserved
+          &copy; {new Date().getFullYear()} Bouadloune Samy — Tous droits réservés
         </span>
         <span
           style={{
@@ -149,7 +154,7 @@ export const Footer = () => {
             letterSpacing: "0.08em",
           }}
         >
-          Designed &amp; built with passion
+          Conçu &amp; développé avec passion
         </span>
       </div>
     </footer>

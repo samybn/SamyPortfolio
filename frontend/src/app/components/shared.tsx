@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import { useRef, useEffect, useState, ReactNode, CSSProperties } from "react";
 
-export const ContactButton = ({ label = "Contact Me" }: { label?: string }) => (
+export const ContactButton = ({ label = "Me Contacter" }: { label?: string }) => (
   <button
     style={{
       background: "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)",
@@ -23,7 +23,7 @@ export const LiveProjectButton = () => (
     style={{ fontFamily: "'Kanit', sans-serif", fontWeight: 500, cursor: "pointer" }}
     className="rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base hover:bg-[#D7E2EA]/10 transition-colors"
   >
-    Live Project
+    Voir le Projet
   </button>
 );
 

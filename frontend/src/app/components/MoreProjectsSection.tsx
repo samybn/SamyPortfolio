@@ -16,41 +16,41 @@ interface JournalEntry {
 const JOURNAL_ENTRIES: JournalEntry[] = [
   {
     id: "01",
-    title: "Building High-Throughput Edge APIs with Cloudflare Workers & TypeScript",
-    description: "Architecting sub-50ms latency global microservices with worker bindings, smart caching, and zero cold starts.",
+    title: "Conception d'APIs Edge haute performance avec Cloudflare Workers & TypeScript",
+    description: "Architecture de microservices globaux à latence sub-50ms avec worker bindings, cache intelligent et zéro cold start.",
     tag: "Architecture",
-    readTime: "5 min read",
-    date: "Aug 2026",
+    readTime: "5 min de lecture",
+    date: "Août 2026",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=85",
   },
   {
     id: "02",
-    title: "Micro-Frontend State Synchronization & Real-time Edge Pipelines",
-    description: "Designing isolated domain modules that communicate via lightweight pub/sub event buses without tight coupling.",
+    title: "Synchronisation d'état Micro-Frontend & Pipelines Temps Réel",
+    description: "Conception de modules isolés communicant via des bus d'événements pub/sub légers sans couplage fort.",
     tag: "Full Stack",
-    readTime: "7 min read",
-    date: "Jul 2026",
+    readTime: "7 min de lecture",
+    date: "Juil 2026",
     image:
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=85",
   },
   {
     id: "03",
-    title: "Mastering Scroll-Driven Stacking Animations with Framer Motion",
-    description: "Implementing 60fps 3D card stacking, scale interpolation, and magnetic interactions for modern web portfolios.",
+    title: "Maîtriser les animations de cartes empilées au scroll avec Framer Motion",
+    description: "Implémentation d'un empilement 3D à 60fps, interpolation d'échelle et interactions magnétiques.",
     tag: "UI / Motion",
-    readTime: "4 min read",
-    date: "Jun 2026",
+    readTime: "4 min de lecture",
+    date: "Juin 2026",
     image:
       "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=85",
   },
   {
     id: "04",
-    title: "Designing Resilient Offline-First Architectures with Google Drive APIs",
-    description: "Leveraging cloud folder synchronization, image CDN transforms, and client-side caching for dynamic media showcase.",
+    title: "Conception d'architectures Offline-First résilientes avec l'API Google Drive",
+    description: "Synchronisation cloud, transformations CDN d'images et mise en cache côté client pour vitrine dynamique.",
     tag: "Cloud & Dev",
-    readTime: "6 min read",
-    date: "May 2026",
+    readTime: "6 min de lecture",
+    date: "Mai 2026",
     image:
       "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&auto=format&fit=crop&q=85",
   },
@@ -103,7 +103,7 @@ export const MoreProjectsSection = () => {
                 style={{ color: "#D7E2EA" }}
                 className="text-xs uppercase tracking-[0.25em] opacity-60 font-light"
               >
-                Journal &amp; Insights
+                Projets &amp; Réalisations
               </span>
             </div>
 
@@ -116,7 +116,7 @@ export const MoreProjectsSection = () => {
                 fontFamily: "'Kanit', sans-serif",
               }}
             >
-              Recent <span className="italic font-light opacity-90 text-[#D7E2EA]">thoughts</span>
+              Autres <span className="italic font-light opacity-90 text-[#D7E2EA]">projets</span>
             </h2>
 
             {/* Subtext */}
@@ -124,8 +124,7 @@ export const MoreProjectsSection = () => {
               style={{ color: "#D7E2EA" }}
               className="text-sm sm:text-base md:text-lg font-light opacity-70 max-w-xl leading-relaxed"
             >
-              Deep dives, architectural breakdowns, and engineering insights from
-              building modern digital applications.
+              Une sélection de projets, architectures logicielles et réalisations techniques complémentaires.
             </p>
           </FadeIn>
 
@@ -139,7 +138,7 @@ export const MoreProjectsSection = () => {
               }}
               className="group inline-flex items-center gap-3 px-7 py-3 rounded-full border border-[rgba(215,226,234,0.3)] bg-[rgba(215,226,234,0.03)] hover:bg-[rgba(215,226,234,0.1)] hover:border-[#D7E2EA] transition-all duration-300 text-xs sm:text-sm uppercase tracking-widest font-medium"
             >
-              <span>View All Thoughts</span>
+              <span>Voir Tous Les Projets</span>
               <BookOpen size={16} className="opacity-70 group-hover:opacity-100 transition-opacity" />
             </button>
           </FadeIn>

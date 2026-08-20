@@ -22,7 +22,7 @@ const CATEGORIES: Category[] = [
   {
     id: "frontend",
     label: "Frontend",
-    subtitle: "Modern, responsive & animated UI",
+    subtitle: "Interfaces modernes, réactives & animées",
     icon: Code2,
     accentGradient: "linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)",
     glowColor: "rgba(236, 72, 153, 0.25)",
@@ -38,7 +38,7 @@ const CATEGORIES: Category[] = [
   {
     id: "backend",
     label: "Backend",
-    subtitle: "Scalable APIs & cloud databases",
+    subtitle: "APIs évolutives & bases de données cloud",
     icon: Server,
     accentGradient: "linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)",
     glowColor: "rgba(139, 92, 246, 0.25)",
@@ -53,8 +53,8 @@ const CATEGORIES: Category[] = [
   },
   {
     id: "tools",
-    label: "Tools & Ops",
-    subtitle: "DevOps, cloud & workflows",
+    label: "Outils & DevOps",
+    subtitle: "DevOps, cloud & flux de travail",
     icon: Terminal,
     accentGradient: "linear-gradient(135deg, #F59E0B 0%, #EC4899 100%)",
     glowColor: "rgba(245, 158, 11, 0.25)",
@@ -558,7 +558,7 @@ export const SkillsSection = () => {
               style={{ color: "#D7E2EA" }}
               className="text-xs uppercase tracking-[0.25em] font-light opacity-80"
             >
-              Technical Stack &amp; Mastery
+              Stack Technique &amp; Maîtrise
             </span>
           </div>
 
@@ -571,7 +571,7 @@ export const SkillsSection = () => {
               fontFamily: "'Kanit', sans-serif",
             }}
           >
-            Skills &amp; Expertise
+            Compétences &amp; Expertise
           </h2>
 
           {/* Description */}
@@ -579,9 +579,8 @@ export const SkillsSection = () => {
             style={{ color: "#D7E2EA" }}
             className="text-sm sm:text-base md:text-lg font-light opacity-70 max-w-2xl mx-auto leading-relaxed"
           >
-            A curated set of cutting-edge technologies, frameworks, and tools I
-            use to engineer performant, scalable, and beautifully interactive
-            digital experiences.
+            Un ensemble de technologies, frameworks et outils modernes que j&apos;utilise
+            pour concevoir des expériences numériques performantes, évolutives et élégantes.
           </p>
         </FadeIn>
 

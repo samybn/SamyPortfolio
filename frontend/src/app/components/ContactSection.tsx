@@ -104,8 +104,8 @@ export const ContactSection = () => {
                 opacity: 0.8,
               }}
             >
-              Got a project in mind or just want to say hi? Drop me a message and
-              I&apos;ll get back to you as soon as possible.
+              Vous avez un projet en tête ou souhaitez simplement échanger ? Envoyez-moi un message et
+              je vous répondrai dans les plus brefs délais.
             </p>
 
             <div className="flex flex-col gap-3 mt-2">
@@ -120,7 +120,7 @@ export const ContactSection = () => {
                 style={{ color: "#D7E2EA", fontWeight: 300, fontSize: "clamp(0.85rem, 1.3vw, 1rem)", opacity: 0.5 }}
                 className="uppercase tracking-wider"
               >
-                Based in Paris, France · Open to remote
+                Basé à Paris, France · Ouvert au télétravail
               </span>
             </div>
 
@@ -166,10 +166,10 @@ export const ContactSection = () => {
               }}
             >
               <p style={{ fontWeight: 500, fontSize: "1.3rem", marginBottom: 8 }}>
-                Message sent!
+                Message envoyé !
               </p>
               <p style={{ fontWeight: 300, opacity: 0.6, fontSize: "1rem" }}>
-                Thanks for reaching out — I&apos;ll be in touch soon.
+                Merci pour votre message — je vous répondrai très prochainement.
               </p>
             </div>
           ) : (
@@ -177,7 +177,7 @@ export const ContactSection = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Your name"
+                placeholder="Votre nom"
                 required
                 value={form.name}
                 onChange={handleChange}
@@ -188,7 +188,7 @@ export const ContactSection = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="Your email"
+                placeholder="Votre adresse email"
                 required
                 value={form.email}
                 onChange={handleChange}
@@ -198,7 +198,7 @@ export const ContactSection = () => {
               />
               <textarea
                 name="message"
-                placeholder="Your message"
+                placeholder="Votre message"
                 required
                 rows={5}
                 value={form.message}
@@ -211,7 +211,7 @@ export const ContactSection = () => {
                 <p className="text-red-400 text-sm font-light">{error}</p>
               )}
               <div className="mt-2">
-                <ContactButton label={loading ? "Sending..." : "Send Message"} />
+                <ContactButton label={loading ? "Envoi en cours..." : "Envoyer le Message"} />
               </div>
             </form>
           )}
