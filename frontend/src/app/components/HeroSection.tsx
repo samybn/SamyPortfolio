@@ -80,7 +80,7 @@ const Navbar = () => {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 md:pt-6 px-4"
+      className="fixed top-0 left-0 right-0 z-[1000] flex justify-center pt-4 md:pt-6 px-4"
       style={{ fontFamily: "'Kanit', sans-serif" }}
     >
       <div

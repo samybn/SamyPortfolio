@@ -1,5 +1,5 @@
 import { HeroSection } from "./components/HeroSection";
-import { SkillsSection } from "./components/SkillsSection";
+import { Skills } from "./components/SkillsNew";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { MoreProjectsSection } from "./components/MoreProjectsSection";
 import { ContactSection } from "./components/ContactSection";
@@ -15,7 +15,7 @@ export default function App() {
       }}
     >
       <HeroSection />
-      <SkillsSection />
+      <Skills />
       <ProjectsSection />
       <MoreProjectsSection />
       <ContactSection />
