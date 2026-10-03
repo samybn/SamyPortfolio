@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#90e0ef" />
+      <stop offset="50%" stop-color="#00b4d8" />
+      <stop offset="100%" stop-color="#0077b6" />
+    </linearGradient>
+  </defs>
+  <!-- Outer gradient ring -->
+  <circle cx="32" cy="32" r="32" fill="url(#cyanGrad)" />
+  <!-- Inner dark badge -->
+  <circle cx="32" cy="32" r="28" fill="#0C0C0C" />
+  <!-- Monogram text -->
+  <text
+    x="32"
+    y="33"
+    text-anchor="middle"
+    dominant-baseline="central"
+    fill="#D7E2EA"
+    font-family="'Kanit', system-ui, -apple-system, sans-serif"
+    font-weight="800"
+    font-style="italic"
+    font-size="24"
+    letter-spacing="-0.5"
+  >SB</text>
+</svg>

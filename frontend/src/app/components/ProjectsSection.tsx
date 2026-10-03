@@ -92,7 +92,7 @@ function ProjectCard({
                     letterSpacing: "0.02em",
                     fontFamily: "'Kanit', sans-serif",
                   }}
-                  className="group-hover:text-pink-300 transition-colors"
+                  className="group-hover:text-[#90e0ef] transition-colors"
                 >
                   {project.name}
                 </span>

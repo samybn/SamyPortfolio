@@ -45,7 +45,7 @@ export function ProjectDetailPage({
           <button
             type="button"
             onClick={onBack}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#D7E2EA]/10 hover:border-[#D7E2EA]/40 text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all cursor-pointer"
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all cursor-pointer"
           >
             <ArrowLeft
               size={16}
@@ -67,7 +67,7 @@ export function ProjectDetailPage({
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#D7E2EA]/15 hover:border-[#D7E2EA]/50 text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/15 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all"
           >
             <span>Visiter</span>
             <ArrowUpRight size={14} />
@@ -81,7 +81,7 @@ export function ProjectDetailPage({
         <section className="flex flex-col gap-4">
           {/* Eyebrow & Number */}
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold text-[#D7E2EA] bg-[#D7E2EA]/5 border border-[#D7E2EA]/15">
+            <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold text-[#90e0ef] bg-[#90e0ef]/5 border border-[#90e0ef]/30">
               PROJET #{project.number}
             </span>
             <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-medium text-[#D7E2EA]/70 bg-[#D7E2EA]/5 border border-[#D7E2EA]/10">
@@ -126,7 +126,7 @@ export function ProjectDetailPage({
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#D7E2EA]/10 hover:border-[#D7E2EA] transition-all cursor-pointer"
+            className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer"
           >
             <span>Visiter le projet</span>
             <ArrowUpRight size={17} />
@@ -138,7 +138,7 @@ export function ProjectDetailPage({
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#D7E2EA]/10 hover:border-[#D7E2EA] transition-all cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer"
             >
               <Github size={17} />
               <span>Code source</span>
@@ -211,7 +211,7 @@ export function ProjectDetailPage({
               >
                 <CheckCircle2
                   size={18}
-                  className="text-[#D7E2EA]/70 shrink-0 mt-0.5"
+                  className="text-[#90e0ef] shrink-0 mt-0.5"
                 />
                 <span>{feature}</span>
               </li>
@@ -234,7 +234,7 @@ export function ProjectDetailPage({
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-[#D7E2EA] bg-[#D7E2EA]/5 border border-[#D7E2EA]/15 hover:bg-[#D7E2EA]/10 transition-colors"
+                className="px-4 py-2 rounded-full text-xs sm:text-sm font-medium text-[#D7E2EA] bg-[#D7E2EA]/5 border border-[#D7E2EA]/15 hover:border-[#90e0ef]/60 hover:text-[#90e0ef] hover:bg-[#90e0ef]/5 transition-all"
               >
                 {tech}
               </span>

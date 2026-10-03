@@ -143,14 +143,14 @@ export function Skills() {
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(182, 0, 168, 0.10) 0%, rgba(118, 33, 177, 0.05) 50%, transparent 70%)",
+              "radial-gradient(circle, rgba(144, 224, 239, 0.10) 0%, rgba(0, 119, 182, 0.05) 50%, transparent 70%)",
           }}
           className="absolute top-1/4 -left-32 w-[600px] h-[600px] rounded-full blur-[140px] animate-pulse"
         />
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(139, 92, 246, 0.10) 0%, rgba(59, 130, 246, 0.05) 50%, transparent 70%)",
+              "radial-gradient(circle, rgba(0, 119, 182, 0.10) 0%, rgba(0, 180, 216, 0.05) 50%, transparent 70%)",
           }}
           className="absolute bottom-1/4 -right-32 w-[600px] h-[600px] rounded-full blur-[150px] animate-pulse"
         />

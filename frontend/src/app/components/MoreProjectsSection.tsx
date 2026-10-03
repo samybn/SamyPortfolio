@@ -71,14 +71,14 @@ export const MoreProjectsSection = () => {
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(182, 0, 168, 0.12) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(144, 224, 239, 0.12) 0%, transparent 70%)",
           }}
           className="absolute -top-24 right-1/4 w-[550px] h-[550px] rounded-full blur-[140px]"
         />
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(0, 119, 182, 0.1) 0%, transparent 70%)",
           }}
           className="absolute bottom-10 -left-20 w-[500px] h-[500px] rounded-full blur-[150px]"
         />
@@ -93,7 +93,7 @@ export const MoreProjectsSection = () => {
               <div
                 style={{
                   background:
-                    "linear-gradient(90deg, #B600A8 0%, #7621B0 50%, #BE4C00 100%)",
+                    "linear-gradient(90deg, #90e0ef 0%, #0077b6 50%, #00b4d8 100%)",
                   width: 32,
                   height: 2,
                 }}
@@ -210,7 +210,7 @@ export const MoreProjectsSection = () => {
                 <div className="flex items-center justify-between lg:justify-end gap-5 sm:gap-8 shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-[rgba(215,226,234,0.08)]">
                   <div className="flex items-center gap-4 text-xs sm:text-sm opacity-55 font-light">
                     <span className="flex items-center gap-1.5">
-                      <Clock size={14} className="text-[#EC4899]" />
+                      <Clock size={14} className="text-[#90e0ef]" />
                       {entry.readTime}
                     </span>
                     <span className="hidden md:inline-flex items-center gap-1.5">

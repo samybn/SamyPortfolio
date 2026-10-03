@@ -19,7 +19,7 @@ const ROLES = [
 ];
 
 const ACCENT_GRADIENT =
-  "linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)";
+  "linear-gradient(123deg, #023e8a 7%, #0077b6 37%, #00b4d8 72%, #90e0ef 100%)";
 
 /* ─────────────── HLS Video Background ─────────────── */
 const HeroVideo = () => {
@@ -103,7 +103,7 @@ const Navbar = () => {
             width: 36,
             height: 36,
             background: logoHovered
-              ? "linear-gradient(225deg, #B600A8 0%, #7621B0 50%, #BE4C00 100%)"
+              ? "linear-gradient(225deg, #90e0ef 0%, #0077b6 50%, #00b4d8 100%)"
               : ACCENT_GRADIENT,
             transform: logoHovered ? "scale(1.1)" : "scale(1)",
           }}

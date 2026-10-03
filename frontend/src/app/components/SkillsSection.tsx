@@ -24,8 +24,8 @@ const CATEGORIES: Category[] = [
     label: "Frontend",
     subtitle: "Interfaces modernes, réactives & animées",
     icon: Code2,
-    accentGradient: "linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)",
-    glowColor: "rgba(236, 72, 153, 0.25)",
+    accentGradient: "linear-gradient(135deg, #90e0ef 0%, #0077b6 100%)",
+    glowColor: "rgba(144, 224, 239, 0.25)",
     skills: [
       { name: "React", level: 95 },
       { name: "TypeScript", level: 92 },
@@ -40,8 +40,8 @@ const CATEGORIES: Category[] = [
     label: "Backend",
     subtitle: "APIs évolutives & bases de données cloud",
     icon: Server,
-    accentGradient: "linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%)",
-    glowColor: "rgba(139, 92, 246, 0.25)",
+    accentGradient: "linear-gradient(135deg, #0077b6 0%, #00b4d8 100%)",
+    glowColor: "rgba(0, 119, 182, 0.25)",
     skills: [
       { name: "Node.js", level: 93 },
       { name: "Python", level: 85 },
@@ -56,8 +56,8 @@ const CATEGORIES: Category[] = [
     label: "Outils & DevOps",
     subtitle: "DevOps, cloud & flux de travail",
     icon: Terminal,
-    accentGradient: "linear-gradient(135deg, #F59E0B 0%, #EC4899 100%)",
-    glowColor: "rgba(245, 158, 11, 0.25)",
+    accentGradient: "linear-gradient(135deg, #00b4d8 0%, #90e0ef 100%)",
+    glowColor: "rgba(0, 180, 216, 0.25)",
     skills: [
       { name: "Git", level: 96 },
       { name: "Docker", level: 85 },
@@ -520,20 +520,20 @@ export const SkillsSection = () => {
 
       {/* Ambient Animated Color Blobs in Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Left Purple/Pink Glow */}
+        {/* Left Cyan Glow */}
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(182, 0, 168, 0.16) 0%, rgba(118, 33, 177, 0.08) 50%, transparent 70%)",
+              "radial-gradient(circle, rgba(144, 224, 239, 0.16) 0%, rgba(0, 119, 182, 0.08) 50%, transparent 70%)",
           }}
           className="absolute top-1/4 -left-32 w-[550px] h-[550px] rounded-full blur-[130px] animate-pulse"
         />
 
-        {/* Right Indigo/Blue Glow */}
+        {/* Right Blue/Cyan Glow */}
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, rgba(59, 130, 246, 0.08) 50%, transparent 70%)",
+              "radial-gradient(circle, rgba(0, 119, 182, 0.16) 0%, rgba(0, 180, 216, 0.08) 50%, transparent 70%)",
           }}
           className="absolute bottom-1/4 -right-32 w-[600px] h-[600px] rounded-full blur-[140px] animate-pulse"
         />
@@ -542,7 +542,7 @@ export const SkillsSection = () => {
         <div
           style={{
             background:
-              "radial-gradient(circle, rgba(190, 76, 0, 0.08) 0%, transparent 60%)",
+              "radial-gradient(circle, rgba(0, 180, 216, 0.08) 0%, transparent 60%)",
           }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[160px]"
         />
@@ -553,7 +553,7 @@ export const SkillsSection = () => {
         <FadeIn delay={0} y={30} className="mb-14 sm:mb-18 md:mb-24 text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(215,226,234,0.15)] bg-[rgba(215,226,234,0.03)] backdrop-blur-md mb-6">
-            <Sparkles size={13} className="text-[#EC4899]" />
+            <Sparkles size={13} className="text-[#90e0ef]" />
             <span
               style={{ color: "#D7E2EA" }}
               className="text-xs uppercase tracking-[0.25em] font-light opacity-80"

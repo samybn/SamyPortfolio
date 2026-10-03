@@ -640,15 +640,15 @@ export function OrbitalImageWheel({
                             : "scale(0.96)",
                         background:
                           i === activeTitleTrackIndex
-                            ? "rgba(215,226,234,0.08)"
+                            ? "rgba(144,224,239,0.12)"
                             : "transparent",
                         color:
                           i === activeTitleTrackIndex
-                            ? "#D7E2EA"
+                            ? "#90e0ef"
                             : "rgba(215,226,234,0.6)",
                         borderColor:
                           i === activeTitleTrackIndex
-                            ? "rgba(215,226,234,0.4)"
+                            ? "rgba(144,224,239,0.5)"
                             : "rgba(215,226,234,0.18)",
                       }}
                       className="oiw-title-item mr-3 inline-flex shrink-0 cursor-pointer appearance-none items-center justify-center whitespace-nowrap rounded-full border px-7 py-2 text-center leading-none text-[clamp(1.05rem,2.25vw,2rem)] font-medium tracking-tight transition-[opacity,transform,color,border-color,background] duration-300"
