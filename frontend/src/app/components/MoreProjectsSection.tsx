@@ -131,12 +131,14 @@ export const MoreProjectsSection = () => {
           {/* "View all" Ghost Pill Button */}
           <FadeIn delay={0.15} y={20} className="shrink-0">
             <button
+              type="button"
+              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               style={{
                 fontFamily: "'Kanit', sans-serif",
                 color: "#D7E2EA",
                 borderColor: "rgba(215, 226, 234, 0.3)",
               }}
-              className="group inline-flex items-center gap-3 px-7 py-3 rounded-full border border-[rgba(215,226,234,0.3)] bg-[rgba(215,226,234,0.03)] hover:bg-[rgba(215,226,234,0.1)] hover:border-[#D7E2EA] transition-all duration-300 text-xs sm:text-sm uppercase tracking-widest font-medium"
+              className="group inline-flex items-center gap-3 px-7 py-3 rounded-full border border-[rgba(215,226,234,0.3)] bg-[rgba(215,226,234,0.03)] hover:bg-[rgba(215,226,234,0.1)] hover:border-[#D7E2EA] transition-all duration-300 text-xs sm:text-sm uppercase tracking-widest font-medium cursor-pointer"
             >
               <span>Voir Tous Les Projets</span>
               <BookOpen size={16} className="opacity-70 group-hover:opacity-100 transition-opacity" />
