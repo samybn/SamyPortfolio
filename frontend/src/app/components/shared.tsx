@@ -19,11 +19,10 @@ export const ContactButton = ({
     onClick={onClick}
     aria-label={ariaLabel || label}
     style={{
-      background: "linear-gradient(123deg, #023e8a 7%, #0077b6 37%, #00b4d8 72%, #90e0ef 100%)",
+      background: "var(--accent-gradient)",
       boxShadow: "0px 4px 4px rgba(0, 119, 182, 0.25), inset 4px 4px 12px #0077b6",
       outline: "2px solid white",
       outlineOffset: "-3px",
-      fontFamily: "'Kanit', sans-serif",
       fontWeight: 500,
       cursor: "pointer",
     }}
@@ -47,7 +46,7 @@ export const LiveProjectButton = ({
   className?: string;
 }) => {
   const commonClasses = `rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all duration-200 active:scale-95 inline-flex items-center justify-center no-underline ${className}`;
-  const commonStyle = { fontFamily: "'Kanit', sans-serif", fontWeight: 500, cursor: "pointer" };
+  const commonStyle = { fontWeight: 500, cursor: "pointer" };
 
   if (href) {
     return (

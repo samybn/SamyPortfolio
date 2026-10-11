@@ -269,4 +269,70 @@ select:focus-visible {
   animation: skeleton-shimmer 2s ease-in-out infinite !important;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   PORTFOLIO DESIGN SYSTEM TOKENS & TYPOGRAPHY
+   Centralized colors, gradients, inputs and font declarations
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg-portfolio: #0C0C0C;
+  --text-portfolio: #D7E2EA;
+  --accent-cyan: #00b4d8;
+  --accent-blue: #0077b6;
+  --accent-gradient: linear-gradient(123deg, #023e8a 7%, #0077b6 37%, #00b4d8 72%, #90e0ef 100%);
+  --border-portfolio-subtle: rgba(215, 226, 234, 0.12);
+  --border-portfolio-medium: rgba(215, 226, 234, 0.2);
+  --font-portfolio: 'Kanit', sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-portfolio);
+  background-color: var(--bg-portfolio);
+  color: var(--text-portfolio);
+}
+
+.bg-portfolio-dark {
+  background-color: var(--bg-portfolio);
+}
+
+.text-portfolio-main {
+  color: var(--text-portfolio);
+}
+
+.portfolio-input {
+  background: rgba(215, 226, 234, 0.05);
+  border: 1px solid rgba(215, 226, 234, 0.2);
+  border-radius: 12px;
+  color: #D7E2EA;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  padding: 14px 18px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.portfolio-input:focus {
+  border-color: rgba(215, 226, 234, 0.6);
+}
+
+.portfolio-social-btn {
+  color: #D7E2EA;
+  border: 1px solid rgba(215, 226, 234, 0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, opacity 0.2s, transform 0.2s;
+  opacity: 0.75;
+}
+
+.portfolio-social-btn:hover {
+  opacity: 1;
+  background-color: rgba(215, 226, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+
 

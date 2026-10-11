@@ -1,27 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FadeIn, ContactButton } from "./shared";
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
+import { getSocialLinks } from "../constants/socials";
 
 export const ContactSection = () => {
   const { t } = useLanguage();
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
-  const githubUrl = import.meta.env.VITE_GITHUB_URL || "#";
-  const linkedinUrl = import.meta.env.VITE_LINKEDIN_URL || "#";
-  const twitterUrl = import.meta.env.VITE_TWITTER_URL || "#";
   const apiUrl = import.meta.env.VITE_API_URL || "";
-
-  const socials = [
-    { Icon: Github, label: "GitHub", href: githubUrl },
-    { Icon: Linkedin, label: "LinkedIn", href: linkedinUrl },
-    { Icon: Twitter, label: "Twitter", href: twitterUrl },
-    { Icon: Mail, label: "Email", href: `mailto:${contactEmail}` },
-  ];
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || "";
+  const socials = getSocialLinks();
 
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  /** Honeypot — hidden field, humans never fill it */
+  const [website, setWebsite] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+
+  // Mount the Turnstile widget after the script loads
+  useEffect(() => {
+    if (!turnstileSiteKey || !turnstileRef.current) return;
+
+    const script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      const w = window as any;
+      if (w.turnstile && turnstileRef.current) {
+        w.turnstile.render(turnstileRef.current, {
+          sitekey: turnstileSiteKey,
+          callback: (token: string) => setTurnstileToken(token),
+          "expired-callback": () => setTurnstileToken(""),
+        });
+      }
+    };
+    document.head.appendChild(script);
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [turnstileSiteKey]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,7 +64,7 @@ export const ContactSection = () => {
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, website, turnstileToken }),
       });
 
       if (!res.ok) {
@@ -61,28 +81,11 @@ export const ContactSection = () => {
     }
   };
 
-  const inputStyle: React.CSSProperties = {
-    background: "rgba(215, 226, 234, 0.05)",
-    border: "1px solid rgba(215, 226, 234, 0.2)",
-    borderRadius: 12,
-    color: "#D7E2EA",
-    fontFamily: "'Kanit', sans-serif",
-    fontWeight: 300,
-    fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)",
-    padding: "14px 18px",
-    width: "100%",
-    outline: "none",
-    transition: "border-color 0.2s",
-  };
 
   return (
     <section
       id="contact"
-      style={{
-        background: "#0C0C0C",
-        fontFamily: "'Kanit', sans-serif",
-      }}
-      className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-30 relative px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 overflow-hidden"
+      className="bg-portfolio-dark rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-30 relative px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 overflow-hidden"
     >
       {/* Ambient background glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]">
@@ -108,7 +111,6 @@ export const ContactSection = () => {
           style={{
             fontWeight: 900,
             fontSize: "clamp(3rem, 12vw, 160px)",
-            fontFamily: "'Kanit', sans-serif",
             marginBottom: "clamp(2rem, 5vw, 5rem)",
           }}
         >
@@ -121,13 +123,8 @@ export const ContactSection = () => {
         <FadeIn delay={0.1} y={30}>
           <div className="flex flex-col gap-6">
             <p
-              style={{
-                color: "#D7E2EA",
-                fontWeight: 300,
-                fontSize: "clamp(1rem, 1.8vw, 1.3rem)",
-                lineHeight: 1.7,
-                opacity: 0.8,
-              }}
+              className="text-[#D7E2EA] font-light leading-relaxed opacity-80"
+              style={{ fontSize: "clamp(1rem, 1.8vw, 1.3rem)" }}
             >
               {t.contact.intro}
             </p>
@@ -135,14 +132,14 @@ export const ContactSection = () => {
             <div className="flex flex-col gap-3 mt-2">
               <a
                 href={`mailto:${contactEmail}`}
-                style={{ color: "#D7E2EA", fontWeight: 400, fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}
-                className="uppercase tracking-wider hover:opacity-70 transition-opacity"
+                style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}
+                className="text-[#D7E2EA] font-normal uppercase tracking-wider hover:opacity-70 transition-opacity"
               >
                 {contactEmail}
               </a>
               <span
-                style={{ color: "#D7E2EA", fontWeight: 300, fontSize: "clamp(0.85rem, 1.3vw, 1rem)", opacity: 0.75 }}
-                className="uppercase tracking-wider"
+                style={{ fontSize: "clamp(0.85rem, 1.3vw, 1rem)" }}
+                className="text-[#D7E2EA] font-light uppercase tracking-wider opacity-75"
               >
                 {t.contact.location}
               </span>
@@ -157,18 +154,7 @@ export const ContactSection = () => {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
-                  style={{
-                    color: "#D7E2EA",
-                    border: "1px solid rgba(215,226,234,0.2)",
-                    borderRadius: "50%",
-                    width: 48,
-                    height: 48,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transition: "background 0.2s",
-                  }}
-                  className="hover:bg-[#D7E2EA]/10"
+                  className="portfolio-social-btn w-12 h-12"
                 >
                   <Icon size={18} />
                 </a>
@@ -181,34 +167,41 @@ export const ContactSection = () => {
         <FadeIn delay={0.2} y={30}>
           {sent ? (
             <div
-              style={{
-                color: "#D7E2EA",
-                border: "1px solid rgba(215,226,234,0.2)",
-                borderRadius: 20,
-                padding: "40px 32px",
-                textAlign: "center",
-              }}
+              className="text-[#D7E2EA] border border-[#D7E2EA]/20 rounded-[20px] py-10 px-8 text-center"
             >
-              <p style={{ fontWeight: 500, fontSize: "1.3rem", marginBottom: 8 }}>
+              <p className="font-medium text-xl sm:text-2xl mb-2">
                 {t.contact.successTitle}
               </p>
-              <p style={{ fontWeight: 300, opacity: 0.8, fontSize: "1rem" }}>
+              <p className="font-light opacity-80 text-base">
                 {t.contact.successDesc}
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Honeypot — hidden from humans, visible to bots */}
+              <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none", tabIndex: -1 }} aria-hidden="true">
+                <label htmlFor="contact-website">Ne pas remplir</label>
+                <input
+                  id="contact-website"
+                  type="text"
+                  name="website"
+                  autoComplete="off"
+                  tabIndex={-1}
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
+
               <input
                 type="text"
                 name="name"
                 aria-label={t.contact.namePlaceholder}
                 placeholder={t.contact.namePlaceholder}
                 required
+                maxLength={100}
                 value={form.name}
                 onChange={handleChange}
-                style={inputStyle}
-                onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(215,226,234,0.6)")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(215,226,234,0.2)")}
+                className="portfolio-input"
               />
               <input
                 type="email"
@@ -216,11 +209,10 @@ export const ContactSection = () => {
                 aria-label={t.contact.emailPlaceholder}
                 placeholder={t.contact.emailPlaceholder}
                 required
+                maxLength={320}
                 value={form.email}
                 onChange={handleChange}
-                style={inputStyle}
-                onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(215,226,234,0.6)")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(215,226,234,0.2)")}
+                className="portfolio-input"
               />
               <textarea
                 name="message"
@@ -228,12 +220,17 @@ export const ContactSection = () => {
                 placeholder={t.contact.messagePlaceholder}
                 required
                 rows={5}
+                maxLength={5000}
                 value={form.message}
                 onChange={handleChange}
-                style={{ ...inputStyle, resize: "none" }}
-                onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(215,226,234,0.6)")}
-                onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(215,226,234,0.2)")}
+                className="portfolio-input resize-none"
               />
+
+              {/* Cloudflare Turnstile — only rendered when site key is configured */}
+              {turnstileSiteKey && (
+                <div ref={turnstileRef} className="mt-1" />
+              )}
+
               {error && (
                 <p className="text-red-400 text-sm font-light">{error}</p>
               )}
@@ -245,6 +242,7 @@ export const ContactSection = () => {
                 />
               </div>
             </form>
+
           )}
         </FadeIn>
       </div>

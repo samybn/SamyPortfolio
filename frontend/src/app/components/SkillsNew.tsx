@@ -7,18 +7,23 @@ const DEVICON = (name: string) =>
   `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${name}/${name}-original.svg`;
 
 const RAW_SKILLS = [
-  { key: "Java", devicon: "java" },
-  { key: "React", devicon: "react" },
-  { key: "Next.js", devicon: "nextjs" },
+  { key: "Java",       devicon: "java" },
+  { key: "C",          devicon: "c" },
+  { key: "Dart",       devicon: "dart" },
+  { key: "React",      devicon: "react" },
+  { key: "HTML",       devicon: "html5" },
+  { key: "CSS",        devicon: "css3" },
+  { key: "JavaScript", devicon: "javascript" },
+  { key: "PHP",        devicon: "php" },
+  { key: "Redis",      devicon: "redis" },
+  { key: "CI/CD",      devicon: "githubactions" },
+  { key: "MongoDB",    devicon: "mongodb" },
+  { key: "Python",     devicon: "python" },
+  { key: "Express.js", devicon: "express" },
+  { key: "Git",        devicon: "git" },
+  { key: "MySQL",      devicon: "mysql" },
+  { key: "Linux",      devicon: "linux" },
   { key: "TypeScript", devicon: "typescript" },
-  { key: "Spring Boot", devicon: "spring" },
-  { key: "Node.js", devicon: "nodejs" },
-  { key: "Python", devicon: "python" },
-  { key: "PostgreSQL", devicon: "postgresql" },
-  { key: "MySQL", devicon: "mysql" },
-  { key: "Docker", devicon: "docker" },
-  { key: "Git", devicon: "git" },
-  { key: "Linux", devicon: "linux" },
 ];
 
 /* ─── Skills Section ─── */
@@ -41,7 +46,6 @@ export function Skills() {
       <span
         style={{
           color: "rgba(215,226,234,0.7)",
-          fontFamily: "'Kanit', sans-serif",
           fontSize: "0.72rem",
           textTransform: "uppercase",
           letterSpacing: "0.3em",
@@ -58,7 +62,6 @@ export function Skills() {
           fontSize: "clamp(1.8rem,4vw,3.2rem)",
           fontWeight: 600,
           color: "#D7E2EA",
-          fontFamily: "'Kanit', sans-serif",
           lineHeight: 1.1,
           letterSpacing: "-0.01em",
           margin: 0,
@@ -72,11 +75,7 @@ export function Skills() {
   return (
     <section
       id="skills"
-      className="relative w-full"
-      style={{
-        background: "#0C0C0C",
-        fontFamily: "'Kanit', sans-serif",
-      }}
+      className="relative w-full bg-portfolio-dark"
     >
       {/* Ambient background glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">

@@ -183,11 +183,7 @@ export const ProjectsSection = ({
   return (
     <section
       id="projects"
-      style={{
-        background: "#0C0C0C",
-        fontFamily: "'Kanit', sans-serif",
-      }}
-      className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 relative px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32 pb-32"
+      className="bg-portfolio-dark rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-10 relative px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32 pb-32"
     >
       <FadeIn delay={0} y={40}>
         <h2
@@ -195,7 +191,6 @@ export const ProjectsSection = ({
           style={{
             fontWeight: 900,
             fontSize: "clamp(3rem, 12vw, 160px)",
-            fontFamily: "'Kanit', sans-serif",
           }}
         >
           {t.projects.heading}

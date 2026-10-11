@@ -1,13 +1,10 @@
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 import { FadeIn } from "./shared";
+import { getSocialLinks } from "../constants/socials";
 
 export const Footer = () => {
   const { t } = useLanguage();
-  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
-  const githubUrl = import.meta.env.VITE_GITHUB_URL || "#";
-  const linkedinUrl = import.meta.env.VITE_LINKEDIN_URL || "#";
-  const twitterUrl = import.meta.env.VITE_TWITTER_URL || "#";
+  const socials = getSocialLinks();
 
   const navLinks = [
     { label: t.nav.home, href: "#hero" },
@@ -16,17 +13,9 @@ export const Footer = () => {
     { label: t.nav.contact, href: "#contact" },
   ];
 
-  const socials = [
-    { Icon: Github, label: "GitHub", href: githubUrl },
-    { Icon: Linkedin, label: "LinkedIn", href: linkedinUrl },
-    { Icon: Twitter, label: "Twitter", href: twitterUrl },
-    { Icon: Mail, label: "Email", href: `mailto:${contactEmail}` },
-  ];
-
   return (
     <footer
-      style={{ background: "#0C0C0C", fontFamily: "'Kanit', sans-serif" }}
-      className="px-5 sm:px-8 md:px-10 py-12 md:py-16 relative overflow-hidden"
+      className="bg-portfolio-dark px-5 sm:px-8 md:px-10 py-12 md:py-16 relative overflow-hidden"
     >
       {/* Divider */}
       <FadeIn delay={0} y={15}>
@@ -48,14 +37,8 @@ export const Footer = () => {
               Bouadloune Samy
             </span>
             <span
-              style={{
-                color: "#D7E2EA",
-                fontWeight: 300,
-                fontSize: "clamp(0.75rem, 1.2vw, 0.95rem)",
-                opacity: 0.7,
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-              }}
+              className="text-[#D7E2EA] font-light uppercase tracking-widest opacity-70"
+              style={{ fontSize: "clamp(0.75rem, 1.2vw, 0.95rem)" }}
             >
               {t.footer.subtitle}
             </span>
@@ -69,15 +52,8 @@ export const Footer = () => {
               <a
                 key={link.href}
                 href={link.href}
-                style={{
-                  color: "#D7E2EA",
-                  fontWeight: 400,
-                  fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  opacity: 0.7,
-                }}
-                className="hover:opacity-100 transition-opacity duration-200"
+                style={{ fontSize: "clamp(0.85rem, 1.3vw, 1rem)" }}
+                className="text-[#D7E2EA] font-normal uppercase tracking-wider opacity-70 hover:opacity-100 transition-opacity duration-200"
               >
                 {link.label}
               </a>
@@ -89,14 +65,7 @@ export const Footer = () => {
         <FadeIn delay={0.18} y={25}>
           <div className="flex flex-col gap-3">
             <span
-              style={{
-                color: "#D7E2EA",
-                fontWeight: 300,
-                fontSize: "0.75rem",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                opacity: 0.7,
-              }}
+              className="text-[#D7E2EA] font-light text-xs uppercase tracking-widest opacity-70"
             >
               {t.footer.socialsTitle}
             </span>
@@ -108,19 +77,7 @@ export const Footer = () => {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
-                  style={{
-                    color: "#D7E2EA",
-                    border: "1px solid rgba(215,226,234,0.18)",
-                    borderRadius: "50%",
-                    width: 40,
-                    height: 40,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    transition: "background 0.2s, opacity 0.2s",
-                    opacity: 0.7,
-                  }}
-                  className="hover:opacity-100 hover:bg-[#D7E2EA]/10"
+                  className="portfolio-social-btn w-10 h-10"
                 >
                   <Icon size={16} />
                 </a>

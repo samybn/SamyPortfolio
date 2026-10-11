@@ -1,11 +1,20 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useNavigate,
+  useParams,
+  useLocation,
+} from "react-router";
+import { AnimatePresence, motion } from "motion/react";
 import { HeroSection } from "./components/HeroSection";
 import { Skills } from "./components/SkillsNew";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { Footer } from "./components/Footer";
 import { LanguageToggle } from "./components/LanguageToggle";
 import { LanguageProvider, useLanguage } from "./context/LanguageContext";
-import { getProjectById, ProjectDetail } from "./data/projectsData";
+import { getProjectById } from "./data/projectsData";
 
 // Code-split heavy & below-the-fold components
 const ProjectDetailPage = lazy(() =>
@@ -48,15 +57,7 @@ function SectionLoadingFallback({ height = 240 }: { height?: number }) {
 function PageLoadingFallback() {
   return (
     <div
-      style={{
-        minHeight: "100vh",
-        background: "#0C0C0C",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "'Kanit', sans-serif",
-      }}
+      className="bg-portfolio-dark min-h-screen flex flex-col items-center justify-center"
       role="status"
       aria-label="Chargement de la page..."
     >
@@ -68,145 +69,180 @@ function PageLoadingFallback() {
   );
 }
 
-export type RouteState =
-  | { type: "home" }
-  | { type: "project"; project: ProjectDetail }
-  | { type: "not-found"; invalidPath: string };
-
 /**
- * Resolve application route from URL pathname and hash.
- * Handles clean URLs, legacy hash URLs, and detects 404s.
+ * Automatically scrolls to top on route change or to anchor when hash exists.
  */
-function resolveRoute(pathname: string, hash: string): RouteState {
-  // 1. Legacy hash routes: #project/xxx
-  if (hash.startsWith("#project/")) {
-    const id = decodeURIComponent(hash.replace("#project/", ""));
-    const found = getProjectById(id);
-    if (found) {
-      return { type: "project", project: found };
+function ScrollToTopAndHash() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    // If legacy hash route #project/xxx arrived, HashRedirector handles redirect
+    if (hash.startsWith("#project/")) return;
+
+    if (hash) {
+      const elementId = hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const el = document.getElementById(elementId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 60);
+      return () => clearTimeout(timer);
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
     }
-    return { type: "not-found", invalidPath: `#project/${id}` };
-  }
+  }, [pathname, hash]);
 
-  // 2. Clean URLs: /projects/:id
-  const match = pathname.match(/^\/projects\/(.+)$/);
-  if (match) {
-    const id = decodeURIComponent(match[1]);
-    const found = getProjectById(id);
-    if (found) {
-      return { type: "project", project: found };
-    }
-    return { type: "not-found", invalidPath: pathname };
-  }
-
-  // 3. Invalid pathname that isn't root or static index
-  if (pathname !== "/" && pathname !== "" && !pathname.endsWith("index.html")) {
-    return { type: "not-found", invalidPath: pathname };
-  }
-
-  return { type: "home" };
+  return null;
 }
 
-function PortfolioContent() {
-  const { lang } = useLanguage();
-  const [route, setRoute] = useState<RouteState>(() =>
-    resolveRoute(window.location.pathname, window.location.hash)
-  );
+/**
+ * Backwards compatibility redirector for legacy hash URLs (#project/:id)
+ */
+function HashRedirector() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  // Sync with browser history on popstate (back/forward)
   useEffect(() => {
-    // If loaded via legacy hash for an existing project, redirect URL bar to clean URL
-    const hash = window.location.hash;
-    if (hash.startsWith("#project/")) {
-      const id = decodeURIComponent(hash.replace("#project/", ""));
+    if (location.hash.startsWith("#project/")) {
+      const id = decodeURIComponent(location.hash.replace("#project/", ""));
       const found = getProjectById(id);
       if (found) {
-        window.history.replaceState(null, "", `/projects/${found.id}`);
+        navigate(`/projects/${found.id}`, { replace: true });
+      } else {
+        navigate(`/projects/${id}`, { replace: true });
       }
     }
+  }, [location.hash, navigate]);
 
-    const handlePopState = () => {
-      const resolved = resolveRoute(window.location.pathname, window.location.hash);
-      setRoute(resolved);
-      window.scrollTo({ top: 0, behavior: "instant" });
-    };
+  return null;
+}
 
-    window.addEventListener("popstate", handlePopState);
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
+function HomePage() {
+  const navigate = useNavigate();
 
-  const handleSelectProject = (projectId: string) => {
-    const found = getProjectById(projectId);
-    if (found) {
-      setRoute({ type: "project", project: found });
-      window.history.pushState(null, "", `/projects/${found.id}`);
-      window.scrollTo({ top: 0, behavior: "instant" });
-    }
-  };
+  return (
+    <motion.main
+      id="main-content"
+      tabIndex={-1}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="bg-portfolio-dark overflow-x-clip outline-none"
+    >
+      <HeroSection />
+      <Skills />
+      <ProjectsSection
+        onSelectProject={(projectId) => navigate(`/projects/${projectId}`)}
+      />
+      <Suspense fallback={<SectionLoadingFallback height={320} />}>
+        <MoreProjectsSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoadingFallback height={400} />}>
+        <ContactSection />
+      </Suspense>
+      <Footer />
+    </motion.main>
+  );
+}
 
-  const handleBackToProjects = () => {
-    setRoute({ type: "home" });
-    window.history.pushState(null, "", "/#projects");
-    setTimeout(() => {
-      const el = document.getElementById("projects");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 60);
-  };
+function ProjectDetailRoute() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleGoHome = () => {
-    setRoute({ type: "home" });
-    window.history.pushState(null, "", "/");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const project = id ? getProjectById(decodeURIComponent(id)) : undefined;
+
+  if (!project) {
+    return (
+      <NotFoundPage
+        invalidPath={location.pathname}
+        onGoHome={() => navigate("/")}
+        onGoProjects={() => navigate("/#projects")}
+      />
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+    >
+      <ProjectDetailPage
+        project={project}
+        onBack={() => {
+          navigate("/#projects");
+        }}
+        onSelectProject={(nextId) => {
+          navigate(`/projects/${nextId}`);
+        }}
+      />
+    </motion.div>
+  );
+}
+
+function NotFoundRoute() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+    >
+      <NotFoundPage
+        invalidPath={location.pathname}
+        onGoHome={() => navigate("/")}
+        onGoProjects={() => navigate("/#projects")}
+      />
+    </motion.div>
+  );
+}
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/projects/:id"
+          element={
+            <Suspense fallback={<PageLoadingFallback />}>
+              <ProjectDetailRoute />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<PageLoadingFallback />}>
+              <NotFoundRoute />
+            </Suspense>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+function PortfolioLayout() {
+  const { lang } = useLanguage();
 
   return (
     <>
       <a href="#main-content" className="skip-link">
         {lang === "FR" ? "Passer au contenu principal" : "Skip to main content"}
       </a>
-      {route.type === "project" ? (
-        <Suspense fallback={<PageLoadingFallback />}>
-          <ProjectDetailPage
-            project={route.project}
-            onBack={handleBackToProjects}
-            onSelectProject={handleSelectProject}
-          />
-        </Suspense>
-      ) : route.type === "not-found" ? (
-        <Suspense fallback={<PageLoadingFallback />}>
-          <NotFoundPage
-            invalidPath={route.invalidPath}
-            onGoHome={handleGoHome}
-            onGoProjects={handleBackToProjects}
-          />
-        </Suspense>
-      ) : (
-        <main
-          id="main-content"
-          tabIndex={-1}
-          style={{
-            background: "#0C0C0C",
-            fontFamily: "'Kanit', sans-serif",
-            overflowX: "clip",
-            outline: "none",
-          }}
-        >
-          <HeroSection />
-          <Skills />
-          <ProjectsSection onSelectProject={handleSelectProject} />
-          <Suspense fallback={<SectionLoadingFallback height={320} />}>
-            <MoreProjectsSection />
-          </Suspense>
-          <Suspense fallback={<SectionLoadingFallback height={400} />}>
-            <ContactSection />
-          </Suspense>
-          <Footer />
-        </main>
-      )}
+      <ScrollToTopAndHash />
+      <HashRedirector />
+      <AnimatedRoutes />
       <LanguageToggle />
     </>
   );
@@ -214,8 +250,10 @@ function PortfolioContent() {
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <PortfolioContent />
-    </LanguageProvider>
+    <BrowserRouter>
+      <LanguageProvider>
+        <PortfolioLayout />
+      </LanguageProvider>
+    </BrowserRouter>
   );
 }

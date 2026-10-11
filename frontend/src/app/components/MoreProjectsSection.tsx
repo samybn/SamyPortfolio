@@ -64,11 +64,7 @@ export const MoreProjectsSection = () => {
   return (
     <section
       id="journal"
-      style={{
-        background: "#0C0C0C",
-        fontFamily: "'Kanit', sans-serif",
-      }}
-      className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-20 relative px-5 sm:px-8 md:px-10 py-24 sm:py-32 md:py-36 overflow-hidden"
+      className="bg-portfolio-dark rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-20 relative px-5 sm:px-8 md:px-10 py-24 sm:py-32 md:py-36 overflow-hidden"
     >
       {/* Background Soft Glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -117,7 +113,6 @@ export const MoreProjectsSection = () => {
               style={{
                 fontWeight: 900,
                 fontSize: "clamp(2.5rem, 7vw, 100px)",
-                fontFamily: "'Kanit', sans-serif",
               }}
             >
               {t.moreProjects.headingMain}

@@ -6,8 +6,7 @@ import { useLanguage } from "../context/LanguageContext";
 const HLS_SRC =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
 
-const ACCENT_GRADIENT =
-  "linear-gradient(123deg, #023e8a 7%, #0077b6 37%, #00b4d8 72%, #90e0ef 100%)";
+const ACCENT_GRADIENT = "var(--accent-gradient)";
 
 /* ─────────────── HLS Video Background ─────────────── */
 const HeroVideo = () => {
@@ -77,7 +76,6 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
       className="fixed top-0 left-0 right-0 z-[1000] flex justify-center pt-4 md:pt-6 px-4"
-      style={{ fontFamily: "'Kanit', sans-serif" }}
     >
       <div
         className="inline-flex items-center rounded-full backdrop-blur-md px-2 py-2 transition-shadow duration-300"
@@ -113,7 +111,6 @@ const Navbar = () => {
               fontSize: 13,
               color: "#D7E2EA",
               fontStyle: "italic",
-              fontFamily: "'Kanit', sans-serif",
             }}
           >
             SB
@@ -134,7 +131,6 @@ const Navbar = () => {
             onClick={() => setActiveHref(link.href)}
             className="rounded-full transition-all duration-200 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
             style={{
-              fontFamily: "'Kanit', sans-serif",
               fontWeight: 500,
               color:
                 activeHref === link.href ? "#D7E2EA" : "rgba(215,226,234,0.7)",
@@ -185,7 +181,6 @@ const SayHiButton = () => {
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 transition-transform duration-200"
       style={{
-        fontFamily: "'Kanit', sans-serif",
         fontWeight: 500,
         transform: hovered ? "scale(1.05)" : "scale(1)",
       }}
@@ -248,7 +243,6 @@ const CyclingRole = () => {
           transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
           className="hero-heading inline-block font-bold italic"
           style={{
-            fontFamily: "'Kanit', sans-serif",
             padding: "0 2px",
           }}
         >
@@ -272,7 +266,6 @@ const SeeWorksButton = () => {
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-full text-sm px-7 py-3.5 transition-transform duration-200 inline-block"
       style={{
-        fontFamily: "'Kanit', sans-serif",
         fontWeight: 500,
         transform: hovered ? "scale(1.05)" : "scale(1)",
         background: hovered ? "#0C0C0C" : "#D7E2EA",
@@ -308,7 +301,6 @@ const ReachOutButton = () => {
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-full text-sm px-7 py-3.5 transition-transform duration-200 inline-block"
       style={{
-        fontFamily: "'Kanit', sans-serif",
         fontWeight: 500,
         transform: hovered ? "scale(1.05)" : "scale(1)",
         color: "#D7E2EA",
@@ -342,33 +334,13 @@ export const HeroSection = () => {
       <Navbar />
       <section
         id="hero"
-        className="relative h-screen flex items-center justify-center overflow-hidden"
-        style={{
-          background: "#0C0C0C",
-          fontFamily: "'Kanit', sans-serif",
-        }}
+        className="relative h-screen flex items-center justify-center overflow-hidden bg-portfolio-dark"
       >
         {/* HLS Video Background */}
         <HeroVideo />
 
         {/* Hero Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl">
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            style={{
-              color: "rgba(215,226,234,0.7)",
-              fontSize: "0.75rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.3em",
-              fontWeight: 400,
-              marginBottom: "1.5rem",
-            }}
-          >
-            {t.hero.eyebrow}
-          </motion.p>
 
           {/* Name */}
           <motion.h1
