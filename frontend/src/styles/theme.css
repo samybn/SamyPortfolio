@@ -179,3 +179,94 @@
     line-height: 1.5;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   ACCESSIBILITY: Skip Link & Custom Focus-Visible
+   Preserves visual aesthetics for mouse clicks while providing
+   crisp, high-contrast, WCAG-compliant indicators for keyboard navigation.
+   ───────────────────────────────────────────────────────────── */
+
+.skip-link {
+  position: fixed;
+  top: -120px;
+  left: 20px;
+  z-index: 10001;
+  background: #0077b6;
+  color: #ffffff;
+  padding: 12px 22px;
+  border-radius: 9999px;
+  font-family: 'Kanit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0, 180, 216, 0.45);
+  transition: top 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 20px;
+  outline: 2px solid #90e0ef !important;
+  outline-offset: 3px !important;
+}
+
+/* Custom focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #00b4d8 !important;
+  outline-offset: 3px !important;
+}
+
+/* Interactive elements get rounded outline matching their shapes */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #00b4d8 !important;
+  outline-offset: 3px !important;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #00b4d8 !important;
+  outline-offset: 1px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SKELETON SHIMMER (Dark Theme)
+   Smooth loading shimmer for project images & media cards
+   ───────────────────────────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(215, 226, 234, 0.03) 20%,
+    rgba(0, 180, 216, 0.12) 38%,
+    rgba(144, 224, 239, 0.18) 50%,
+    rgba(0, 180, 216, 0.12) 62%,
+    rgba(215, 226, 234, 0.03) 80%
+  ) !important;
+  background-size: 300% 100% !important;
+  animation: skeleton-shimmer 2s ease-in-out infinite !important;
+}
+
+

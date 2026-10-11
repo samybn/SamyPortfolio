@@ -1,17 +1,20 @@
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
-
-const NAV = [
-  { label: "Accueil", href: "#hero" },
-  { label: "Compétences", href: "#skills" },
-  { label: "Projets", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
+import { useLanguage } from "../context/LanguageContext";
+import { FadeIn } from "./shared";
 
 export const Footer = () => {
+  const { t } = useLanguage();
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
   const githubUrl = import.meta.env.VITE_GITHUB_URL || "#";
   const linkedinUrl = import.meta.env.VITE_LINKEDIN_URL || "#";
   const twitterUrl = import.meta.env.VITE_TWITTER_URL || "#";
+
+  const navLinks = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.skills, href: "#skills" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
 
   const socials = [
     { Icon: Github, label: "GitHub", href: githubUrl },
@@ -23,140 +26,150 @@ export const Footer = () => {
   return (
     <footer
       style={{ background: "#0C0C0C", fontFamily: "'Kanit', sans-serif" }}
-      className="px-5 sm:px-8 md:px-10 py-12 md:py-16"
+      className="px-5 sm:px-8 md:px-10 py-12 md:py-16 relative overflow-hidden"
     >
       {/* Divider */}
-      <div style={{ borderTop: "1px solid rgba(215,226,234,0.12)", marginBottom: "2.5rem" }} />
+      <FadeIn delay={0} y={15}>
+        <div style={{ borderTop: "1px solid rgba(215,226,234,0.12)", marginBottom: "2.5rem" }} />
+      </FadeIn>
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-10">
         {/* Brand */}
-        <div className="flex flex-col gap-3">
-          <span
-            className="hero-heading uppercase"
-            style={{
-              fontWeight: 900,
-              fontSize: "clamp(1.8rem, 4vw, 3.5rem)",
-              lineHeight: 1,
-            }}
-          >
-            Bouadloune Samy
-          </span>
-          <span
-            style={{
-              color: "#D7E2EA",
-              fontWeight: 300,
-              fontSize: "clamp(0.75rem, 1.2vw, 0.95rem)",
-              opacity: 0.5,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-            }}
-          >
-            Master Génie Logiciel · Développeur Full Stack
-          </span>
-        </div>
-
-        {/* Nav */}
-        <nav className="flex flex-col gap-2">
-          {NAV.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
+        <FadeIn delay={0.06} y={25}>
+          <div className="flex flex-col gap-3">
+            <span
+              className="hero-heading uppercase"
+              style={{
+                fontWeight: 900,
+                fontSize: "clamp(1.8rem, 4vw, 3.5rem)",
+                lineHeight: 1,
+              }}
+            >
+              Bouadloune Samy
+            </span>
+            <span
               style={{
                 color: "#D7E2EA",
-                fontWeight: 400,
-                fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
+                fontWeight: 300,
+                fontSize: "clamp(0.75rem, 1.2vw, 0.95rem)",
                 opacity: 0.7,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
               }}
-              className="hover:opacity-100 transition-opacity duration-200"
             >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+              {t.footer.subtitle}
+            </span>
+          </div>
+        </FadeIn>
 
-        {/* Socials */}
-        <div className="flex flex-col gap-3">
-          <span
-            style={{
-              color: "#D7E2EA",
-              fontWeight: 300,
-              fontSize: "0.75rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              opacity: 0.4,
-            }}
-          >
-            Réseaux
-          </span>
-          <div className="flex gap-3">
-            {socials.map(({ Icon, label, href }) => (
+        {/* Nav */}
+        <FadeIn delay={0.12} y={25}>
+          <nav className="flex flex-col gap-2">
+            {navLinks.map((link) => (
               <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                aria-label={label}
+                key={link.href}
+                href={link.href}
                 style={{
                   color: "#D7E2EA",
-                  border: "1px solid rgba(215,226,234,0.18)",
-                  borderRadius: "50%",
-                  width: 40,
-                  height: 40,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transition: "background 0.2s, opacity 0.2s",
+                  fontWeight: 400,
+                  fontSize: "clamp(0.85rem, 1.3vw, 1rem)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
                   opacity: 0.7,
                 }}
-                className="hover:opacity-100 hover:bg-[#D7E2EA]/10"
+                className="hover:opacity-100 transition-opacity duration-200"
               >
-                <Icon size={16} />
+                {link.label}
               </a>
             ))}
+          </nav>
+        </FadeIn>
+
+        {/* Socials */}
+        <FadeIn delay={0.18} y={25}>
+          <div className="flex flex-col gap-3">
+            <span
+              style={{
+                color: "#D7E2EA",
+                fontWeight: 300,
+                fontSize: "0.75rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                opacity: 0.7,
+              }}
+            >
+              {t.footer.socialsTitle}
+            </span>
+            <div className="flex gap-3">
+              {socials.map(({ Icon, label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  aria-label={label}
+                  style={{
+                    color: "#D7E2EA",
+                    border: "1px solid rgba(215,226,234,0.18)",
+                    borderRadius: "50%",
+                    width: 40,
+                    height: 40,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background 0.2s, opacity 0.2s",
+                    opacity: 0.7,
+                  }}
+                  className="hover:opacity-100 hover:bg-[#D7E2EA]/10"
+                >
+                  <Icon size={16} />
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        </FadeIn>
       </div>
 
       {/* Bottom */}
-      <div
-        style={{
-          borderTop: "1px solid rgba(215,226,234,0.08)",
-          marginTop: "2.5rem",
-          paddingTop: "1.5rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-        }}
-      >
-        <span
+      <FadeIn delay={0.24} y={15}>
+        <div
           style={{
-            color: "#D7E2EA",
-            fontWeight: 300,
-            fontSize: "0.8rem",
-            opacity: 0.35,
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
+            borderTop: "1px solid rgba(215,226,234,0.08)",
+            marginTop: "2.5rem",
+            paddingTop: "1.5rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: "0.5rem",
           }}
         >
-          &copy; {new Date().getFullYear()} Bouadloune Samy — Tous droits réservés
-        </span>
-        <span
-          style={{
-            color: "#D7E2EA",
-            fontWeight: 300,
-            fontSize: "0.8rem",
-            opacity: 0.25,
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
-          }}
-        >
-          Conçu &amp; développé avec passion
-        </span>
-      </div>
+          <span
+            style={{
+              color: "#D7E2EA",
+              fontWeight: 300,
+              fontSize: "0.8rem",
+              opacity: 0.7,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+            }}
+          >
+            &copy; {new Date().getFullYear()} {t.footer.rights}
+          </span>
+          <span
+            style={{
+              color: "#D7E2EA",
+              fontWeight: 300,
+              fontSize: "0.8rem",
+              opacity: 0.7,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+            }}
+          >
+            {t.footer.crafted}
+          </span>
+        </div>
+      </FadeIn>
     </footer>
   );
 };

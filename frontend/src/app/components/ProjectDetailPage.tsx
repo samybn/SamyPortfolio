@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { ProjectDetail, getNextProject } from "../data/projectsData";
 import { ProjectImageSlider } from "./ProjectImageSlider";
+import { useLanguage } from "../context/LanguageContext";
 
 interface ProjectDetailPageProps {
   project: ProjectDetail;
@@ -22,12 +23,18 @@ export function ProjectDetailPage({
   onBack,
   onSelectProject,
 }: ProjectDetailPageProps) {
+  const { t } = useLanguage();
   const nextProject = getNextProject(project.id);
 
-  // Scroll to top on project change
+  // Scroll to top on project change and update title for SEO
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
-  }, [project.id]);
+    const originalTitle = document.title;
+    document.title = `${project.name} — Bouadloune Samy | Portfolio`;
+    return () => {
+      document.title = originalTitle;
+    };
+  }, [project.id, project.name]);
 
   return (
     <div
@@ -42,34 +49,41 @@ export function ProjectDetailPage({
       <header className="sticky top-0 z-50 w-full backdrop-blur-xl border-b border-[#D7E2EA]/10 bg-[#0C0C0C]/85 px-4 sm:px-8 md:px-12 py-3.5">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           {/* Back button */}
-          <button
-            type="button"
-            onClick={onBack}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all cursor-pointer"
+          <a
+            href="/#projects"
+            aria-label={t.projectDetail.backToProjects}
+            onClick={(e) => {
+              e.preventDefault();
+              onBack();
+            }}
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all cursor-pointer no-underline"
           >
             <ArrowLeft
               size={16}
               className="group-hover:-translate-x-1 transition-transform"
             />
-            <span>Retour aux projets</span>
-          </button>
+            <span>{t.projectDetail.backToProjects}</span>
+          </a>
 
           {/* Logo in center */}
-          <div
+          <button
+            type="button"
             onClick={onBack}
+            aria-label={t.projectDetail.backToProjects}
             className="w-9 h-9 rounded-full border border-[#D7E2EA]/30 bg-[#121212] flex items-center justify-center text-xs font-semibold italic text-[#D7E2EA] cursor-pointer hover:border-[#D7E2EA] transition-colors"
           >
             SB
-          </div>
+          </button>
 
           {/* Direct Visit Link Button (same clean bordered style) */}
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${t.projectDetail.visit} ${project.name}`}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/15 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all"
           >
-            <span>Visiter</span>
+            <span>{t.projectDetail.visit}</span>
             <ArrowUpRight size={14} />
           </a>
         </div>
@@ -82,7 +96,7 @@ export function ProjectDetailPage({
           {/* Eyebrow & Number */}
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold text-[#90e0ef] bg-[#90e0ef]/5 border border-[#90e0ef]/30">
-              PROJET #{project.number}
+              {t.projectDetail.projectBadge}{project.number}
             </span>
             <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-medium text-[#D7E2EA]/70 bg-[#D7E2EA]/5 border border-[#D7E2EA]/10">
               {project.category}
@@ -126,9 +140,10 @@ export function ProjectDetailPage({
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${t.projectDetail.visitProject} : ${project.name}`}
             className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer"
           >
-            <span>Visiter le projet</span>
+            <span>{t.projectDetail.visitProject}</span>
             <ArrowUpRight size={17} />
           </a>
 
@@ -138,10 +153,11 @@ export function ProjectDetailPage({
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`${t.projectDetail.sourceCode} - ${project.name}`}
               className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer"
             >
               <Github size={17} />
-              <span>Code source</span>
+              <span>{t.projectDetail.sourceCode}</span>
             </a>
           )}
         </section>
@@ -149,10 +165,10 @@ export function ProjectDetailPage({
         {/* ── 4. PRÉSENTATION ── */}
         <section className="flex flex-col gap-4 pt-6 border-t border-[#D7E2EA]/10">
           <h2 className="text-xs uppercase tracking-widest text-[#D7E2EA]/50 font-semibold">
-            Présentation
+            {t.projectDetail.overviewEyebrow}
           </h2>
           <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
-            À propos du projet
+            {t.projectDetail.aboutProject}
           </h3>
           <p className="text-base sm:text-lg font-light opacity-80 leading-relaxed text-[#D7E2EA]/90 whitespace-pre-line">
             {project.description}
@@ -162,7 +178,7 @@ export function ProjectDetailPage({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2 p-4 sm:p-5 rounded-2xl bg-[#D7E2EA]/[0.02] border border-[#D7E2EA]/10">
             <div>
               <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                Client
+                {t.projectDetail.client}
               </span>
               <p className="text-sm sm:text-base font-medium text-white">
                 {project.client}
@@ -170,7 +186,7 @@ export function ProjectDetailPage({
             </div>
             <div>
               <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                Rôle
+                {t.projectDetail.role}
               </span>
               <p className="text-sm sm:text-base font-medium text-white">
                 {project.role}
@@ -178,7 +194,7 @@ export function ProjectDetailPage({
             </div>
             <div>
               <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                Année
+                {t.projectDetail.year}
               </span>
               <p className="text-sm sm:text-base font-medium text-white">
                 {project.year}
@@ -186,7 +202,7 @@ export function ProjectDetailPage({
             </div>
             <div>
               <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                Catégorie
+                {t.projectDetail.category}
               </span>
               <p className="text-sm sm:text-base font-medium text-white">
                 {project.category}
@@ -198,10 +214,10 @@ export function ProjectDetailPage({
         {/* ── 5. POINTS CLÉS ── */}
         <section className="flex flex-col gap-4 pt-6 border-t border-[#D7E2EA]/10">
           <h2 className="text-xs uppercase tracking-widest text-[#D7E2EA]/50 font-semibold">
-            Points clés
+            {t.projectDetail.keyPointsEyebrow}
           </h2>
           <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
-            Fonctionnalités principales
+            {t.projectDetail.mainFeatures}
           </h3>
           <ul className="flex flex-col gap-2.5">
             {project.features.map((feature, idx) => (
@@ -224,11 +240,11 @@ export function ProjectDetailPage({
           <div className="flex items-center gap-2">
             <Layers size={16} className="text-[#D7E2EA]/60" />
             <h2 className="text-xs uppercase tracking-widest text-[#D7E2EA]/50 font-semibold">
-              Stack technique
+              {t.projectDetail.techStackEyebrow}
             </h2>
           </div>
           <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight">
-            Technologies utilisées
+            {t.projectDetail.techUsed}
           </h3>
           <div className="flex flex-wrap gap-2.5 pt-1">
             {project.technologies.map((tech) => (
@@ -246,24 +262,32 @@ export function ProjectDetailPage({
         <section className="pt-6 border-t border-[#D7E2EA]/10 flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <span className="text-xs uppercase tracking-widest opacity-50">
-              Projet suivant
+              {t.projectDetail.nextProjectEyebrow}
             </span>
-            <button
-              type="button"
-              onClick={onBack}
-              className="text-xs uppercase tracking-wider text-[#D7E2EA] hover:underline cursor-pointer opacity-70 hover:opacity-100"
+            <a
+              href="/#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                onBack();
+              }}
+              className="text-xs uppercase tracking-wider text-[#D7E2EA] hover:underline cursor-pointer opacity-70 hover:opacity-100 no-underline"
             >
-              Retour aux projets
-            </button>
+              {t.projectDetail.backToProjects}
+            </a>
           </div>
 
-          <div
-            onClick={() => onSelectProject(nextProject.id)}
-            className="group p-5 sm:p-7 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#D7E2EA]/[0.02] border border-[#D7E2EA]/12 hover:bg-[#D7E2EA]/[0.06] hover:border-[#D7E2EA]/30 transition-all duration-300 cursor-pointer"
+          <a
+            href={`/projects/${nextProject.id}`}
+            aria-label={`Projet suivant : ${nextProject.name}`}
+            onClick={(e) => {
+              e.preventDefault();
+              onSelectProject(nextProject.id);
+            }}
+            className="group p-5 sm:p-7 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#D7E2EA]/[0.02] border border-[#D7E2EA]/12 hover:bg-[#D7E2EA]/[0.06] hover:border-[#D7E2EA]/30 transition-all duration-300 cursor-pointer no-underline text-inherit block"
           >
             <div className="flex flex-col gap-1.5">
               <span className="text-xs uppercase tracking-widest text-[#D7E2EA]/50 font-medium">
-                Projet #{nextProject.number}
+                {t.projectDetail.nextProjectBadge}{nextProject.number}
               </span>
               <h4 className="text-xl sm:text-2xl font-semibold text-white group-hover:text-[#D7E2EA] transition-colors">
                 {nextProject.name}
@@ -276,7 +300,7 @@ export function ProjectDetailPage({
             <div className="w-10 h-10 rounded-full border border-[#D7E2EA]/30 flex items-center justify-center text-[#D7E2EA] group-hover:bg-[#D7E2EA] group-hover:text-[#0C0C0C] group-hover:translate-x-1 transition-all shrink-0">
               <ArrowRight size={18} />
             </div>
-          </div>
+          </a>
         </section>
       </main>
     </div>

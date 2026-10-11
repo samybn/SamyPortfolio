@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FadeIn, ContactButton } from "./shared";
-import { Mail, Github, Linkedin, Twitter, Loader2 } from "lucide-react";
+import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 export const ContactSection = () => {
+  const { t } = useLanguage();
   const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
   const githubUrl = import.meta.env.VITE_GITHUB_URL || "#";
   const linkedinUrl = import.meta.env.VITE_LINKEDIN_URL || "#";
@@ -33,22 +35,27 @@ export const ContactSection = () => {
     setError(null);
 
     try {
-      if (apiUrl) {
-        const endpoint = apiUrl.endsWith("/") ? `${apiUrl}contact` : `${apiUrl}/contact`;
-        const res = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
-        });
-        if (!res.ok) {
-          throw new Error("Échec de l'envoi du message.");
-        }
+      const endpoint = apiUrl
+        ? apiUrl.endsWith("/")
+          ? `${apiUrl}contact`
+          : `${apiUrl}/contact`
+        : "/api/contact";
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || t.contact.errorMessage);
       }
+
       setSent(true);
     } catch (err: any) {
-      console.warn("Contact API error or offline mode:", err);
-      // Even if offline, show confirmation to the user
-      setSent(true);
+      console.error("Contact API error:", err);
+      setError(err?.message || t.contact.errorMessage);
     } finally {
       setLoading(false);
     }
@@ -75,8 +82,26 @@ export const ContactSection = () => {
         background: "#0C0C0C",
         fontFamily: "'Kanit', sans-serif",
       }}
-      className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-30 relative px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32"
+      className="rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] -mt-10 sm:-mt-12 md:-mt-14 z-30 relative px-5 sm:px-8 md:px-10 py-20 sm:py-24 md:py-32 overflow-hidden"
     >
+      {/* Ambient background glows */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px]">
+        <div
+          style={{
+            background:
+              "radial-gradient(circle, rgba(0, 180, 216, 0.08) 0%, transparent 70%)",
+          }}
+          className="absolute -top-20 left-1/4 w-[500px] h-[500px] rounded-full blur-[130px]"
+        />
+        <div
+          style={{
+            background:
+              "radial-gradient(circle, rgba(0, 119, 182, 0.08) 0%, transparent 70%)",
+          }}
+          className="absolute bottom-10 right-10 w-[450px] h-[450px] rounded-full blur-[140px]"
+        />
+      </div>
+
       <FadeIn delay={0} y={40}>
         <h2
           className="hero-heading uppercase leading-none tracking-tight text-center"
@@ -87,7 +112,7 @@ export const ContactSection = () => {
             marginBottom: "clamp(2rem, 5vw, 5rem)",
           }}
         >
-          Contact
+          {t.contact.heading}
         </h2>
       </FadeIn>
 
@@ -104,8 +129,7 @@ export const ContactSection = () => {
                 opacity: 0.8,
               }}
             >
-              Vous avez un projet en tête ou souhaitez simplement échanger ? Envoyez-moi un message et
-              je vous répondrai dans les plus brefs délais.
+              {t.contact.intro}
             </p>
 
             <div className="flex flex-col gap-3 mt-2">
@@ -117,10 +141,10 @@ export const ContactSection = () => {
                 {contactEmail}
               </a>
               <span
-                style={{ color: "#D7E2EA", fontWeight: 300, fontSize: "clamp(0.85rem, 1.3vw, 1rem)", opacity: 0.5 }}
+                style={{ color: "#D7E2EA", fontWeight: 300, fontSize: "clamp(0.85rem, 1.3vw, 1rem)", opacity: 0.75 }}
                 className="uppercase tracking-wider"
               >
-                Basé à Paris, France · Ouvert au télétravail
+                {t.contact.location}
               </span>
             </div>
 
@@ -166,10 +190,10 @@ export const ContactSection = () => {
               }}
             >
               <p style={{ fontWeight: 500, fontSize: "1.3rem", marginBottom: 8 }}>
-                Message envoyé !
+                {t.contact.successTitle}
               </p>
-              <p style={{ fontWeight: 300, opacity: 0.6, fontSize: "1rem" }}>
-                Merci pour votre message — je vous répondrai très prochainement.
+              <p style={{ fontWeight: 300, opacity: 0.8, fontSize: "1rem" }}>
+                {t.contact.successDesc}
               </p>
             </div>
           ) : (
@@ -177,7 +201,8 @@ export const ContactSection = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Votre nom"
+                aria-label={t.contact.namePlaceholder}
+                placeholder={t.contact.namePlaceholder}
                 required
                 value={form.name}
                 onChange={handleChange}
@@ -188,7 +213,8 @@ export const ContactSection = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="Votre adresse email"
+                aria-label={t.contact.emailPlaceholder}
+                placeholder={t.contact.emailPlaceholder}
                 required
                 value={form.email}
                 onChange={handleChange}
@@ -198,7 +224,8 @@ export const ContactSection = () => {
               />
               <textarea
                 name="message"
-                placeholder="Votre message"
+                aria-label={t.contact.messagePlaceholder}
+                placeholder={t.contact.messagePlaceholder}
                 required
                 rows={5}
                 value={form.message}
@@ -211,7 +238,11 @@ export const ContactSection = () => {
                 <p className="text-red-400 text-sm font-light">{error}</p>
               )}
               <div className="mt-2">
-                <ContactButton label={loading ? "Envoi en cours..." : "Envoyer le Message"} />
+                <ContactButton
+                  type="submit"
+                  label={loading ? t.contact.sendingButton : t.contact.sendButton}
+                  ariaLabel={loading ? t.contact.sendingButton : t.contact.sendButton}
+                />
               </div>
             </form>
           )}

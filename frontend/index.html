@@ -5,17 +5,127 @@
       
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://lh3.googleusercontent.com https://*.googleusercontent.com https://images.higgs.ai https://*.cloudfront.net https://drive.google.com https://images.unsplash.com https://cdn.jsdelivr.net; media-src 'self' blob: https://stream.mux.com https://*.mux.com; connect-src 'self' https://stream.mux.com https://*.mux.com https://cdn.jsdelivr.net https://lh3.googleusercontent.com https://*.googleusercontent.com ws: wss:; frame-src 'none'; object-src 'none'; base-uri 'self';"
+      />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-      <title>Samy's Portfolio</title>
-      <meta name="description" content="Portfolio de Bouadloune Samy, étudiant en Master spécialisé en Génie Logiciel et développeur Full Stack." />
-      <meta name="robots" content="noindex, nofollow" />
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-      
+      <link rel="apple-touch-icon" href="/favicon.svg" />
+      <link rel="manifest" href="/manifest.json" />
+      <meta name="theme-color" content="#0C0C0C" />
+      <title>Samy's Portfolio — Génie Logiciel & Full Stack</title>
+      <meta name="description" content="Portfolio de Bouadloune Samy, étudiant en Master spécialisé en Génie Logiciel et développeur Full Stack (Java, Spring Boot, React, Next.js, TypeScript, Docker)." />
+      <meta name="robots" content="index, follow" />
+
+      <!-- Open Graph / LinkedIn / Facebook -->
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="Bouadloune Samy — Portfolio | Génie Logiciel & Full Stack" />
+      <meta property="og:description" content="Découvrez les projets, compétences et réalisations logicielles de Bouadloune Samy, développeur Full Stack et étudiant en Génie Logiciel." />
+      <meta property="og:image" content="/hero-bg.png" />
+
+      <!-- Twitter / X -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Bouadloune Samy — Portfolio" />
+      <meta name="twitter:description" content="Développeur Full Stack & Génie Logiciel (Java, Spring Boot, React, Next.js, TypeScript)." />
+      <meta name="twitter:image" content="/hero-bg.png" />
+
+      <!-- Schema.org Structured Data (JSON-LD) for Search Engines -->
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Bouadloune Samy",
+        "jobTitle": "Développeur Full Stack & Étudiant en Génie Logiciel",
+        "description": "Portfolio de Bouadloune Samy, développeur Full Stack spécialisé en Java, Spring Boot, React, Next.js, TypeScript et architectures distribuées.",
+        "knowsAbout": [
+          "Génie Logiciel",
+          "Full Stack Development",
+          "Java",
+          "Spring Boot",
+          "React",
+          "Next.js",
+          "TypeScript",
+          "Node.js",
+          "Python",
+          "PostgreSQL",
+          "MySQL",
+          "Docker",
+          "Git",
+          "Linux"
+        ],
+        "alumniOf": "Master Génie Logiciel"
+      }
+      </script>
+
+      <style>html, body { height: 100%; margin: 0; background-color: #0C0C0C; } #root { height: 100%; }</style>
     </head>
 
     <body>
-      
-      <div id="root"></div>
+      <noscript>
+        <div style="background: #111; color: #D7E2EA; padding: 20px; text-align: center; font-family: sans-serif;">
+          Ce portfolio interactif fonctionne avec JavaScript. Activez JavaScript pour profiter des animations et transitions dynamiques.
+        </div>
+      </noscript>
+
+      <!-- Initial branded loading screen (fades out as soon as React hydrates) -->
+      <div id="initial-loader" style="position: fixed; inset: 0; background: #0C0C0C; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 99999; font-family: sans-serif; transition: opacity 0.4s ease, visibility 0.4s;">
+        <div style="width: 48px; height: 48px; border: 3px solid rgba(0, 180, 216, 0.15); border-top-color: #00b4d8; border-radius: 50%; animation: initial-spin 0.8s linear infinite;"></div>
+        <p style="color: #D7E2EA; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.25em; opacity: 0.65; margin-top: 18px; font-weight: 500;">Chargement...</p>
+        <style>@keyframes initial-spin { to { transform: rotate(360deg); } }</style>
+      </div>
+
+      <div id="root">
+        <!-- Pre-rendered semantic fallback for search crawlers & accessibility (replaced dynamically by React) -->
+        <a href="#main-content" class="skip-link">Passer au contenu principal</a>
+        <header style="padding: 24px 20px; text-align: center;">
+          <nav>
+            <a href="#hero" style="color: #D7E2EA; margin: 0 12px; text-decoration: none;">Accueil</a>
+            <a href="#skills" style="color: #D7E2EA; margin: 0 12px; text-decoration: none;">Compétences</a>
+            <a href="#projects" style="color: #D7E2EA; margin: 0 12px; text-decoration: none;">Projets</a>
+            <a href="#contact" style="color: #D7E2EA; margin: 0 12px; text-decoration: none;">Contact</a>
+          </nav>
+        </header>
+
+        <main id="main-content" style="max-width: 960px; margin: 0 auto; padding: 20px; color: #D7E2EA; font-family: sans-serif;">
+          <section id="hero" style="text-align: center; margin-bottom: 60px;">
+            <p style="text-transform: uppercase; letter-spacing: 0.25em; opacity: 0.6; font-size: 0.8rem;">PORTFOLIO '26 · GÉNIE LOGICIEL</p>
+            <h1 style="font-size: 2.8rem; margin: 16px 0; font-weight: 800; color: #FFFFFF;">Bouadloune Samy</h1>
+            <p style="font-size: 1.25rem; opacity: 0.85;">Étudiant en Master spécialisé en Génie Logiciel · Développeur Full Stack</p>
+            <p style="max-width: 620px; margin: 20px auto; opacity: 0.7; line-height: 1.8;">
+              Passionné par l'ingénierie logicielle et le développement Full Stack, je conçois et développe des applications web, mobiles et distribuées modernes, performantes et scalables.
+            </p>
+          </section>
+
+          <section id="skills" style="margin-bottom: 60px;">
+            <h2 style="font-size: 2rem; border-bottom: 1px solid rgba(215,226,234,0.15); padding-bottom: 12px;">Stack Technique &amp; Compétences</h2>
+            <p style="opacity: 0.8; line-height: 1.9; font-size: 1.05rem;">
+              Java, Spring Boot, React, Next.js, TypeScript, Node.js, Python, PostgreSQL, MySQL, Docker, Git, Linux.
+            </p>
+          </section>
+
+          <section id="projects" style="margin-bottom: 60px;">
+            <h2 style="font-size: 2rem; border-bottom: 1px solid rgba(215,226,234,0.15); padding-bottom: 12px;">Projets Sélectionnés</h2>
+            <article style="margin: 24px 0;">
+              <h3 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 6px;">Nextlevel Studio</h3>
+              <p style="opacity: 0.75; line-height: 1.6;">Plateforme web immersive &amp; identité digitale pour une agence créative de pointe (Next.js, Spring Boot, PostgreSQL, Docker).</p>
+            </article>
+            <article style="margin: 24px 0;">
+              <h3 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 6px;">Aura Brand Design</h3>
+              <p style="opacity: 0.75; line-height: 1.6;">Design system d'avant-garde et interface interactive avec animations 60 FPS.</p>
+            </article>
+            <article style="margin: 24px 0;">
+              <h3 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 6px;">Solaris Digital</h3>
+              <p style="opacity: 0.75; line-height: 1.6;">Architecture logicielle résiliente, microservices et traitement de données en temps réel.</p>
+            </article>
+          </section>
+
+          <section id="contact" style="margin-bottom: 60px;">
+            <h2 style="font-size: 2rem; border-bottom: 1px solid rgba(215,226,234,0.15); padding-bottom: 12px;">Contact</h2>
+            <p style="opacity: 0.8; line-height: 1.7;">Vous avez un projet en tête ou souhaitez échanger ? Basé à Paris, France · Ouvert au télétravail.</p>
+          </section>
+        </main>
+      </div>
+
       <script type="module" src="/src/main.tsx"></script>
       
     </body>

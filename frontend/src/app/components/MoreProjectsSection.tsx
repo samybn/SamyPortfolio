@@ -1,7 +1,9 @@
 import { motion } from "motion/react";
 import { FadeIn } from "./shared";
 import { ArrowUpRight, BookOpen, Clock, Calendar } from "lucide-react";
-import { parseGoogleDriveUrl } from "../utils/googleDrive";
+import { ImageWithSkeleton } from "./ImageWithSkeleton";
+import { parseGoogleDriveUrl, getOptimizedImageUrl, getImageSrcSet } from "../utils/googleDrive";
+import { useLanguage } from "../context/LanguageContext";
 
 interface JournalEntry {
   id: string;
@@ -57,6 +59,8 @@ const JOURNAL_ENTRIES: JournalEntry[] = [
 ];
 
 export const MoreProjectsSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section
       id="journal"
@@ -103,7 +107,7 @@ export const MoreProjectsSection = () => {
                 style={{ color: "#D7E2EA" }}
                 className="text-xs uppercase tracking-[0.25em] opacity-60 font-light"
               >
-                Projets &amp; Réalisations
+                {t.moreProjects.eyebrow}
               </span>
             </div>
 
@@ -116,7 +120,10 @@ export const MoreProjectsSection = () => {
                 fontFamily: "'Kanit', sans-serif",
               }}
             >
-              Autres <span className="italic font-light opacity-90 text-[#D7E2EA]">projets</span>
+              {t.moreProjects.headingMain}
+              <span className="italic font-light opacity-90 text-[#D7E2EA]">
+                {t.moreProjects.headingAccent}
+              </span>
             </h2>
 
             {/* Subtext */}
@@ -124,7 +131,7 @@ export const MoreProjectsSection = () => {
               style={{ color: "#D7E2EA" }}
               className="text-sm sm:text-base md:text-lg font-light opacity-70 max-w-xl leading-relaxed"
             >
-              Une sélection de projets, architectures logicielles et réalisations techniques complémentaires.
+              {t.moreProjects.subtext}
             </p>
           </FadeIn>
 
@@ -140,7 +147,7 @@ export const MoreProjectsSection = () => {
               }}
               className="group inline-flex items-center gap-3 px-7 py-3 rounded-full border border-[rgba(215,226,234,0.3)] bg-[rgba(215,226,234,0.03)] hover:bg-[rgba(215,226,234,0.1)] hover:border-[#D7E2EA] transition-all duration-300 text-xs sm:text-sm uppercase tracking-widest font-medium cursor-pointer"
             >
-              <span>Voir Tous Les Projets</span>
+              <span>{t.moreProjects.viewAll}</span>
               <BookOpen size={16} className="opacity-70 group-hover:opacity-100 transition-opacity" />
             </button>
           </FadeIn>
@@ -148,10 +155,11 @@ export const MoreProjectsSection = () => {
 
         {/* 4 Journal Entries displayed as Large Horizontal Pill Cards */}
         <div className="flex flex-col gap-5 sm:gap-6">
-          {JOURNAL_ENTRIES.map((entry, index) => (
+          {t.moreProjects.entries.map((entry, index) => (
             <FadeIn key={entry.id} delay={index * 0.08} y={20}>
               <motion.a
                 href="#contact"
+                aria-label={`En savoir plus sur le projet : ${entry.title}`}
                 whileHover={{ scale: 1.012, y: -2 }}
                 transition={{ duration: 0.25 }}
                 style={{
@@ -164,9 +172,14 @@ export const MoreProjectsSection = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 flex-1 min-w-0">
                   {/* Large Image Thumbnail */}
                   <div className="relative w-full sm:w-36 md:w-44 lg:w-48 h-40 sm:h-24 md:h-28 rounded-[20px] sm:rounded-[24px] overflow-hidden shrink-0 border border-[rgba(215,226,234,0.18)] shadow-md">
-                    <img
-                      src={parseGoogleDriveUrl(entry.image)}
-                      alt={entry.title}
+                    <ImageWithSkeleton
+                      src={getOptimizedImageUrl(entry.image, 480)}
+                      srcSet={getImageSrcSet(entry.image, [320, 480, 640])}
+                      sizes="(max-width: 640px) 100vw, 192px"
+                      loading="lazy"
+                      decoding="async"
+                      alt={`Aperçu illustratif du projet : ${entry.title}`}
+                      containerClassName="w-full h-full"
                       className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                     />
                     {/* Subtle Overlay Gradient on Image */}

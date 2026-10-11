@@ -1,8 +1,23 @@
 import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import { useRef, useEffect, useState, ReactNode, CSSProperties } from "react";
 
-export const ContactButton = ({ label = "Me Contacter" }: { label?: string }) => (
+export const ContactButton = ({
+  label = "Me Contacter",
+  ariaLabel,
+  onClick,
+  type,
+  className = "",
+}: {
+  label?: string;
+  ariaLabel?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  className?: string;
+}) => (
   <button
+    type={type}
+    onClick={onClick}
+    aria-label={ariaLabel || label}
     style={{
       background: "linear-gradient(123deg, #023e8a 7%, #0077b6 37%, #00b4d8 72%, #90e0ef 100%)",
       boxShadow: "0px 4px 4px rgba(0, 119, 182, 0.25), inset 4px 4px 12px #0077b6",
@@ -12,7 +27,7 @@ export const ContactButton = ({ label = "Me Contacter" }: { label?: string }) =>
       fontWeight: 500,
       cursor: "pointer",
     }}
-    className="rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-white uppercase tracking-widest text-xs sm:text-sm md:text-base transition-opacity hover:opacity-90"
+    className={`rounded-full px-8 py-3 sm:px-10 sm:py-3.5 md:px-12 md:py-4 text-white uppercase tracking-widest text-xs sm:text-sm md:text-base transition-opacity hover:opacity-90 ${className}`}
   >
     {label}
   </button>
@@ -20,22 +35,51 @@ export const ContactButton = ({ label = "Me Contacter" }: { label?: string }) =>
 
 export const LiveProjectButton = ({
   onClick,
+  href,
   label = "Voir le Projet",
+  ariaLabel,
   className = "",
 }: {
   onClick?: () => void;
+  href?: string;
   label?: string;
+  ariaLabel?: string;
   className?: string;
-}) => (
-  <button
-    type="button"
-    onClick={onClick}
-    style={{ fontFamily: "'Kanit', sans-serif", fontWeight: 500, cursor: "pointer" }}
-    className={`rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all duration-200 active:scale-95 ${className}`}
-  >
-    {label}
-  </button>
-);
+}) => {
+  const commonClasses = `rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-8 py-3 sm:px-10 sm:py-3.5 text-sm sm:text-base hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all duration-200 active:scale-95 inline-flex items-center justify-center no-underline ${className}`;
+  const commonStyle = { fontFamily: "'Kanit', sans-serif", fontWeight: 500, cursor: "pointer" };
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        aria-label={ariaLabel || label}
+        onClick={(e) => {
+          if (onClick) {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        style={commonStyle}
+        className={commonClasses}
+      >
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={ariaLabel || label}
+      style={commonStyle}
+      className={commonClasses}
+    >
+      {label}
+    </button>
+  );
+};
 
 interface FadeInProps {
   children: ReactNode;

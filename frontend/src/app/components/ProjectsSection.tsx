@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { FadeIn, LiveProjectButton } from "./shared";
-import { parseGoogleDriveUrl } from "../utils/googleDrive";
+import { ImageWithSkeleton } from "./ImageWithSkeleton";
+import { getOptimizedImageUrl, getImageSrcSet } from "../utils/googleDrive";
 import { PROJECTS_DATA, ProjectDetail } from "../data/projectsData";
+import { useLanguage } from "../context/LanguageContext";
 
 export type Project = ProjectDetail;
 
@@ -17,6 +19,7 @@ function ProjectCard({
   index: number;
   onSelectProject?: (id: string) => void;
 }) {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -55,9 +58,13 @@ function ProjectCard({
         <div className="w-full">
           {/* Top row */}
           <div className="flex flex-wrap items-center justify-between gap-4 mb-4 sm:mb-6">
-            <div
-              onClick={handleOpen}
-              className="flex items-center gap-4 md:gap-6 cursor-pointer group"
+            <a
+              href={`/projects/${project.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleOpen();
+              }}
+              className="flex items-center gap-4 md:gap-6 cursor-pointer group no-underline text-inherit"
             >
               <span
                 className="hero-heading leading-none group-hover:scale-105 transition-transform"
@@ -77,7 +84,7 @@ function ProjectCard({
                     fontSize: "clamp(0.7rem, 1.2vw, 1rem)",
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
-                    opacity: 0.6,
+                    opacity: 0.75,
                     fontFamily: "'Kanit', sans-serif",
                   }}
                 >
@@ -97,44 +104,69 @@ function ProjectCard({
                   {project.name}
                 </span>
               </div>
-            </div>
-            <LiveProjectButton onClick={handleOpen} />
+            </a>
+            <LiveProjectButton
+              href={`/projects/${project.id}`}
+              onClick={handleOpen}
+              label={t.projects.liveButton}
+              ariaLabel={`${t.projects.liveButton} : ${project.name}`}
+            />
           </div>
 
           {/* Image grid */}
-          <div
-            onClick={handleOpen}
-            className="flex gap-3 md:gap-4 cursor-pointer group/images"
+          <a
+            href={`/projects/${project.id}`}
+            aria-label={`Voir les détails et captures du projet ${project.name}`}
+            onClick={(e) => {
+              e.preventDefault();
+              handleOpen();
+            }}
+            className="flex gap-3 md:gap-4 cursor-pointer group/images no-underline block"
           >
             {/* Left column – 40% */}
             <div
               className="flex flex-col gap-3 md:gap-4"
               style={{ flex: "0 0 40%" }}
             >
-              <img
-                src={parseGoogleDriveUrl(project.col1img1)}
-                alt={`${project.name} preview 1`}
-                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] group-hover/images:brightness-110 transition-all duration-300"
-                style={{ height: "clamp(130px, 16vw, 230px)" }}
+              <ImageWithSkeleton
+                src={getOptimizedImageUrl(project.col1img1, 800)}
+                srcSet={getImageSrcSet(project.col1img1, [480, 768, 1024])}
+                sizes="(max-width: 768px) 100vw, 40vw"
+                alt={`${project.name} — Aperçu de l'interface principale : ${project.tagline}`}
+                loading="lazy"
+                decoding="async"
+                containerClassName="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                containerStyle={{ height: "clamp(130px, 16vw, 230px)" }}
+                className="w-full h-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] group-hover/images:brightness-110 transition-all duration-300"
               />
-              <img
-                src={parseGoogleDriveUrl(project.col1img2)}
-                alt={`${project.name} preview 2`}
-                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] group-hover/images:brightness-110 transition-all duration-300"
-                style={{ height: "clamp(160px, 22vw, 340px)" }}
+              <ImageWithSkeleton
+                src={getOptimizedImageUrl(project.col1img2, 800)}
+                srcSet={getImageSrcSet(project.col1img2, [480, 768, 1024])}
+                sizes="(max-width: 768px) 100vw, 40vw"
+                alt={`${project.name} — Détail d'expérience utilisateur et conception visuelle`}
+                loading="lazy"
+                decoding="async"
+                containerClassName="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                containerStyle={{ height: "clamp(160px, 22vw, 340px)" }}
+                className="w-full h-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] group-hover/images:brightness-110 transition-all duration-300"
               />
             </div>
 
             {/* Right column – 60% */}
             <div style={{ flex: "0 0 60%" }}>
-              <img
-                src={parseGoogleDriveUrl(project.col2img)}
-                alt={`${project.name} preview 3`}
-                className="w-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] group-hover/images:brightness-110 transition-all duration-300"
-                style={{ height: "100%" }}
+              <ImageWithSkeleton
+                src={getOptimizedImageUrl(project.col2img, 1200)}
+                srcSet={getImageSrcSet(project.col2img, [640, 960, 1280, 1600])}
+                sizes="(max-width: 768px) 100vw, 60vw"
+                alt={`${project.name} — Présentation globale de l'application (${project.technologies.slice(0, 3).join(', ')})`}
+                loading="lazy"
+                decoding="async"
+                containerClassName="w-full rounded-[40px] sm:rounded-[50px] md:rounded-[60px]"
+                containerStyle={{ height: "100%" }}
+                className="w-full h-full object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] group-hover/images:brightness-110 transition-all duration-300"
               />
             </div>
-          </div>
+          </a>
         </div>
       </motion.div>
     </div>
@@ -146,6 +178,8 @@ export const ProjectsSection = ({
 }: {
   onSelectProject?: (projectId: string) => void;
 }) => {
+  const { t } = useLanguage();
+
   return (
     <section
       id="projects"
@@ -164,7 +198,7 @@ export const ProjectsSection = ({
             fontFamily: "'Kanit', sans-serif",
           }}
         >
-          Projets
+          {t.projects.heading}
         </h2>
       </FadeIn>
 

@@ -1,0 +1,18 @@
+{
+  "short_name": "Samy Portfolio",
+  "name": "Bouadloune Samy — Portfolio",
+  "description": "Portfolio de Bouadloune Samy, étudiant en Master spécialisé en Génie Logiciel et développeur Full Stack.",
+  "start_url": "/",
+  "background_color": "#0C0C0C",
+  "theme_color": "#0C0C0C",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

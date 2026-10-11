@@ -1,134 +1,74 @@
+import { useMemo } from "react";
 import { OrbitalImageWheel } from "./unlumen-ui/orbital-image-wheel";
+import { useLanguage } from "../context/LanguageContext";
 
 /* ─── Devicon base URL ─── */
 const DEVICON = (name: string) =>
   `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${name}/${name}-original.svg`;
 
-/* ─── Skills data ─── */
-const skills = [
-  {
-    src: DEVICON("java"),
-    label: "Java",
-    subtitle: "POO, Spring Boot, API REST et architectures backend",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("react"),
-    label: "React",
-    subtitle: "Interfaces modernes, hooks et gestion d'état",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("nextjs"),
-    label: "Next.js",
-    subtitle: "SSR, App Router et applications full-stack",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("typescript"),
-    label: "TypeScript",
-    subtitle: "Typage strict pour un code robuste et maintenable",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("spring"),
-    label: "Spring Boot",
-    subtitle: "Microservices, sécurité JWT, JPA/Hibernate",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("nodejs"),
-    label: "Node.js",
-    subtitle: "APIs rapides avec Express et traitements asynchrones",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("python"),
-    label: "Python",
-    subtitle: "Data, scripts d'automatisation et machine learning",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("postgresql"),
-    label: "PostgreSQL",
-    subtitle: "Modélisation, requêtes avancées et optimisation",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("mysql"),
-    label: "MySQL",
-    subtitle: "Bases relationnelles et conception de schémas",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("docker"),
-    label: "Docker",
-    subtitle: "Conteneurisation et déploiement reproductible",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("git"),
-    label: "Git",
-    subtitle: "Versioning, branches et workflows collaboratifs",
-    bg: "transparent",
-    contain: true,
-  },
-  {
-    src: DEVICON("linux"),
-    label: "Linux",
-    subtitle: "Administration système et ligne de commande",
-    bg: "transparent",
-    contain: true,
-  },
+const RAW_SKILLS = [
+  { key: "Java", devicon: "java" },
+  { key: "React", devicon: "react" },
+  { key: "Next.js", devicon: "nextjs" },
+  { key: "TypeScript", devicon: "typescript" },
+  { key: "Spring Boot", devicon: "spring" },
+  { key: "Node.js", devicon: "nodejs" },
+  { key: "Python", devicon: "python" },
+  { key: "PostgreSQL", devicon: "postgresql" },
+  { key: "MySQL", devicon: "mysql" },
+  { key: "Docker", devicon: "docker" },
+  { key: "Git", devicon: "git" },
+  { key: "Linux", devicon: "linux" },
 ];
-
-/* ─── Title block passed as header slot ─── */
-const SectionHeader = (
-  <>
-    {/* Eyebrow */}
-    <span
-      style={{
-        color: "rgba(215,226,234,0.45)",
-        fontFamily: "'Kanit', sans-serif",
-        fontSize: "0.72rem",
-        textTransform: "uppercase",
-        letterSpacing: "0.3em",
-        display: "block",
-        marginBottom: "0.6rem",
-      }}
-    >
-      Stack technique
-    </span>
-
-    {/* Heading */}
-    <h2
-      style={{
-        fontSize: "clamp(1.8rem,4vw,3.2rem)",
-        fontWeight: 600,
-        color: "#D7E2EA",
-        fontFamily: "'Kanit', sans-serif",
-        lineHeight: 1.1,
-        letterSpacing: "-0.01em",
-        margin: 0,
-      }}
-    >
-      Mes compétences
-    </h2>
-  </>
-);
 
 /* ─── Skills Section ─── */
 export function Skills() {
+  const { t } = useLanguage();
+
+  const skillsData = useMemo(() => {
+    return RAW_SKILLS.map((item) => ({
+      src: DEVICON(item.devicon),
+      label: item.key,
+      subtitle: t.skills.items[item.key]?.subtitle || "",
+      bg: "transparent",
+      contain: true,
+    }));
+  }, [t]);
+
+  const sectionHeader = (
+    <>
+      {/* Eyebrow */}
+      <span
+        style={{
+          color: "rgba(215,226,234,0.7)",
+          fontFamily: "'Kanit', sans-serif",
+          fontSize: "0.72rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.3em",
+          display: "block",
+          marginBottom: "0.6rem",
+        }}
+      >
+        {t.skills.eyebrow}
+      </span>
+
+      {/* Heading */}
+      <h2
+        style={{
+          fontSize: "clamp(1.8rem,4vw,3.2rem)",
+          fontWeight: 600,
+          color: "#D7E2EA",
+          fontFamily: "'Kanit', sans-serif",
+          lineHeight: 1.1,
+          letterSpacing: "-0.01em",
+          margin: 0,
+        }}
+      >
+        {t.skills.heading}
+      </h2>
+    </>
+  );
+
   return (
     <section
       id="skills"
@@ -158,8 +98,8 @@ export function Skills() {
 
       {/* Orbital Wheel with header slot rendered inside its sticky viewport */}
       <OrbitalImageWheel
-        images={skills}
-        header={SectionHeader}
+        images={skillsData}
+        header={sectionHeader}
         turns={3}
         itemWidth={190}
         itemHeight={240}

@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2 } from "lucide-react";
-import { parseGoogleDriveUrl } from "../utils/googleDrive";
+import { ImageWithSkeleton } from "./ImageWithSkeleton";
+import { getOptimizedImageUrl, getImageSrcSet } from "../utils/googleDrive";
+import { useLanguage } from "../context/LanguageContext";
 
 interface ProjectImageSliderProps {
   images: string[];
@@ -9,6 +11,7 @@ interface ProjectImageSliderProps {
 }
 
 export function ProjectImageSlider({ images, projectName }: ProjectImageSliderProps) {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -41,7 +44,7 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
 
   if (!images || images.length === 0) return null;
 
-  const currentImage = parseGoogleDriveUrl(images[currentIndex]);
+  const rawImage = images[currentIndex];
 
   const slideVariants = {
     enter: (dir: number) => ({
@@ -95,11 +98,15 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
             exit="exit"
             className="w-full h-full absolute inset-0 flex items-center justify-center p-2 sm:p-4"
           >
-            <img
-              src={currentImage}
-              alt={`${projectName} capture d'écran ${currentIndex + 1}`}
+            <ImageWithSkeleton
+              src={getOptimizedImageUrl(rawImage, 1200)}
+              srcSet={getImageSrcSet(rawImage, [640, 960, 1280, 1600])}
+              sizes="(max-width: 1024px) 100vw, 1100px"
+              decoding="async"
+              alt={`${projectName} — Capture d'écran ${currentIndex + 1} sur ${total}`}
+              containerClassName="w-full h-full rounded-[20px] sm:rounded-[32px]"
               className="w-full h-full object-cover sm:object-contain rounded-[20px] sm:rounded-[32px]"
-              style={{
+              containerStyle={{
                 boxShadow: "0 20px 40px rgba(0, 0, 0, 0.6)",
               }}
             />
@@ -127,7 +134,8 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
         <button
           type="button"
           onClick={() => setIsFullscreen(true)}
-          title="Agrandir l'image"
+          title={t.slider.expandTitle}
+          aria-label={t.slider.expandTitle}
           style={{
             background: "rgba(12, 12, 12, 0.65)",
             border: "1px solid rgba(215, 226, 234, 0.15)",
@@ -144,7 +152,7 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
             <button
               type="button"
               onClick={() => paginate(-1)}
-              aria-label="Image précédente"
+              aria-label={t.slider.prevImage}
               style={{
                 background: "rgba(12, 12, 12, 0.65)",
                 border: "1px solid rgba(215, 226, 234, 0.2)",
@@ -158,7 +166,7 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
             <button
               type="button"
               onClick={() => paginate(1)}
-              aria-label="Image suivante"
+              aria-label={t.slider.nextImage}
               style={{
                 background: "rgba(12, 12, 12, 0.65)",
                 border: "1px solid rgba(215, 226, 234, 0.2)",
@@ -205,6 +213,7 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
                   key={idx}
                   type="button"
                   onClick={() => goToSlide(idx)}
+                  aria-label={`Afficher la capture ${idx + 1} de ${projectName}`}
                   className="relative rounded-xl sm:rounded-2xl overflow-hidden shrink-0 transition-all duration-300 cursor-pointer group/thumb"
                   style={{
                     width: 72,
@@ -212,13 +221,17 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
                     border: isActive
                       ? "2px solid #D7E2EA"
                       : "1px solid rgba(215, 226, 234, 0.2)",
-                    opacity: isActive ? 1 : 0.45,
+                    opacity: isActive ? 1 : 0.65,
                     transform: isActive ? "scale(1.05)" : "scale(1)",
                   }}
                 >
-                  <img
-                    src={parseGoogleDriveUrl(img, 240)}
+                  <ImageWithSkeleton
+                    src={getOptimizedImageUrl(img, 240, 75)}
                     alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    decoding="async"
+                    containerClassName="w-full h-full"
                     className="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-300"
                   />
                 </button>
@@ -241,14 +254,18 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
             <button
               type="button"
               onClick={() => setIsFullscreen(false)}
+              aria-label="Fermer le mode plein écran"
               className="absolute top-6 right-6 z-30 w-12 h-12 rounded-full bg-[#1A1A1A] border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors cursor-pointer"
             >
               <Minimize2 size={20} />
             </button>
 
             <img
-              src={currentImage}
-              alt={projectName}
+              src={getOptimizedImageUrl(rawImage, 1600)}
+              srcSet={getImageSrcSet(rawImage, [960, 1440, 1920])}
+              sizes="100vw"
+              decoding="async"
+              alt={`${projectName} — Vue agrandie de la capture ${currentIndex + 1}`}
               className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />

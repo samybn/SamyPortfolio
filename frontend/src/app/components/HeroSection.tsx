@@ -1,22 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Hls from "hls.js";
+import { useLanguage } from "../context/LanguageContext";
 
 const HLS_SRC =
   "https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8";
-
-const NAV_LINKS = [
-  { label: "Accueil", href: "#hero" },
-  { label: "Compétences", href: "#skills" },
-  { label: "Projets", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
-
-const ROLES = [
-  "applications web",
-  "applications mobiles",
-  "jeux vidéo",
-];
 
 const ACCENT_GRADIENT =
   "linear-gradient(123deg, #023e8a 7%, #0077b6 37%, #00b4d8 72%, #90e0ef 100%)";
@@ -65,9 +53,17 @@ const HeroVideo = () => {
 
 /* ─────────────── Floating Pill Navbar ─────────────── */
 const Navbar = () => {
+  const { t, lang } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
-  const [activeLink, setActiveLink] = useState("Accueil");
+  const [activeHref, setActiveHref] = useState("#hero");
   const [logoHovered, setLogoHovered] = useState(false);
+
+  const navLinks = [
+    { label: t.nav.home, href: "#hero" },
+    { label: t.nav.skills, href: "#skills" },
+    { label: t.nav.projects, href: "#projects" },
+    { label: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 100);
@@ -96,6 +92,7 @@ const Navbar = () => {
         {/* Logo */}
         <a
           href="#hero"
+          aria-label={lang === "FR" ? "Accueil - Bouadloune Samy" : "Home - Bouadloune Samy"}
           onMouseEnter={() => setLogoHovered(true)}
           onMouseLeave={() => setLogoHovered(false)}
           className="flex-shrink-0 rounded-full p-[2px] transition-transform duration-300"
@@ -130,31 +127,31 @@ const Navbar = () => {
         />
 
         {/* Nav Links */}
-        {NAV_LINKS.map((link) => (
+        {navLinks.map((link) => (
           <a
-            key={link.label}
+            key={link.href}
             href={link.href}
-            onClick={() => setActiveLink(link.label)}
+            onClick={() => setActiveHref(link.href)}
             className="rounded-full transition-all duration-200 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
             style={{
               fontFamily: "'Kanit', sans-serif",
               fontWeight: 500,
               color:
-                activeLink === link.label ? "#D7E2EA" : "rgba(215,226,234,0.5)",
+                activeHref === link.href ? "#D7E2EA" : "rgba(215,226,234,0.7)",
               background:
-                activeLink === link.label
+                activeHref === link.href
                   ? "rgba(215,226,234,0.1)"
                   : "transparent",
             }}
             onMouseEnter={(e) => {
-              if (activeLink !== link.label) {
+              if (activeHref !== link.href) {
                 e.currentTarget.style.color = "#D7E2EA";
                 e.currentTarget.style.background = "rgba(215,226,234,0.08)";
               }
             }}
             onMouseLeave={(e) => {
-              if (activeLink !== link.label) {
-                e.currentTarget.style.color = "rgba(215,226,234,0.5)";
+              if (activeHref !== link.href) {
+                e.currentTarget.style.color = "rgba(215,226,234,0.7)";
                 e.currentTarget.style.background = "transparent";
               }
             }}
@@ -177,11 +174,13 @@ const Navbar = () => {
 };
 
 const SayHiButton = () => {
+  const { t } = useLanguage();
   const [hovered, setHovered] = useState(false);
 
   return (
     <a
       href="#contact"
+      aria-label={t.nav.sayHi}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 transition-transform duration-200"
@@ -210,7 +209,7 @@ const SayHiButton = () => {
           margin: hovered ? 0 : undefined,
         }}
       >
-        Me Contacter <span style={{ fontSize: "0.75em" }}>↗</span>
+        {t.nav.sayHi} <span style={{ fontSize: "0.75em" }}>↗</span>
       </span>
     </a>
   );
@@ -218,14 +217,20 @@ const SayHiButton = () => {
 
 /* ─────────────── Cycling Domain Text ─────────────── */
 const CyclingRole = () => {
+  const { t } = useLanguage();
+  const roles = t.hero.roles;
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
+    setRoleIndex(0);
+  }, [roles]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      setRoleIndex((prev) => (prev + 1) % roles.length);
     }, 2200);
     return () => clearInterval(interval);
-  }, []);
+  }, [roles]);
 
   return (
     <span
@@ -236,7 +241,7 @@ const CyclingRole = () => {
     >
       <AnimatePresence mode="wait">
         <motion.span
-          key={roleIndex}
+          key={`${roleIndex}-${roles[roleIndex]}`}
           initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -8, filter: "blur(3px)" }}
@@ -247,7 +252,7 @@ const CyclingRole = () => {
             padding: "0 2px",
           }}
         >
-          {ROLES[roleIndex]}
+          {roles[roleIndex]}
         </motion.span>
       </AnimatePresence>
     </span>
@@ -256,11 +261,13 @@ const CyclingRole = () => {
 
 /* ─────────────── CTA Buttons ─────────────── */
 const SeeWorksButton = () => {
+  const { t } = useLanguage();
   const [hovered, setHovered] = useState(false);
 
   return (
     <a
       href="#projects"
+      aria-label={t.hero.seeWorks}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-full text-sm px-7 py-3.5 transition-transform duration-200 inline-block"
@@ -284,17 +291,19 @@ const SeeWorksButton = () => {
           }}
         />
       )}
-      Voir les Projets
+      {t.hero.seeWorks}
     </a>
   );
 };
 
 const ReachOutButton = () => {
+  const { t } = useLanguage();
   const [hovered, setHovered] = useState(false);
 
   return (
     <a
       href="#contact"
+      aria-label={t.hero.reachOut}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="relative rounded-full text-sm px-7 py-3.5 transition-transform duration-200 inline-block"
@@ -319,13 +328,15 @@ const ReachOutButton = () => {
           }}
         />
       )}
-      Me Contacter
+      {t.hero.reachOut}
     </a>
   );
 };
 
 /* ─────────────── Main Hero Section ─────────────── */
 export const HeroSection = () => {
+  const { t } = useLanguage();
+
   return (
     <>
       <Navbar />
@@ -348,7 +359,7 @@ export const HeroSection = () => {
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             style={{
-              color: "rgba(215,226,234,0.5)",
+              color: "rgba(215,226,234,0.7)",
               fontSize: "0.75rem",
               textTransform: "uppercase",
               letterSpacing: "0.3em",
@@ -356,7 +367,7 @@ export const HeroSection = () => {
               marginBottom: "1.5rem",
             }}
           >
-            PORTFOLIO &apos;26 · GÉNIE LOGICIEL
+            {t.hero.eyebrow}
           </motion.p>
 
           {/* Name */}
@@ -390,7 +401,10 @@ export const HeroSection = () => {
               marginBottom: "1rem",
             }}
           >
-            Étudiant en Master spécialisé en <span className="hero-heading font-black italic">Génie Logiciel</span>
+            {t.hero.rolePrefix}
+            <span className="hero-heading font-black italic">
+              {t.hero.roleHighlight}
+            </span>
           </motion.p>
 
           {/* Description */}
@@ -407,10 +421,9 @@ export const HeroSection = () => {
               marginBottom: "2.5rem",
             }}
           >
-            Passionné par l&apos;ingénierie logicielle et le développement Full Stack,
-            je conçois et développe des <CyclingRole /> modernes, performants et scalables.
-            De la conception d&apos;architectures distribuées robustes aux interfaces utilisateurs
-            soignées, je transforme des problématiques complexes en solutions digitales fiables et pérennes.
+            {t.hero.descriptionPart1}
+            <CyclingRole />
+            {t.hero.descriptionPart2}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -428,3 +441,4 @@ export const HeroSection = () => {
     </>
   );
 };
+
