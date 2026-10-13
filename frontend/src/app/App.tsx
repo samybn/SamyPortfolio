@@ -137,7 +137,9 @@ function HomePage() {
         onSelectProject={(projectId) => navigate(`/projects/${projectId}`)}
       />
       <Suspense fallback={<SectionLoadingFallback height={320} />}>
-        <MoreProjectsSection />
+        <MoreProjectsSection
+          onSelectProject={(projectId) => navigate(`/projects/${projectId}`)}
+        />
       </Suspense>
       <Suspense fallback={<SectionLoadingFallback height={400} />}>
         <ContactSection />
@@ -250,7 +252,7 @@ function PortfolioLayout() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <LanguageProvider>
         <PortfolioLayout />
       </LanguageProvider>

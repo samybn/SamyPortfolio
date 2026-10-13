@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { FadeIn } from "./shared";
-import { ArrowUpRight, BookOpen, Clock, Calendar } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import { ImageWithSkeleton } from "./ImageWithSkeleton";
 import { parseGoogleDriveUrl, getOptimizedImageUrl, getImageSrcSet } from "../utils/googleDrive";
 import { useLanguage } from "../context/LanguageContext";
@@ -58,7 +58,11 @@ const JOURNAL_ENTRIES: JournalEntry[] = [
   },
 ];
 
-export const MoreProjectsSection = () => {
+interface MoreProjectsSectionProps {
+  onSelectProject?: (id: string) => void;
+}
+
+export const MoreProjectsSection = ({ onSelectProject }: MoreProjectsSectionProps) => {
   const { t } = useLanguage();
 
   return (
@@ -153,15 +157,21 @@ export const MoreProjectsSection = () => {
           {t.moreProjects.entries.map((entry, index) => (
             <FadeIn key={entry.id} delay={index * 0.08} y={20}>
               <motion.a
-                href="#contact"
-                aria-label={`En savoir plus sur le projet : ${entry.title}`}
+                href={`/projects/${entry.id}`}
+                onClick={(e) => {
+                  if (onSelectProject) {
+                    e.preventDefault();
+                    onSelectProject(entry.id);
+                  }
+                }}
+                aria-label={`Voir les détails du projet : ${entry.title}`}
                 whileHover={{ scale: 1.012, y: -2 }}
                 transition={{ duration: 0.25 }}
                 style={{
                   background: "rgba(215, 226, 234, 0.03)",
                   border: "1px solid rgba(215, 226, 234, 0.12)",
                 }}
-                className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[36px] lg:rounded-full hover:bg-[rgba(215,226,234,0.07)] hover:border-[rgba(215,226,234,0.35)] transition-all duration-300 group cursor-pointer shadow-lg"
+                className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[36px] lg:rounded-full hover:bg-[rgba(215,226,234,0.07)] hover:border-[rgba(215,226,234,0.35)] transition-all duration-300 group cursor-pointer shadow-lg no-underline text-inherit"
               >
                 {/* Left Side: Large Preview Image + Title & Description */}
                 <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 flex-1 min-w-0">
@@ -214,28 +224,11 @@ export const MoreProjectsSection = () => {
                   </div>
                 </div>
 
-                {/* Right Side: Read time, Date, Action Arrow */}
-                <div className="flex items-center justify-between lg:justify-end gap-5 sm:gap-8 shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-[rgba(215,226,234,0.08)]">
-                  <div className="flex items-center gap-4 text-xs sm:text-sm opacity-55 font-light">
-                    <span className="flex items-center gap-1.5">
-                      <Clock size={14} className="text-[#90e0ef]" />
-                      {entry.readTime}
-                    </span>
-                    <span className="hidden md:inline-flex items-center gap-1.5">
-                      <Calendar size={14} />
-                      {entry.date}
-                    </span>
-                  </div>
-
-                  {/* Arrow Action Circle */}
-                  <div
-                    style={{
-                      background: "rgba(215, 226, 234, 0.05)",
-                      border: "1px solid rgba(215, 226, 234, 0.2)",
-                    }}
-                    className="w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-[#D7E2EA] group-hover:bg-[#D7E2EA] group-hover:text-[#0C0C0C] group-hover:rotate-45 transition-all duration-300 shrink-0 shadow-md"
-                  >
-                    <ArrowUpRight size={18} />
+                {/* Right Side: Button to view project */}
+                <div className="flex items-center justify-end shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-[rgba(215,226,234,0.08)]">
+                  <div className="rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm group-hover:bg-[#90e0ef]/10 group-hover:border-[#90e0ef] group-hover:text-[#90e0ef] transition-all duration-300 inline-flex items-center gap-2 font-medium">
+                    <span>{t.projects.liveButton}</span>
+                    <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
               </motion.a>

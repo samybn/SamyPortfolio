@@ -150,6 +150,167 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b.png&w=1280&q=85",
     ],
   },
+  {
+    id: "edge-api-workers",
+    number: "04",
+    name: "Edge API Workers",
+    category: "Architecture",
+    tagline: "Architecture de microservices globaux à latence sub-50ms avec Cloudflare Workers.",
+    client: "Open Source / Projet Personnel",
+    year: "2026",
+    role: "Architecte Cloud & Backend",
+    liveUrl: "https://github.com/samybn",
+    githubUrl: "https://github.com/samybn",
+    description:
+      "Conception et implémentation d'une infrastructure d'APIs Edge distribuée mondialement à l'aide de Cloudflare Workers et TypeScript. Le projet met en œuvre un routage sub-50ms, la mise en cache multi-niveaux avec KV, le rate limiting intelligent et l'absence totale de cold start.",
+    challenges:
+      "Optimiser la taille du bundle d'exécution et gérer la cohérence éventuelle du cache distribué tout en assurant une haute tolérance aux pannes.",
+    features: [
+      "Déploiement serverless global distribué sur plus de 300 centres de données",
+      "Rate limiting et protection anti-abus via Cloudflare KV",
+      "Validation stricte des schémas et assainissement des entrées avec TypeScript",
+      "Monitoring et télémétrie en temps réel",
+      "Temps de réponse moyen mondial sous la barre des 50 millisecondes",
+    ],
+    technologies: [
+      "TypeScript",
+      "Cloudflare Workers",
+      "Cloudflare KV",
+      "Wrangler",
+      "REST API",
+      "Linux",
+    ],
+    col1img1:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&auto=format&fit=crop&q=85",
+    col1img2:
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1280&auto=format&fit=crop&q=85",
+    col2img:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&auto=format&fit=crop&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&auto=format&fit=crop&q=85",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1280&auto=format&fit=crop&q=85",
+    ],
+  },
+  {
+    id: "micro-frontend-sync",
+    number: "05",
+    name: "Micro-Frontend Sync",
+    category: "Full Stack",
+    tagline: "Synchronisation d'état Micro-Frontend & bus d'événements pub/sub réactif.",
+    client: "Laboratoire R&D",
+    year: "2026",
+    role: "Lead Frontend Engineer",
+    liveUrl: "https://github.com/samybn",
+    githubUrl: "https://github.com/samybn",
+    description:
+      "Architecture de micro-applications découplées communiquant en temps réel via un bus d'événements pub/sub léger et ultra-résilient. Permet à plusieurs équipes de développer, tester et déployer des modules de manière totalement autonome sans risque de collision d'état global.",
+    challenges:
+      "Garantir l'isolation stricte des dépendances CSS et JS tout en maintenant une synchronisation instantanée des données partagées.",
+    features: [
+      "Bus d'événements réactif type-safe avec gestion des listeners éphémères",
+      "Intégration d'applications React et composants modulaires découplés",
+      "Stratégie de synchronisation optimiste sans latence perçue",
+      "Gestionnaire de cycle de vie et de montage dynamique",
+    ],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "CI/CD",
+      "Git",
+    ],
+    col1img1:
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1280&auto=format&fit=crop&q=85",
+    col1img2:
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&auto=format&fit=crop&q=85",
+    col2img:
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1280&auto=format&fit=crop&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1280&auto=format&fit=crop&q=85",
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&auto=format&fit=crop&q=85",
+    ],
+  },
+  {
+    id: "framer-motion-stack",
+    number: "06",
+    name: "Motion Card Stack",
+    category: "UI / Motion",
+    tagline: "Système d'empilement de cartes 3D cinématique au défilement à 60 FPS.",
+    client: "Projet Expérimental",
+    year: "2026",
+    role: "Creative Developer",
+    liveUrl: "https://github.com/samybn",
+    githubUrl: "https://github.com/samybn",
+    description:
+      "Implémentation haut de gamme d'un système de cartes empilées en 3D réagissant au défilement de l'utilisateur. Utilise les transformations matérielles GPU, l'interpolation d'échelle et des transitions fluides conçues pour immerger l'utilisateur sans impacter les performances de la page.",
+    challenges:
+      "Obtenir un taux de rafraîchissement constant à 60 FPS sur tous les appareils, y compris les mobiles d'entrée de gamme.",
+    features: [
+      "Calcul des coordonnées et scroll progress en temps réel avec Framer Motion",
+      "Effets d'empilement sticky avec scaling automatique",
+      "Accélération matérielle CSS et optimisations will-change",
+      "Rendu responsive et adaptatif selon le ratio d'écran",
+    ],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Framer Motion",
+      "Tailwind CSS",
+      "HTML",
+      "CSS",
+    ],
+    col1img1:
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&auto=format&fit=crop&q=85",
+    col1img2:
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&auto=format&fit=crop&q=85",
+    col2img:
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&auto=format&fit=crop&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1280&auto=format&fit=crop&q=85",
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&auto=format&fit=crop&q=85",
+    ],
+  },
+  {
+    id: "offline-first-drive",
+    number: "07",
+    name: "Cloud Sync Engine",
+    category: "Cloud & Dev",
+    tagline: "Architecture de synchronisation média et mise en cache résiliente.",
+    client: "Système Interne",
+    year: "2026",
+    role: "Architecte Cloud",
+    liveUrl: "https://github.com/samybn",
+    githubUrl: "https://github.com/samybn",
+    description:
+      "Moteur de synchronisation intelligent avec l'API Google Drive et stockage en cache côté client. Il permet la transformation dynamique des images, la génération de vignettes WebP et le fonctionnement continu même en mode hors-ligne ou connexion réseau dégradée.",
+    challenges:
+      "Gestion des quotas d'API, transformation d'images à la volée et politique d'invalidation de cache granulaire.",
+    features: [
+      "Mise en cache côté client avec IndexedDB et Service Workers",
+      "Redimensionnement et optimisation automatique au format WebP",
+      "Système de retry exponentiel pour les requêtes réseau instables",
+      "Architecture prête pour le déploiement multi-cloud",
+    ],
+    technologies: [
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "Redis",
+      "Google Drive API",
+      "Linux",
+    ],
+    col1img1:
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&auto=format&fit=crop&q=85",
+    col1img2:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&auto=format&fit=crop&q=85",
+    col2img:
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&auto=format&fit=crop&q=85",
+    images: [
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1280&auto=format&fit=crop&q=85",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1280&auto=format&fit=crop&q=85",
+    ],
+  },
 ];
 
 export function getProjectById(idOrNumber: string): ProjectDetail | undefined {
