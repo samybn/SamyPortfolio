@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Remplacez https://samybn.dev par votre nom de domaine réel après déploiement -->
   <url>
-    <loc>https://samybn.dev/</loc>
-    <lastmod>2026-10-11</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://samybn.dev/projects/nextlevel-studio</loc>
-    <lastmod>2026-10-11</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/nextlevel-studio</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://samybn.dev/projects/aura-brand-identity</loc>
-    <lastmod>2026-10-11</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/aura-brand-identity</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://samybn.dev/projects/solaris-digital</loc>
-    <lastmod>2026-10-11</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/solaris-digital</loc>
+    <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

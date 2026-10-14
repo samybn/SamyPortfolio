@@ -9,7 +9,7 @@ binding = "ASSETS"
 
 # Variables d'environnement publiques (non sensibles)
 [vars]
-ALLOWED_ORIGIN = "*"
+ALLOWED_ORIGIN = "https://samy-bouadloune.pages.dev"
 
 # Note: Pour les informations sensibles en production Cloudflare, utilisez:
 # npx wrangler secret put GOOGLE_DRIVE_API_KEY

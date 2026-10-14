@@ -1,5 +1,5 @@
-# Remplacez https://samybn.dev par votre nom de domaine réel après déploiement
+# https://samy-bouadloune.pages.dev
 User-agent: *
 Allow: /
 
-Sitemap: https://samybn.dev/sitemap.xml
+Sitemap: https://samy-bouadloune.pages.dev/sitemap.xml
