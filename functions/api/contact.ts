@@ -1,4 +1,8 @@
-import { fetchDriveFolderFiles } from "../../backend/src/googleDrive";
+// Ensure KVNamespace type is resolved even without global cloudflare types
+type KVNamespaceType = {
+  get(key: string): Promise<string | null>;
+  put(key: string, value: string, options?: { expirationTtl?: number }): Promise<void>;
+};
 
 interface Env {
   GOOGLE_DRIVE_API_KEY?: string;
@@ -8,10 +12,9 @@ interface Env {
   ALLOWED_ORIGIN?: string;
   ALLOWED_FOLDER_IDS?: string;
   TURNSTILE_SECRET_KEY?: string;
-  RATE_LIMIT_KV?: KVNamespace;
+  RATE_LIMIT_KV?: KVNamespaceType;
 }
 
-const ALLOWED_FOLDER_IDS: string[] = [];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const FIELD_LIMITS = { name: 100, email: 320, message: 5_000 } as const;
 
@@ -22,7 +25,7 @@ function isValidEmail(email: string): boolean {
 const RATE_MAX = 5;
 const RATE_WINDOW = 60;
 
-async function isRateLimited(ip: string, kv: KVNamespace): Promise<boolean> {
+async function isRateLimited(ip: string, kv: KVNamespaceType): Promise<boolean> {
   const key = `rl:contact:${ip}`;
   const raw = await kv.get(key);
   const count = raw ? parseInt(raw, 10) : 0;
