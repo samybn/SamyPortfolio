@@ -90,29 +90,16 @@ npm run dev:frontend
 npm run dev:backend
 ```
 
-### Build & Production
-```bash
-# Compiler le frontend
-npm run build
+### Déploiement sur Cloudflare Pages (Recommandé)
 
-# Tester / Prévisualiser localement avec Cloudflare Workers & Assets
-npm run preview
+Sur le tableau de bord **Cloudflare Pages** (Connect to Git) :
 
-# Déployer sur Cloudflare (exécute automatiquement npm run build au préalable)
-npm run deploy
-```
+| Paramètre | Valeur |
+|---|---|
+| **Framework preset** | `Vite` (ou `None`) |
+| **Build command** | `npm run build` |
+| **Build output directory** | `frontend/dist` |
+| **Root directory** *(si demandé)* | `/` (laissez vide ou racine) |
 
-### Commandes Cloudflare directes (Wrangler)
-Avant de lancer Wrangler, assurez-vous d'avoir exécuté `npm run build` :
-- **Preview Cloudflare** :
-  ```bash
-  npm run build
-  npx wrangler preview
-  # Ou alternativement le serveur de test local :
-  npx wrangler dev
-  ```
-- **Déploiement en production** :
-  ```bash
-  npm run build
-  npx wrangler deploy
-  ```
+> 💡 **Pourquoi `frontend/dist` ?** Comme il s'agit d'un monorepo, Vite compile le frontend dans `frontend/dist`.
+> Les fonctions API (`/api/contact`, `/api/projects`, `/api/health`) sont automatiquement prises en charge par Cloudflare Pages via le dossier `functions/api/`.
