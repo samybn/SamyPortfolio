@@ -286,10 +286,14 @@ export default {
     }
 
 
-    // SPA fallback: serve index.html for all non-API routes (e.g. /projects/xxx)
-    // This enables clean URL routing for the React frontend
+    // Static Assets & SPA routing fallback (clean URLs for React)
     if (env.ASSETS && !url.pathname.startsWith("/api/")) {
       try {
+        const response = await env.ASSETS.fetch(request);
+        if (response.status !== 404) {
+          return response;
+        }
+        // If route not found as a static asset, serve index.html for SPA client-side routing
         const indexUrl = new URL("/index.html", request.url);
         return await env.ASSETS.fetch(new Request(indexUrl, request));
       } catch {

@@ -95,6 +95,24 @@ npm run dev:backend
 # Compiler le frontend
 npm run build
 
-# Déployer sur Cloudflare
+# Tester / Prévisualiser localement avec Cloudflare Workers & Assets
+npm run preview
+
+# Déployer sur Cloudflare (exécute automatiquement npm run build au préalable)
 npm run deploy
 ```
+
+### Commandes Cloudflare directes (Wrangler)
+Avant de lancer Wrangler, assurez-vous d'avoir exécuté `npm run build` :
+- **Preview Cloudflare** :
+  ```bash
+  npm run build
+  npx wrangler preview
+  # Ou alternativement le serveur de test local :
+  npx wrangler dev
+  ```
+- **Déploiement en production** :
+  ```bash
+  npm run build
+  npx wrangler deploy
+  ```
