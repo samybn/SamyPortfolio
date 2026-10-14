@@ -347,15 +347,16 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="hero-heading"
+            className="hero-heading whitespace-nowrap"
             style={{
-              fontSize: "clamp(2.4rem, 7.5vw, 6.8rem)",
+              fontSize: "clamp(1.5rem, 5.2vw, 4.2rem)",
               fontWeight: 900,
-              lineHeight: 0.95,
+              lineHeight: 1.05,
               letterSpacing: "-0.02em",
               fontStyle: "italic",
               textTransform: "uppercase",
               marginBottom: "1.25rem",
+              whiteSpace: "nowrap",
             }}
           >
             Bouadloune Samy

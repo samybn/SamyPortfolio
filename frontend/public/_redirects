@@ -1,0 +1,3 @@
+# Cloudflare Pages SPA Routing Rules
+# Static assets and pre-rendered pages take priority; unknown routes rewrite to /index.html with status 200
+/*    /index.html   200

@@ -4,6 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 
+import { prerenderPlugin } from './src/plugins/prerender'
+
+
 function figmaAssetResolver() {
   return {
     name: 'figma-asset-resolver',
@@ -24,6 +27,7 @@ export default defineConfig({
     // Tailwind is not being actively used – do not remove them
     react(),
     tailwindcss(),
+    prerenderPlugin(),
   ],
   resolve: {
     alias: {

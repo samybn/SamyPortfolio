@@ -3,7 +3,7 @@
   <url>
     <loc>https://samy-bouadloune.pages.dev/</loc>
     <lastmod>2026-10-14</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
@@ -20,6 +20,30 @@
   </url>
   <url>
     <loc>https://samy-bouadloune.pages.dev/projects/solaris-digital</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://samy-bouadloune.pages.dev/projects/edge-api-workers</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://samy-bouadloune.pages.dev/projects/micro-frontend-sync</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://samy-bouadloune.pages.dev/projects/framer-motion-stack</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://samy-bouadloune.pages.dev/projects/offline-first-drive</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
