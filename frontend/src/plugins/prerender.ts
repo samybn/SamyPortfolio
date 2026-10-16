@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { Plugin } from 'vite'
 import { PROJECTS_DATA, type ProjectDetail } from '../app/data/projectsData'
+import { getOptimizedImageUrl } from '../app/utils/googleDrive'
 
 function escapeHtml(str: string): string {
   return str
@@ -106,7 +107,7 @@ function generateProjectSemanticHtml(p: ProjectDetail): string {
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
               ${allImages.map((img, idx) => `
                 <figure style="margin: 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #141414;">
-                  <img src="${img}" alt="${escapeAttr(p.name)} - Capture ${idx + 1}" loading="lazy" style="width: 100%; height: auto; display: block;" />
+                  <img src="${escapeAttr(getOptimizedImageUrl(img, 1200))}" alt="${escapeAttr(p.name)} - Capture ${idx + 1}" loading="lazy" style="width: 100%; height: auto; display: block;" />
                 </figure>
               `).join('')}
             </div>
@@ -140,7 +141,7 @@ function generateHomeSemanticHtml(projects: ProjectDetail[]): string {
             <h1 style="font-size: clamp(1.5rem, 5.2vw, 4.2rem); margin: 0 0 16px 0; font-weight: 800; color: #FFFFFF; line-height: 1.1; white-space: nowrap;">Bouadloune Samy</h1>
             <p style="font-size: clamp(1.2rem, 2.5vw, 1.5rem); opacity: 0.9; color: #90e0ef; margin: 0 0 20px 0;">Étudiant en Master spécialisé en Génie Logiciel · Développeur Full Stack</p>
             <p style="max-width: 680px; margin: 0 auto 32px; opacity: 0.75; line-height: 1.8; font-size: 1.05rem;">
-              Passionné par l'ingénierie logicielle et le développement Full Stack, je conçois et développe des applications web, mobiles et distribuées modernes, performantes et scalables.
+              Passionné par l'ingénierie logicielle et l'intelligence artificielle, je conçois et développe des applications web, mobiles, jeux vidéo et solutions d'IA modernes, performantes et scalables.
             </p>
             <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
               <a href="#projects" style="background: #00b4d8; color: #0C0C0C; padding: 12px 28px; border-radius: 9999px; text-decoration: none; font-weight: 600;">Découvrir mes projets</a>
@@ -235,7 +236,7 @@ export function prerenderPlugin(): Plugin {
           const projectTitle = `${project.name} — Bouadloune Samy | Portfolio Génie Logiciel`
           const projectDescription = project.tagline
           const projectUrl = `https://samy-bouadloune.pages.dev/projects/${project.id}`
-          const projectImage = project.col1img1 || project.images?.[0] || 'https://samy-bouadloune.pages.dev/hero-bg.png'
+          const projectImage = getOptimizedImageUrl(project.col1img1 || project.images?.[0] || 'https://samy-bouadloune.pages.dev/hero-bg.png', 1200)
 
           const projectSchema = {
             '@context': 'https://schema.org',

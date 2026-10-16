@@ -219,6 +219,47 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       "/projects/pong-3.png",
     ],
   },
+  {
+    id: "lion-gym",
+    number: "06",
+    name: "Lion Gym",
+    category: "Application Desktop & Java",
+    tagline: "Logiciel de gestion intégrale de salle de sport : adhérents, abonnements, coachs et plannings.",
+    client: "Projet Personnel & Gestion Sportive",
+    year: "2025 - 2026",
+    role: "Développeur Java & Architecte Base de Données",
+    liveUrl: "",
+    githubUrl: "https://github.com/samybn/GestionSalledeSport",
+    description:
+      "Lion Gym est une application de bureau complète développée en Java avec Swing et MySQL, conçue pour informatiser et simplifier la gestion quotidienne d'une salle de sport. L'application intègre un système d'authentification sécurisé, la gestion complète des adhérents, le suivi des coachs sportifs et de leurs disponibilités, la gestion des formules d'abonnements ainsi que la planification des séances d'entraînement.",
+    challenges:
+      "Structurer une architecture MVC modulaire séparant nettement l'interface Swing, les modèles de données et les contrôleurs, tout en garantissant des requêtes SQL optimisées et une gestion rigoureuse des transactions MySQL.",
+    features: [
+      "Authentification et contrôle d'accès sécurisé pour l'administration de la salle",
+      "Gestion centralisée des adhérents : profil, coordonnées, coach référent et recherche rapide",
+      "Gestion des abonnements : formules tarifaires, dates de validité et statuts",
+      "Suivi des coachs sportifs : spécialités, fiches personnelles et gestion des disponibilités",
+      "Planification dynamique des séances d'entraînement et organisation des horaires",
+      "Persistance relationnelle robuste avec MySQL Connector/J et requêtes SQL préparées",
+    ],
+    technologies: [
+      "Java",
+      "Java Swing",
+      "MySQL",
+      "NetBeans",
+      "Maven",
+      "JDBC",
+      "Architecture MVC",
+      "Git",
+    ],
+    col1img1: "https://drive.google.com/file/d/1JP8FdESkyAcZznZx9bEQl1NDp4ZVn4qV/view?usp=sharing",
+    col1img2: "https://drive.google.com/file/d/13CddCkeDu4ajT-gO6Vu3PDIWhKI24X7V/view?usp=sharing",
+    col2img: "https://drive.google.com/file/d/1JP8FdESkyAcZznZx9bEQl1NDp4ZVn4qV/view?usp=sharing",
+    images: [
+      "https://drive.google.com/file/d/1JP8FdESkyAcZznZx9bEQl1NDp4ZVn4qV/view?usp=sharing",
+      "https://drive.google.com/file/d/13CddCkeDu4ajT-gO6Vu3PDIWhKI24X7V/view?usp=sharing",
+    ],
+  },
 ];
 
 export function getProjectById(idOrNumber: string): ProjectDetail | undefined {
@@ -227,7 +268,8 @@ export function getProjectById(idOrNumber: string): ProjectDetail | undefined {
     (p) =>
       p.id.toLowerCase() === normalized ||
       p.number === normalized ||
-      p.name.toLowerCase().replace(/\s+/g, "-") === normalized,
+      p.name.toLowerCase().replace(/\s+/g, "-") === normalized ||
+      p.name.toLowerCase().replace(/\s+/g, "") === normalized,
   );
 }
 

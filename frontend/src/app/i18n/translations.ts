@@ -120,9 +120,9 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       eyebrow: "",
       rolePrefix: "Étudiant en Master spécialisé en ",
       roleHighlight: "Génie Logiciel",
-      roles: ["applications web", "applications mobiles", "jeux vidéo"],
+      roles: ["applications web", "applications mobiles", "jeux vidéo", "solutions d'IA"],
       descriptionPart1:
-        "Passionné par l'ingénierie logicielle et le développement Full Stack, je conçois et développe des ",
+        "Passionné par l'ingénierie logicielle et l'intelligence artificielle, je conçois et développe des ",
       descriptionPart2:
         " modernes, performants et scalables. De la conception d'architectures distribuées robustes aux interfaces utilisateurs soignées, je transforme des problématiques complexes en solutions digitales fiables et pérennes.",
       seeWorks: "Voir les Projets",
@@ -168,6 +168,17 @@ export const TRANSLATIONS: Record<Language, Translations> = {
         "Une sélection de projets, architectures logicielles et réalisations techniques complémentaires.",
       viewAll: "Voir Tous Les Projets",
       entries: [
+        {
+          id: "lion-gym",
+          title: "Lion Gym — Logiciel de gestion de salle de sport & adhérents",
+          description:
+            "Application de bureau Java Swing & MySQL : gestion des adhérents, abonnements, coachs et plannings.",
+          tag: "Desktop & Java",
+          readTime: "Logiciel Desktop",
+          date: "2025 - 2026",
+          image:
+            "https://drive.google.com/file/d/1JP8FdESkyAcZznZx9bEQl1NDp4ZVn4qV/view?usp=sharing",
+        },
         {
           id: "saldaetrip",
           title: "SaldaeTrip — Guide touristique interactif et patrimoine de Béjaïa",
@@ -256,9 +267,9 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       eyebrow: "",
       rolePrefix: "Master's student specializing in ",
       roleHighlight: "Software Engineering",
-      roles: ["web applications", "mobile applications", "video games"],
+      roles: ["web applications", "mobile applications", "video games", "AI solutions"],
       descriptionPart1:
-        "Passionate about software engineering and Full Stack development, I design and build modern, high-performance, and scalable ",
+        "Passionate about software engineering and Artificial Intelligence, I design and build modern, high-performance, and scalable ",
       descriptionPart2:
         ". From designing robust distributed architectures to polished user interfaces, I turn complex problems into reliable and sustainable digital solutions.",
       seeWorks: "View Projects",
@@ -304,6 +315,17 @@ export const TRANSLATIONS: Record<Language, Translations> = {
         "A curated selection of projects, software architectures, and complementary technical achievements.",
       viewAll: "View All Projects",
       entries: [
+        {
+          id: "lion-gym",
+          title: "Lion Gym — Fitness Club & Gym Management Desktop Application",
+          description:
+            "Java Swing & MySQL desktop software for managing gym members, subscriptions, coaches, and schedule planning.",
+          tag: "Desktop & Java",
+          readTime: "Desktop Software",
+          date: "2025 - 2026",
+          image:
+            "https://drive.google.com/file/d/1JP8FdESkyAcZznZx9bEQl1NDp4ZVn4qV/view?usp=sharing",
+        },
         {
           id: "saldaetrip",
           title: "SaldaeTrip — Interactive tourism guide & heritage of Béjaïa",
