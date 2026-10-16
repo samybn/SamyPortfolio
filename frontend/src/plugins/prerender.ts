@@ -198,7 +198,7 @@ function generateHomeSemanticHtml(projects: ProjectDetail[]): string {
               Vous avez une opportunité, un projet ou souhaitez simplement échanger ? N'hésitez pas à m'envoyer un message via le formulaire ou directement par email.
             </p>
             <p style="font-size: 1.1rem; color: #00b4d8; font-weight: 600; margin: 0;">
-              Paris, France · Ouvert aux opportunités en Génie Logiciel
+              Based in Algeria · Ouvert aux opportunités en Génie Logiciel
             </p>
           </section>
         </main>

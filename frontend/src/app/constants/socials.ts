@@ -7,7 +7,7 @@ export interface SocialLink {
 }
 
 export function getSocialLinks(): SocialLink[] {
-  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
+  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "samy.bouadloune6@gmail.com";
   const githubUrl = import.meta.env.VITE_GITHUB_URL || "#";
 
   return [

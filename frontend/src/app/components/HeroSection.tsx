@@ -258,9 +258,14 @@ const Navbar = () => {
           >
             {/* Top spacing under floating navbar */}
             <div className="pt-20 flex flex-col gap-2">
-              <span className="text-[11px] uppercase tracking-[0.25em] text-[#D7E2EA]/50 font-medium px-4 mb-2">
-                Navigation
-              </span>
+              <div className="flex items-center justify-between px-4 mb-2">
+                <span className="text-[11px] uppercase tracking-[0.25em] text-[#D7E2EA]/50 font-medium">
+                  Navigation
+                </span>
+                <span className="text-[11px] uppercase tracking-[0.15em] text-[#00b4d8] font-medium">
+                  Based in Algeria
+                </span>
+              </div>
 
               {navLinks.map((link, idx) => (
                 <motion.a
@@ -311,7 +316,7 @@ const Navbar = () => {
                 {t.nav.sayHi} ↗
               </a>
               <p className="text-center text-xs text-[#D7E2EA]/50 font-light mt-1">
-                Bouadloune Samy · Paris, France
+                Bouadloune Samy · Based in Algeria
               </p>
             </motion.div>
           </motion.div>

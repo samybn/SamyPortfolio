@@ -194,7 +194,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       heading: "Contact",
       intro:
         "Vous avez un projet en tête ou souhaitez simplement échanger ? Envoyez-moi un message et je vous répondrai dans les plus brefs délais.",
-      contactEmail: "jack@example.com",
+      contactEmail: "samy.bouadloune6@gmail.com",
       location: "Basé en Algérie · Ouvert au télétravail",
       namePlaceholder: "Votre nom",
       emailPlaceholder: "Votre adresse email",
@@ -330,7 +330,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       heading: "Contact",
       intro:
         "Have a project in mind or just want to chat? Send me a message and I'll get back to you as soon as possible.",
-      contactEmail: "jack@example.com",
+      contactEmail: "samy.bouadloune6@gmail.com",
       location: "Based in Algeria · Open to remote",
       namePlaceholder: "Your name",
       emailPlaceholder: "Your email address",

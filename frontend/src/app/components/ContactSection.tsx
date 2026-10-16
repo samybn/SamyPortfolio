@@ -5,7 +5,7 @@ import { getSocialLinks } from "../constants/socials";
 
 export const ContactSection = () => {
   const { t } = useLanguage();
-  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "jack@example.com";
+  const contactEmail = import.meta.env.VITE_CONTACT_EMAIL || "samy.bouadloune6@gmail.com";
   const apiUrl = import.meta.env.VITE_API_URL || "";
   const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || "";
   const socials = getSocialLinks();
@@ -178,7 +178,7 @@ export const ContactSection = () => {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 sm:gap-4">
               {/* Honeypot — hidden from humans, visible to bots */}
-              <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none", tabIndex: -1 }} aria-hidden="true">
+              <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} tabIndex={-1} aria-hidden="true">
                 <label htmlFor="contact-website">Ne pas remplir</label>
                 <input
                   id="contact-website"

@@ -251,8 +251,10 @@ export default {
         const safeEmail   = email.trim();
         const safeMessage = message.trim().replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
 
+        const receiverEmail = env.CONTACT_RECEIVER_EMAIL || "samy.bouadloune6@gmail.com";
+
         // ⑧ Forward via Resend (optional — requires env vars)
-        if (env.RESEND_API_KEY && env.CONTACT_RECEIVER_EMAIL) {
+        if (env.RESEND_API_KEY) {
           try {
             await fetch("https://api.resend.com/emails", {
               method: "POST",
@@ -262,7 +264,7 @@ export default {
               },
               body: JSON.stringify({
                 from: "Portfolio Contact <onboarding@resend.dev>",
-                to: [env.CONTACT_RECEIVER_EMAIL],
+                to: [receiverEmail],
                 subject: `Nouveau message Portfolio de ${safeName}`,
                 reply_to: safeEmail,
                 text: `De: ${safeName} (${safeEmail})\n\nMessage:\n${safeMessage}`,
