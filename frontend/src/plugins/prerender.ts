@@ -56,30 +56,11 @@ function generateProjectSemanticHtml(p: ProjectDetail): string {
               ${escapeHtml(p.tagline)}
             </p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 24px; background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);">
-              <div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; display: block; margin-bottom: 4px;">Client</span>
-                <strong style="color: #FFFFFF; font-size: 1rem;">${escapeHtml(p.client)}</strong>
-              </div>
-              <div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; display: block; margin-bottom: 4px;">Année</span>
-                <strong style="color: #FFFFFF; font-size: 1rem;">${escapeHtml(p.year)}</strong>
-              </div>
-              <div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; display: block; margin-bottom: 4px;">Rôle</span>
-                <strong style="color: #FFFFFF; font-size: 1rem;">${escapeHtml(p.role)}</strong>
-              </div>
-              ${p.liveUrl ? `
-              <div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; display: block; margin-bottom: 4px;">Lien direct</span>
-                <a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" style="color: #00b4d8; font-weight: 500; text-decoration: none;">Voir le projet ↗</a>
-              </div>` : ''}
-              ${p.githubUrl ? `
-              <div>
-                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; display: block; margin-bottom: 4px;">Code source</span>
-                <a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" style="color: #00b4d8; font-weight: 500; text-decoration: none;">GitHub ↗</a>
-              </div>` : ''}
-            </div>
+            ${(p.liveUrl || p.githubUrl) ? `
+            <div style="display: flex; gap: 16px; margin-top: 24px;">
+              ${p.liveUrl ? `<a href="${p.liveUrl}" target="_blank" rel="noopener noreferrer" style="color: #00b4d8; font-weight: 500; text-decoration: none;">Voir le projet ↗</a>` : ''}
+              ${p.githubUrl ? `<a href="${p.githubUrl}" target="_blank" rel="noopener noreferrer" style="color: #00b4d8; font-weight: 500; text-decoration: none;">GitHub ↗</a>` : ''}
+            </div>` : ''}
           </header>
 
           <section style="margin-bottom: 48px;">

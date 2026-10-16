@@ -3,7 +3,6 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Github,
-  Calendar,
   CheckCircle2,
   Layers,
   ArrowRight,
@@ -104,10 +103,6 @@ export function ProjectDetailPage({
             <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-medium text-[#D7E2EA]/70 bg-[#D7E2EA]/5 border border-[#D7E2EA]/10">
               {project.category}
             </span>
-            <span className="text-xs uppercase tracking-widest opacity-50 flex items-center gap-1.5 ml-auto">
-              <Calendar size={13} />
-              {project.year}
-            </span>
           </div>
 
           {/* Project Title */}
@@ -178,42 +173,6 @@ export function ProjectDetailPage({
           <p className="text-base sm:text-lg font-light opacity-80 leading-relaxed text-[#D7E2EA]/90 whitespace-pre-line">
             {project.description}
           </p>
-
-          {/* Metadata Cards (Client, Rôle, Année, Type) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2 p-4 sm:p-5 rounded-2xl bg-[#D7E2EA]/[0.02] border border-[#D7E2EA]/10">
-            <div>
-              <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                {t.projectDetail.client}
-              </span>
-              <p className="text-sm sm:text-base font-medium text-white">
-                {project.client}
-              </p>
-            </div>
-            <div>
-              <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                {t.projectDetail.role}
-              </span>
-              <p className="text-sm sm:text-base font-medium text-white">
-                {project.role}
-              </p>
-            </div>
-            <div>
-              <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                {t.projectDetail.year}
-              </span>
-              <p className="text-sm sm:text-base font-medium text-white">
-                {project.year}
-              </p>
-            </div>
-            <div>
-              <span className="text-xs uppercase tracking-wider opacity-50 block mb-1">
-                {t.projectDetail.category}
-              </span>
-              <p className="text-sm sm:text-base font-medium text-white">
-                {project.category}
-              </p>
-            </div>
-          </div>
         </section>
 
         {/* ── 5. POINTS CLÉS ── */}
