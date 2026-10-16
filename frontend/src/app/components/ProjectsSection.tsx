@@ -8,7 +8,8 @@ import { useLanguage } from "../context/LanguageContext";
 
 export type Project = ProjectDetail;
 
-const TOTAL = PROJECTS_DATA.length;
+const MAIN_PROJECTS = PROJECTS_DATA.slice(0, 3);
+const TOTAL = MAIN_PROJECTS.length;
 
 function ProjectCard({
   project,
@@ -30,7 +31,7 @@ function ProjectCard({
   const targetScale = 1 - (TOTAL - 1 - index) * 0.03;
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
-  // Dynamic top offset: smaller gap on mobile so 7 stacked cards fit comfortably in view
+  // Dynamic top offset: smaller gap on mobile so 3 stacked cards fit comfortably in view
   const stickyTop = `calc(clamp(64px, 8.5vh, 110px) + calc(var(--card-stack-gap, 13px) * ${index}))`;
 
   const handleOpen = () => {
@@ -118,7 +119,7 @@ function ProjectCard({
             </div>
           </div>
 
-          {/* Image grid */}
+          {/* Image presentation: Single showcase image or 2-column collage */}
           <a
             href={`/projects/${project.id}`}
             aria-label={`Voir les détails et captures du projet ${project.name}`}
@@ -126,51 +127,72 @@ function ProjectCard({
               e.preventDefault();
               handleOpen();
             }}
-            className="flex gap-2 sm:gap-4 cursor-pointer group/images no-underline block"
+            className="w-full cursor-pointer group/images no-underline block"
           >
-            {/* Left column – 40% */}
-            <div
-              className="flex flex-col gap-2 sm:gap-4"
-              style={{ flex: "0 0 40%" }}
-            >
-              <ImageWithSkeleton
-                src={getOptimizedImageUrl(project.col1img1, 800)}
-                srcSet={getImageSrcSet(project.col1img1, [480, 768, 1024])}
-                sizes="(max-width: 768px) 100vw, 40vw"
-                alt={`${project.name} — Aperçu : ${project.tagline}`}
-                loading="lazy"
-                decoding="async"
-                containerClassName="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px]"
-                containerStyle={{ height: "clamp(85px, 13vh, 230px)" }}
-                className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:brightness-110 transition-all duration-300"
-              />
-              <ImageWithSkeleton
-                src={getOptimizedImageUrl(project.col1img2, 800)}
-                srcSet={getImageSrcSet(project.col1img2, [480, 768, 1024])}
-                sizes="(max-width: 768px) 100vw, 40vw"
-                alt={`${project.name} — Conception d'interface`}
-                loading="lazy"
-                decoding="async"
-                containerClassName="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px]"
-                containerStyle={{ height: "clamp(110px, 18vh, 340px)" }}
-                className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:brightness-110 transition-all duration-300"
-              />
-            </div>
+            {project.col1img2 && project.col1img1 !== project.col2img ? (
+              <div className="flex gap-2 sm:gap-4">
+                {/* Left column – 40% */}
+                <div
+                  className="flex flex-col gap-2 sm:gap-4"
+                  style={{ flex: "0 0 40%" }}
+                >
+                  <ImageWithSkeleton
+                    src={getOptimizedImageUrl(project.col1img1, 800)}
+                    srcSet={getImageSrcSet(project.col1img1, [480, 768, 1024])}
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    alt={`${project.name} — Aperçu : ${project.tagline}`}
+                    loading="lazy"
+                    decoding="async"
+                    containerClassName="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px]"
+                    containerStyle={{ height: "clamp(85px, 13vh, 230px)" }}
+                    className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:brightness-110 transition-all duration-300"
+                  />
+                  <ImageWithSkeleton
+                    src={getOptimizedImageUrl(project.col1img2, 800)}
+                    srcSet={getImageSrcSet(project.col1img2, [480, 768, 1024])}
+                    sizes="(max-width: 768px) 100vw, 40vw"
+                    alt={`${project.name} — Conception d'interface`}
+                    loading="lazy"
+                    decoding="async"
+                    containerClassName="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px]"
+                    containerStyle={{ height: "clamp(110px, 18vh, 340px)" }}
+                    className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:brightness-110 transition-all duration-300"
+                  />
+                </div>
 
-            {/* Right column – 60% */}
-            <div style={{ flex: "0 0 60%" }}>
-              <ImageWithSkeleton
-                src={getOptimizedImageUrl(project.col2img, 1200)}
-                srcSet={getImageSrcSet(project.col2img, [640, 960, 1280, 1600])}
-                sizes="(max-width: 768px) 100vw, 60vw"
-                alt={`${project.name} — Présentation globale (${project.technologies.slice(0, 3).join(', ')})`}
-                loading="lazy"
-                decoding="async"
-                containerClassName="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px]"
-                containerStyle={{ height: "100%", minHeight: "clamp(200px, 32vh, 580px)" }}
-                className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:brightness-110 transition-all duration-300"
-              />
-            </div>
+                {/* Right column – 60% */}
+                <div style={{ flex: "0 0 60%" }}>
+                  <ImageWithSkeleton
+                    src={getOptimizedImageUrl(project.col2img, 1200)}
+                    srcSet={getImageSrcSet(project.col2img, [640, 960, 1280, 1600])}
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    alt={`${project.name} — Présentation globale (${project.technologies.slice(0, 3).join(', ')})`}
+                    loading="lazy"
+                    decoding="async"
+                    containerClassName="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px]"
+                    containerStyle={{ height: "100%", minHeight: "clamp(200px, 32vh, 580px)" }}
+                    className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:brightness-110 transition-all duration-300"
+                  />
+                </div>
+              </div>
+            ) : (
+              /* Single full-width showcase image */
+              <div
+                className="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px] overflow-hidden"
+                style={{ height: "clamp(180px, 36vh, 520px)" }}
+              >
+                <ImageWithSkeleton
+                  src={getOptimizedImageUrl(project.col1img1 || project.col2img, 1400)}
+                  srcSet={getImageSrcSet(project.col1img1 || project.col2img, [480, 768, 1024, 1440, 1920])}
+                  sizes="(max-width: 768px) 100vw, 85vw"
+                  alt={`${project.name} — Présentation`}
+                  loading="lazy"
+                  decoding="async"
+                  containerClassName="w-full h-full"
+                  className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:scale-[1.02] group-hover/images:brightness-110 transition-all duration-500"
+                />
+              </div>
+            )}
           </a>
         </div>
       </motion.div>
@@ -203,7 +225,7 @@ export const ProjectsSection = ({
       </FadeIn>
 
       <div className="relative">
-        {PROJECTS_DATA.map((project, i) => (
+        {MAIN_PROJECTS.map((project, i) => (
           <ProjectCard
             key={project.number}
             project={project}

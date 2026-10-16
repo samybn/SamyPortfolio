@@ -40,6 +40,7 @@ export function ImageWithSkeleton({
       ) : (
         <img
           alt={alt}
+          referrerPolicy={rest.referrerPolicy || "no-referrer"}
           className={`${className} transition-opacity duration-500 ease-out ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}

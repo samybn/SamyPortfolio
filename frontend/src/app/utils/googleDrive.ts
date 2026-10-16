@@ -12,6 +12,11 @@ export function getOptimizedImageUrl(
 
   const trimmed = urlOrId.trim();
 
+  // 0. Local static asset paths
+  if (trimmed.startsWith("/")) {
+    return trimmed;
+  }
+
   // 1. Higgs AI WebP optimization proxy
   if (trimmed.includes("images.higgs.ai")) {
     let optimized = trimmed;
@@ -80,7 +85,7 @@ export function getImageSrcSet(
   widths: number[] = [480, 768, 1024, 1440],
   quality = 80
 ): string {
-  if (!urlOrId || urlOrId.startsWith("data:") || urlOrId.startsWith("blob:")) {
+  if (!urlOrId || urlOrId.startsWith("data:") || urlOrId.startsWith("blob:") || urlOrId.startsWith("/")) {
     return "";
   }
   return widths

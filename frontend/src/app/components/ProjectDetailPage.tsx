@@ -76,17 +76,19 @@ export function ProjectDetailPage({
             SB
           </button>
 
-          {/* Direct Visit Link Button */}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${t.projectDetail.visit} ${project.name}`}
-            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/15 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all shrink-0"
-          >
-            <span>{t.projectDetail.visit}</span>
-            <ArrowUpRight size={13} />
-          </a>
+          {/* Direct Visit Link Button (if available) */}
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${t.projectDetail.visit} ${project.name}`}
+              className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/15 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all shrink-0"
+            >
+              <span>{t.projectDetail.visit}</span>
+              <ArrowUpRight size={13} />
+            </a>
+          ) : null}
         </div>
       </header>
 
@@ -136,17 +138,19 @@ export function ProjectDetailPage({
 
         {/* ── 3. BOUTONS VISITER ET CODE SOURCE ── */}
         <section className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-          {/* Bouton Visiter le projet */}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${t.projectDetail.visitProject} : ${project.name}`}
-            className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-xs sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer text-center"
-          >
-            <span>{t.projectDetail.visitProject}</span>
-            <ArrowUpRight size={16} />
-          </a>
+          {/* Bouton Visiter le projet (si disponible) */}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${t.projectDetail.visitProject} : ${project.name}`}
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-xs sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer text-center"
+            >
+              <span>{t.projectDetail.visitProject}</span>
+              <ArrowUpRight size={16} />
+            </a>
+          )}
 
           {/* Bouton Code source GitHub (si disponible) */}
           {project.githubUrl && (

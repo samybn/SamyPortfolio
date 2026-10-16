@@ -169,48 +169,24 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       viewAll: "Voir Tous Les Projets",
       entries: [
         {
-          id: "edge-api-workers",
-          title: "Conception d'APIs Edge haute performance avec Cloudflare Workers & TypeScript",
+          id: "saldaetrip",
+          title: "SaldaeTrip — Guide touristique interactif et patrimoine de Béjaïa",
           description:
-            "Architecture de microservices globaux à latence sub-50ms avec worker bindings, cache intelligent et zéro cold start.",
-          tag: "Architecture",
-          readTime: "5 min de lecture",
-          date: "Août 2026",
-          image:
-            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=85",
+            "Application de découverte touristique avec circuits culturels, monuments historiques et fiches pratiques.",
+          tag: "Tourisme & Web",
+          readTime: "Projet Web",
+          date: "2025 - 2026",
+          image: "/projects/saldaetrip-1.png",
         },
         {
-          id: "micro-frontend-sync",
-          title: "Synchronisation d'état Micro-Frontend & Pipelines Temps Réel",
+          id: "pong-game",
+          title: "Pong Game — Réinterprétation moderne du jeu d'arcade rétro classique",
           description:
-            "Conception de modules isolés communicant via des bus d'événements pub/sub légers sans couplage fort.",
-          tag: "Full Stack",
-          readTime: "7 min de lecture",
-          date: "Juil 2026",
-          image:
-            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=85",
-        },
-        {
-          id: "framer-motion-stack",
-          title: "Maîtriser les animations de cartes empilées au scroll avec Framer Motion",
-          description:
-            "Implémentation d'un empilement 3D à 60fps, interpolation d'échelle et interactions magnétiques.",
-          tag: "UI / Motion",
-          readTime: "4 min de lecture",
-          date: "Juin 2026",
-          image:
-            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=85",
-        },
-        {
-          id: "offline-first-drive",
-          title: "Conception d'architectures Offline-First résilientes avec l'API Google Drive",
-          description:
-            "Synchronisation cloud, transformations CDN d'images et mise en cache côté client pour vitrine dynamique.",
-          tag: "Cloud & Dev",
-          readTime: "6 min de lecture",
-          date: "Mai 2026",
-          image:
-            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&auto=format&fit=crop&q=85",
+            "Jeu 2D avec moteur physique sur Canvas HTML5, IA adverse adaptative et boucle de rendu à 60 FPS.",
+          tag: "Jeux Vidéo",
+          readTime: "Projet Arcade",
+          date: "2025",
+          image: "/projects/pong-1.png",
         },
       ],
     },
@@ -329,48 +305,24 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       viewAll: "View All Projects",
       entries: [
         {
-          id: "edge-api-workers",
-          title: "Designing high-performance Edge APIs with Cloudflare Workers & TypeScript",
+          id: "saldaetrip",
+          title: "SaldaeTrip — Interactive tourism guide & heritage of Béjaïa",
           description:
-            "Global microservices architecture with sub-50ms latency using worker bindings, smart caching, and zero cold start.",
-          tag: "Architecture",
-          readTime: "5 min read",
-          date: "Aug 2026",
-          image:
-            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&auto=format&fit=crop&q=85",
+            "Tourism discovery application featuring cultural tours, historical landmarks, and practical travel guides.",
+          tag: "Tourism & Web",
+          readTime: "Web Project",
+          date: "2025 - 2026",
+          image: "/projects/saldaetrip-1.png",
         },
         {
-          id: "micro-frontend-sync",
-          title: "Micro-Frontend State Synchronization & Real-time Pipelines",
+          id: "pong-game",
+          title: "Pong Game — Modern reinterpretation of the retro arcade classic",
           description:
-            "Designing isolated modules communicating via lightweight pub/sub event buses without tight coupling.",
-          tag: "Full Stack",
-          readTime: "7 min read",
-          date: "Jul 2026",
-          image:
-            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=85",
-        },
-        {
-          id: "framer-motion-stack",
-          title: "Mastering scroll-stacked card animations with Framer Motion",
-          description:
-            "Implementing a 60fps 3D card stack, scale interpolation, and magnetic interactions.",
-          tag: "UI / Motion",
-          readTime: "4 min read",
-          date: "Jun 2026",
-          image:
-            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop&q=85",
-        },
-        {
-          id: "offline-first-drive",
-          title: "Designing resilient Offline-First architectures with Google Drive API",
-          description:
-            "Cloud synchronization, CDN image transformations, and client-side caching for dynamic showcases.",
-          tag: "Cloud & Dev",
-          readTime: "6 min read",
-          date: "May 2026",
-          image:
-            "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&auto=format&fit=crop&q=85",
+            "2D Canvas HTML5 physics game with adaptive AI opponent and smooth 60 FPS rendering loop.",
+          tag: "Video Games",
+          readTime: "Arcade Project",
+          date: "2025",
+          image: "/projects/pong-1.png",
         },
       ],
     },

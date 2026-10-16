@@ -2,49 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://samy-bouadloune.pages.dev/</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/nextlevel-studio</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/detectinfo</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/aura-brand-identity</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/karily</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/solaris-digital</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/nexus</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/edge-api-workers</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/saldaetrip</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/micro-frontend-sync</loc>
-    <lastmod>2026-10-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/framer-motion-stack</loc>
-    <lastmod>2026-10-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://samy-bouadloune.pages.dev/projects/offline-first-drive</loc>
-    <lastmod>2026-10-14</lastmod>
+    <loc>https://samy-bouadloune.pages.dev/projects/pong-game</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
