@@ -176,20 +176,20 @@ function ProjectCard({
                 </div>
               </div>
             ) : (
-              /* Single full-width showcase image */
+              /* Single full-width showcase image — completely visible (uncropped) */
               <div
-                className="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px] overflow-hidden"
-                style={{ height: "clamp(180px, 36vh, 520px)" }}
+                className="w-full rounded-[18px] sm:rounded-[36px] md:rounded-[48px] overflow-hidden bg-[#080808] border border-[#D7E2EA]/10 p-1.5 sm:p-2.5 flex items-center justify-center shadow-inner"
+                style={{ height: "clamp(220px, 48vh, 580px)" }}
               >
                 <ImageWithSkeleton
-                  src={getOptimizedImageUrl(project.col1img1 || project.col2img, 1400)}
+                  src={getOptimizedImageUrl(project.col1img1 || project.col2img, 1600)}
                   srcSet={getImageSrcSet(project.col1img1 || project.col2img, [480, 768, 1024, 1440, 1920])}
                   sizes="(max-width: 768px) 100vw, 85vw"
                   alt={`${project.name} — Présentation`}
                   loading="lazy"
                   decoding="async"
-                  containerClassName="w-full h-full"
-                  className="w-full h-full object-cover rounded-[18px] sm:rounded-[36px] md:rounded-[48px] group-hover/images:scale-[1.02] group-hover/images:brightness-110 transition-all duration-500"
+                  containerClassName="w-full h-full flex items-center justify-center"
+                  className="w-full h-full object-contain rounded-[14px] sm:rounded-[28px] md:rounded-[38px] group-hover/images:scale-[1.015] transition-transform duration-500"
                 />
               </div>
             )}
