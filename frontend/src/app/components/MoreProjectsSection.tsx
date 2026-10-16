@@ -153,7 +153,7 @@ export const MoreProjectsSection = ({ onSelectProject }: MoreProjectsSectionProp
         </div>
 
         {/* 4 Journal Entries displayed as Large Horizontal Pill Cards */}
-        <div className="flex flex-col gap-5 sm:gap-6">
+        <div className="flex flex-col gap-4 sm:gap-6">
           {t.moreProjects.entries.map((entry, index) => (
             <FadeIn key={entry.id} delay={index * 0.08} y={20}>
               <motion.a
@@ -171,12 +171,12 @@ export const MoreProjectsSection = ({ onSelectProject }: MoreProjectsSectionProp
                   background: "rgba(215, 226, 234, 0.03)",
                   border: "1px solid rgba(215, 226, 234, 0.12)",
                 }}
-                className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-4 sm:p-5 md:p-6 rounded-[28px] sm:rounded-[36px] lg:rounded-full hover:bg-[rgba(215,226,234,0.07)] hover:border-[rgba(215,226,234,0.35)] transition-all duration-300 group cursor-pointer shadow-lg no-underline text-inherit"
+                className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6 p-3.5 sm:p-5 md:p-6 rounded-[22px] sm:rounded-[36px] lg:rounded-full hover:bg-[rgba(215,226,234,0.07)] hover:border-[rgba(215,226,234,0.35)] transition-all duration-300 group cursor-pointer shadow-lg no-underline text-inherit"
               >
                 {/* Left Side: Large Preview Image + Title & Description */}
-                <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6 flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 flex-1 min-w-0">
                   {/* Large Image Thumbnail */}
-                  <div className="relative w-full sm:w-36 md:w-44 lg:w-48 h-40 sm:h-24 md:h-28 rounded-[20px] sm:rounded-[24px] overflow-hidden shrink-0 border border-[rgba(215,226,234,0.18)] shadow-md">
+                  <div className="relative w-full sm:w-36 md:w-44 lg:w-48 h-36 sm:h-24 md:h-28 rounded-[16px] sm:rounded-[24px] overflow-hidden shrink-0 border border-[rgba(215,226,234,0.18)] shadow-md">
                     <ImageWithSkeleton
                       src={getOptimizedImageUrl(entry.image, 480)}
                       srcSet={getImageSrcSet(entry.image, [320, 480, 640])}
@@ -210,14 +210,14 @@ export const MoreProjectsSection = ({ onSelectProject }: MoreProjectsSectionProp
                         color: "#D7E2EA",
                         fontFamily: "'Kanit', sans-serif",
                       }}
-                      className="text-base sm:text-lg md:text-xl font-medium group-hover:text-white transition-colors line-clamp-1"
+                      className="text-sm sm:text-lg md:text-xl font-medium group-hover:text-white transition-colors line-clamp-2"
                     >
                       {entry.title}
                     </h3>
 
                     <p
                       style={{ color: "#D7E2EA" }}
-                      className="text-xs sm:text-sm font-light opacity-60 line-clamp-1 leading-relaxed hidden sm:block"
+                      className="text-xs sm:text-sm font-light opacity-65 line-clamp-2 leading-relaxed"
                     >
                       {entry.description}
                     </p>
@@ -225,10 +225,10 @@ export const MoreProjectsSection = ({ onSelectProject }: MoreProjectsSectionProp
                 </div>
 
                 {/* Right Side: Button to view project */}
-                <div className="flex items-center justify-end shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-[rgba(215,226,234,0.08)]">
-                  <div className="rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-6 py-2.5 sm:px-8 sm:py-3 text-xs sm:text-sm group-hover:bg-[#90e0ef]/10 group-hover:border-[#90e0ef] group-hover:text-[#90e0ef] transition-all duration-300 inline-flex items-center gap-2 font-medium">
+                <div className="flex items-center justify-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[rgba(215,226,234,0.08)]">
+                  <div className="w-full sm:w-auto justify-center rounded-full border-2 border-[#D7E2EA] text-[#D7E2EA] uppercase tracking-widest px-5 py-2 sm:px-8 sm:py-3 text-xs sm:text-sm group-hover:bg-[#90e0ef]/10 group-hover:border-[#90e0ef] group-hover:text-[#90e0ef] transition-all duration-300 inline-flex items-center gap-2 font-medium">
                     <span>{t.projects.liveButton}</span>
-                    <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <ArrowUpRight size={15} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
               </motion.a>

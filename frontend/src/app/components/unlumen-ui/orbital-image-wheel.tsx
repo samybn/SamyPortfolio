@@ -266,37 +266,56 @@ export function OrbitalImageWheel({
   const boundedFocusSpread = clamp(focusSpread, 0.08, 0.8);
   const boundedScaleEffect = clamp(scaleEffect, 0, 0.3);
   const boundedScrollSensitivity = clamp(scrollSensitivity, 0.25, 1.6);
-  const boundedItemWidth = clamp(itemWidth, 140, 520);
-  const boundedItemHeight = clamp(itemHeight, 180, 620);
+  const isMobile = viewportWidth > 0 && viewportWidth < 640;
+  const responsiveItemWidth = isMobile
+    ? clamp(itemWidth * 0.72, 110, 145)
+    : clamp(itemWidth, 140, 520);
+  const responsiveItemHeight = isMobile
+    ? clamp(itemHeight * 0.72, 140, 185)
+    : clamp(itemHeight, 180, 620);
+
+  const boundedItemWidth = responsiveItemWidth;
+  const boundedItemHeight = responsiveItemHeight;
   const boundedCropRatio = clamp(cropRatio, 0.2, 0.85);
   const boundedScrollLength = clamp(scrollLength, 180, 700);
-  const boundedCaptionOffset = clamp(captionOffset, 2, 45);
+  const boundedCaptionOffset = isMobile ? 8 : clamp(captionOffset, 2, 45);
   const boundedSubtitleSpeed = clamp(subtitleSpeed, 0.3, 3);
   const boundedSubtitleStagger = clamp(subtitleStagger, 0, 0.08);
   const boundedSubtitleDirection =
     subtitleDirection === "bottom" ? "bottom" : "top";
 
-  const responsiveWheelSize = clamp(
-    Math.min(viewportWidth * 1.5, viewportHeight * 2.3),
-    850,
-    2200,
+  const responsiveWheelSize = isMobile
+    ? clamp(viewportWidth * 1.55, 480, 750)
+    : clamp(
+        Math.min(viewportWidth * 1.5, viewportHeight * 2.3),
+        850,
+        2200,
+      );
+  const boundedWheelSize = clamp(
+    wheelSize ?? responsiveWheelSize,
+    isMobile ? 460 : 700,
+    2600,
   );
-  const boundedWheelSize = clamp(wheelSize ?? responsiveWheelSize, 700, 2600);
   const radius = boundedWheelSize / 2;
 
   // Safe bottom offset guaranteeing active card never collides with or exceeds the navbar
-  const desiredNavbarClearance = clamp(navbarClearance, 80, 180);
+  // On mobile: generous distance between the section header text ("Mes compétences") and the logos
+  const desiredNavbarClearance = isMobile
+    ? 235
+    : clamp(navbarClearance, 80, 180);
   const safeCardTopFromBottom = Math.max(
     100,
     viewportHeight - desiredNavbarClearance,
   );
   const safeCardCenterFromBottom = safeCardTopFromBottom - boundedItemHeight / 2;
   const safeWheelBottomOffset = boundedWheelSize - safeCardCenterFromBottom;
-  const ratioWheelBottomOffset = boundedWheelSize * boundedCropRatio;
-  const wheelBottomOffset = Math.max(
-    ratioWheelBottomOffset,
-    safeWheelBottomOffset,
-  );
+  const ratioWheelBottomOffset = boundedWheelSize * (isMobile ? 0.60 : boundedCropRatio);
+  const wheelBottomOffset = isMobile
+    ? safeWheelBottomOffset
+    : Math.max(
+        ratioWheelBottomOffset,
+        safeWheelBottomOffset,
+      );
 
   const titleLabels = useMemo(
     () => images.map((img, i) => img.label ?? img.alt ?? `Image ${i + 1}`),
@@ -545,7 +564,7 @@ export function OrbitalImageWheel({
       >
         {/* ── Header slot ── */}
         {header && (
-          <div className="pointer-events-none absolute left-0 top-0 z-[200] flex flex-col items-start px-8 pt-8 md:px-14 md:pt-10 text-left">
+          <div className="pointer-events-none absolute left-0 top-0 z-[200] flex flex-col items-start px-5 pt-20 sm:px-8 sm:pt-8 md:px-14 md:pt-10 text-left">
             {header}
           </div>
         )}
@@ -578,7 +597,7 @@ export function OrbitalImageWheel({
                   className={cn(
                     "absolute bg-center bg-no-repeat",
                     img.contain
-                      ? "inset-8 bg-contain"
+                      ? "inset-4 sm:inset-8 bg-contain"
                       : "inset-0 h-full w-full bg-cover",
                   )}
                   style={{ backgroundImage: `url(${img.src})` }}
@@ -596,11 +615,11 @@ export function OrbitalImageWheel({
             className="pointer-events-none absolute inset-x-0 z-30 flex justify-center"
             style={{ bottom: `${boundedCaptionOffset}vh` }}
           >
-            <div className="px-6 text-center">
+            <div className="px-4 sm:px-6 text-center max-w-full">
               {/* Scrolling title pill track (noms des langages) */}
               <div
                 ref={titleViewportRef}
-                className="pointer-events-auto mx-auto w-[min(92vw,760px)] overflow-hidden py-1"
+                className="pointer-events-auto mx-auto w-[min(94vw,760px)] overflow-hidden py-1"
                 style={{
                   WebkitMaskImage:
                     "linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%)",
@@ -651,7 +670,7 @@ export function OrbitalImageWheel({
                             ? "rgba(144,224,239,0.5)"
                             : "rgba(215,226,234,0.18)",
                       }}
-                      className="oiw-title-item mr-3 inline-flex shrink-0 cursor-pointer appearance-none items-center justify-center whitespace-nowrap rounded-full border px-7 py-2 text-center leading-none text-[clamp(1.05rem,2.25vw,2rem)] font-medium tracking-tight transition-[opacity,transform,color,border-color,background] duration-300"
+                      className="oiw-title-item mr-2 sm:mr-3 inline-flex shrink-0 cursor-pointer appearance-none items-center justify-center whitespace-nowrap rounded-full border px-4 py-1.5 sm:px-7 sm:py-2 text-center leading-none text-xs sm:text-base md:text-xl font-medium tracking-tight transition-[opacity,transform,color,border-color,background] duration-300"
                     >
                       {title}
                     </button>

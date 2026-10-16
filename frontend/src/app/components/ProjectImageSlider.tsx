@@ -31,6 +31,32 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
     setCurrentIndex(index);
   };
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const minSwipeDistance = 40;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    if (isLeftSwipe) {
+      paginate(1);
+    } else if (isRightSwipe) {
+      paginate(-1);
+    }
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -75,10 +101,13 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
   };
 
   return (
-    <div className="w-full flex flex-col gap-4 sm:gap-6">
+    <div className="w-full flex flex-col gap-3.5 sm:gap-6">
       {/* Main Showcase Frame */}
       <div
-        className="relative w-full overflow-hidden rounded-[28px] sm:rounded-[40px] md:rounded-[48px] border-2 border-[#D7E2EA]/20 bg-[#121212] shadow-2xl group"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        className="relative w-full overflow-hidden rounded-[22px] sm:rounded-[40px] md:rounded-[48px] border-2 border-[#D7E2EA]/20 bg-[#121212] shadow-2xl group select-none touch-pan-y"
         style={{
           aspectRatio: "16 / 9.5",
           maxHeight: "72vh",
@@ -104,8 +133,8 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
               sizes="(max-width: 1024px) 100vw, 1100px"
               decoding="async"
               alt={`${projectName} — Capture d'écran ${currentIndex + 1} sur ${total}`}
-              containerClassName="w-full h-full rounded-[20px] sm:rounded-[32px]"
-              className="w-full h-full object-cover sm:object-contain rounded-[20px] sm:rounded-[32px]"
+              containerClassName="w-full h-full rounded-[16px] sm:rounded-[32px]"
+              className="w-full h-full object-cover sm:object-contain rounded-[16px] sm:rounded-[32px]"
               containerStyle={{
                 boxShadow: "0 20px 40px rgba(0, 0, 0, 0.6)",
               }}
@@ -114,7 +143,7 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
         </AnimatePresence>
 
         {/* Counter Badge (Top Right) */}
-        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 pointer-events-none">
+        <div className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20 pointer-events-none">
           <div
             style={{
               background: "rgba(12, 12, 12, 0.75)",
@@ -122,10 +151,10 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
               backdropFilter: "blur(12px)",
               fontFamily: "'Kanit', sans-serif",
             }}
-            className="px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wider text-[#D7E2EA]"
+            className="px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[11px] sm:text-sm font-medium tracking-wider text-[#D7E2EA]"
           >
             <span className="text-white font-semibold">0{currentIndex + 1}</span>
-            <span className="opacity-40 mx-1.5">/</span>
+            <span className="opacity-40 mx-1">/</span>
             <span className="opacity-60">0{total}</span>
           </div>
         </div>
@@ -141,9 +170,9 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
             border: "1px solid rgba(215, 226, 234, 0.15)",
             backdropFilter: "blur(10px)",
           }}
-          className="absolute top-4 left-4 sm:top-6 sm:left-6 z-20 w-10 h-10 rounded-full flex items-center justify-center text-[#D7E2EA] hover:bg-[#D7E2EA] hover:text-[#0C0C0C] transition-all duration-300 opacity-0 group-hover:opacity-100 cursor-pointer shadow-lg"
+          className="absolute top-3 left-3 sm:top-6 sm:left-6 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[#D7E2EA] hover:bg-[#D7E2EA] hover:text-[#0C0C0C] transition-all duration-300 opacity-80 sm:opacity-0 group-hover:opacity-100 cursor-pointer shadow-lg"
         >
-          <Maximize2 size={16} />
+          <Maximize2 size={14} className="sm:w-4 sm:h-4" />
         </button>
 
         {/* Navigation Arrows */}
@@ -158,9 +187,9 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
                 border: "1px solid rgba(215, 226, 234, 0.2)",
                 backdropFilter: "blur(12px)",
               }}
-              className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-[#D7E2EA] hover:scale-110 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] active:scale-95 transition-all duration-300 cursor-pointer shadow-xl"
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-[#D7E2EA] hover:scale-110 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] active:scale-95 transition-all duration-300 cursor-pointer shadow-xl opacity-80 sm:opacity-100"
             >
-              <ChevronLeft size={24} className="sm:w-7 sm:h-7" />
+              <ChevronLeft size={18} className="sm:w-7 sm:h-7" />
             </button>
 
             <button
@@ -172,9 +201,9 @@ export function ProjectImageSlider({ images, projectName }: ProjectImageSliderPr
                 border: "1px solid rgba(215, 226, 234, 0.2)",
                 backdropFilter: "blur(12px)",
               }}
-              className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-[#D7E2EA] hover:scale-110 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] active:scale-95 transition-all duration-300 cursor-pointer shadow-xl"
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-14 sm:h-14 rounded-full flex items-center justify-center text-[#D7E2EA] hover:scale-110 hover:bg-[#D7E2EA] hover:text-[#0C0C0C] active:scale-95 transition-all duration-300 cursor-pointer shadow-xl opacity-80 sm:opacity-100"
             >
-              <ChevronRight size={24} className="sm:w-7 sm:h-7" />
+              <ChevronRight size={18} className="sm:w-7 sm:h-7" />
             </button>
           </>
         )}

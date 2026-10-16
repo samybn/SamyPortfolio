@@ -132,8 +132,7 @@ export const ContactSection = () => {
             <div className="flex flex-col gap-3 mt-2">
               <a
                 href={`mailto:${contactEmail}`}
-                style={{ fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)" }}
-                className="text-[#D7E2EA] font-normal uppercase tracking-wider hover:opacity-70 transition-opacity"
+                className="text-[#D7E2EA] font-normal uppercase tracking-wider hover:opacity-70 transition-opacity break-all text-sm sm:text-base md:text-lg"
               >
                 {contactEmail}
               </a>
@@ -146,7 +145,7 @@ export const ContactSection = () => {
             </div>
 
             {/* Socials */}
-            <div className="flex gap-4 mt-4">
+            <div className="flex gap-3 sm:gap-4 mt-4">
               {socials.map(({ Icon, label, href }) => (
                 <a
                   key={label}
@@ -154,7 +153,7 @@ export const ContactSection = () => {
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={label}
-                  className="portfolio-social-btn w-12 h-12"
+                  className="portfolio-social-btn w-11 h-11 sm:w-12 sm:h-12"
                 >
                   <Icon size={18} />
                 </a>
@@ -167,17 +166,17 @@ export const ContactSection = () => {
         <FadeIn delay={0.2} y={30}>
           {sent ? (
             <div
-              className="text-[#D7E2EA] border border-[#D7E2EA]/20 rounded-[20px] py-10 px-8 text-center"
+              className="text-[#D7E2EA] border border-[#D7E2EA]/20 rounded-[20px] py-10 px-6 sm:px-8 text-center"
             >
               <p className="font-medium text-xl sm:text-2xl mb-2">
                 {t.contact.successTitle}
               </p>
-              <p className="font-light opacity-80 text-base">
+              <p className="font-light opacity-80 text-sm sm:text-base">
                 {t.contact.successDesc}
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 sm:gap-4">
               {/* Honeypot — hidden from humans, visible to bots */}
               <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none", tabIndex: -1 }} aria-hidden="true">
                 <label htmlFor="contact-website">Ne pas remplir</label>
@@ -219,7 +218,7 @@ export const ContactSection = () => {
                 aria-label={t.contact.messagePlaceholder}
                 placeholder={t.contact.messagePlaceholder}
                 required
-                rows={5}
+                rows={4}
                 maxLength={5000}
                 value={form.message}
                 onChange={handleChange}
@@ -234,9 +233,10 @@ export const ContactSection = () => {
               {error && (
                 <p className="text-red-400 text-sm font-light">{error}</p>
               )}
-              <div className="mt-2">
+              <div className="mt-2 w-full">
                 <ContactButton
                   type="submit"
+                  className="w-full sm:w-auto"
                   label={loading ? t.contact.sendingButton : t.contact.sendButton}
                   ariaLabel={loading ? t.contact.sendingButton : t.contact.sendButton}
                 />

@@ -47,7 +47,7 @@ export function ProjectDetailPage({
     >
       {/* ── Top Navigation Bar ── */}
       <header className="sticky top-0 z-50 w-full backdrop-blur-xl border-b border-[#D7E2EA]/10 bg-[#0C0C0C]/85 px-4 sm:px-8 md:px-12 py-3.5">
-        <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
           {/* Back button */}
           <a
             href="/#projects"
@@ -56,13 +56,14 @@ export function ProjectDetailPage({
               e.preventDefault();
               onBack();
             }}
-            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all cursor-pointer no-underline"
+            className="group inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all cursor-pointer no-underline shrink-0"
           >
             <ArrowLeft
-              size={16}
+              size={15}
               className="group-hover:-translate-x-1 transition-transform"
             />
-            <span>{t.projectDetail.backToProjects}</span>
+            <span className="hidden sm:inline">{t.projectDetail.backToProjects}</span>
+            <span className="inline sm:hidden">{t.projectDetail.backToProjects.split(" ")[0] || "Retour"}</span>
           </a>
 
           {/* Logo in center */}
@@ -70,31 +71,31 @@ export function ProjectDetailPage({
             type="button"
             onClick={onBack}
             aria-label={t.projectDetail.backToProjects}
-            className="w-9 h-9 rounded-full border border-[#D7E2EA]/30 bg-[#121212] flex items-center justify-center text-xs font-semibold italic text-[#D7E2EA] cursor-pointer hover:border-[#D7E2EA] transition-colors"
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-[#D7E2EA]/30 bg-[#121212] flex items-center justify-center text-xs font-semibold italic text-[#D7E2EA] cursor-pointer hover:border-[#D7E2EA] transition-colors shrink-0"
           >
             SB
           </button>
 
-          {/* Direct Visit Link Button (same clean bordered style) */}
+          {/* Direct Visit Link Button */}
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${t.projectDetail.visit} ${project.name}`}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/15 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#D7E2EA]/20 bg-[#D7E2EA]/5 hover:bg-[#90e0ef]/15 hover:border-[#90e0ef] hover:text-[#90e0ef] text-xs sm:text-sm font-medium tracking-wide text-[#D7E2EA] transition-all shrink-0"
           >
             <span>{t.projectDetail.visit}</span>
-            <ArrowUpRight size={14} />
+            <ArrowUpRight size={13} />
           </a>
         </div>
       </header>
 
       {/* ── Main Content Container ── */}
-      <main className="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 md:px-10 pt-8 sm:pt-12 pb-24 flex flex-col gap-8 sm:gap-10 md:gap-12">
+      <main className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 md:px-10 pt-6 sm:pt-12 pb-24 flex flex-col gap-8 sm:gap-10 md:gap-12">
         {/* ── 1. NOM DU PROJET ── */}
-        <section className="flex flex-col gap-4">
+        <section className="flex flex-col gap-3 sm:gap-4">
           {/* Eyebrow & Number */}
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="px-3 py-1 rounded-full text-xs uppercase tracking-widest font-semibold text-[#90e0ef] bg-[#90e0ef]/5 border border-[#90e0ef]/30">
               {t.projectDetail.projectBadge}{project.number}
             </span>
@@ -112,7 +113,7 @@ export function ProjectDetailPage({
             className="hero-heading uppercase tracking-tight leading-none text-white text-left"
             style={{
               fontWeight: 900,
-              fontSize: "clamp(2.5rem, 7vw, 84px)",
+              fontSize: "clamp(2rem, 7vw, 84px)",
               fontFamily: "'Kanit', sans-serif",
             }}
           >
@@ -120,7 +121,7 @@ export function ProjectDetailPage({
           </h1>
 
           {/* Tagline */}
-          <p className="text-base sm:text-lg md:text-xl font-light opacity-75 max-w-3xl leading-relaxed text-[#D7E2EA]">
+          <p className="text-sm sm:text-lg md:text-xl font-light opacity-75 max-w-3xl leading-relaxed text-[#D7E2EA]">
             {project.tagline}
           </p>
         </section>
@@ -134,17 +135,17 @@ export function ProjectDetailPage({
         </section>
 
         {/* ── 3. BOUTONS VISITER ET CODE SOURCE ── */}
-        <section className="flex flex-wrap items-center gap-4">
-          {/* Bouton Visiter le projet (même style sobre que le bouton code source) */}
+        <section className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+          {/* Bouton Visiter le projet */}
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${t.projectDetail.visitProject} : ${project.name}`}
-            className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-xs sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer text-center"
           >
             <span>{t.projectDetail.visitProject}</span>
-            <ArrowUpRight size={17} />
+            <ArrowUpRight size={16} />
           </a>
 
           {/* Bouton Code source GitHub (si disponible) */}
@@ -154,9 +155,9 @@ export function ProjectDetailPage({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${t.projectDetail.sourceCode} - ${project.name}`}
-              className="inline-flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-sm sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer"
+              className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 rounded-full border border-[#D7E2EA]/30 text-[#D7E2EA] font-medium text-xs sm:text-base uppercase tracking-wider hover:bg-[#90e0ef]/10 hover:border-[#90e0ef] hover:text-[#90e0ef] transition-all cursor-pointer text-center"
             >
-              <Github size={17} />
+              <Github size={16} />
               <span>{t.projectDetail.sourceCode}</span>
             </a>
           )}
